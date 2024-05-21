@@ -38,5 +38,3 @@
 - [Latex Equation Editor](https://latexeditor.lagrida.com/)
 
 - [Realtime Markdown Editing](https://stackedit.io/)
-
-- 

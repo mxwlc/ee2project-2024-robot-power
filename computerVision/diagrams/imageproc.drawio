@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-05-21T22:15:31.363Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="xwkGg53LbHe8gUOABOYa" version="24.4.0" type="device">
+<mxfile host="Electron" modified="2024-05-21T22:24:10.688Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="vvnL0oESx_wwCDYQLBHK" version="24.4.0" type="device">
   <diagram name="Page-1" id="SO5ZD4_FKXhad5pDewPP">
     <mxGraphModel dx="1434" dy="837" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -44,7 +44,20 @@
         <mxCell id="u45-Nts3rRPUU4mmmBui-31" value="Processed&amp;nbsp;&lt;div style=&quot;font-size: 18px;&quot;&gt;frames&lt;div style=&quot;font-size: 18px;&quot;&gt;&lt;br style=&quot;font-size: 18px;&quot;&gt;&lt;/div&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;fontSize=18;verticalAlign=top;" parent="1" source="u45-Nts3rRPUU4mmmBui-17" target="u45-Nts3rRPUU4mmmBui-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="u45-Nts3rRPUU4mmmBui-17" value="Network Backend Interfacte" style="whiteSpace=wrap;html=1;fontSize=18;verticalAlign=middle;" parent="1" vertex="1">
+        <mxCell id="714Cr6ngU2DMUwoj2ekk-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="u45-Nts3rRPUU4mmmBui-17" target="u45-Nts3rRPUU4mmmBui-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="196" />
+              <mxPoint x="270" y="378" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="714Cr6ngU2DMUwoj2ekk-4" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;Control&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Signal&lt;/span&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="714Cr6ngU2DMUwoj2ekk-2">
+          <mxGeometry x="-0.0656" y="-3" relative="1" as="geometry">
+            <mxPoint x="3" y="-56" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u45-Nts3rRPUU4mmmBui-17" value="Network Backend Interface" style="whiteSpace=wrap;html=1;fontSize=18;verticalAlign=middle;" parent="1" vertex="1">
           <mxGeometry x="362.98387096774195" y="172.69230769230768" width="145.16129032258064" height="92.88461538461539" as="geometry" />
         </mxCell>
         <mxCell id="u45-Nts3rRPUU4mmmBui-22" value="Processed Frames" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;fontSize=18;verticalAlign=middle;" parent="1" source="u45-Nts3rRPUU4mmmBui-19" target="u45-Nts3rRPUU4mmmBui-17" edge="1">

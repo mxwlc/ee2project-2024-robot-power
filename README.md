@@ -18,7 +18,7 @@
 | 23/05 - 24/05 | Recap                                 |
 | 21/05 - 24/05 | Linkedin and CV                       |
 | 28/05         | Project Management                    |
-| 28/05         | Concept Selection [sic]               |
+| 28/05         | Concept Selection                     |
 | 06/06 - 07/06 | Report Writing                        |
 | 11/06 - 12/06 | DFMEA                                 |
 | 12/06 - 14/06 | Centre for academic English drop ins] |

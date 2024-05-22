@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import sys
-
+    
 cap = cv.VideoCapture('videos/housetouraftermath.mp4')
 while cap.isOpened():
     # Capture frame-by-frame
@@ -19,3 +19,4 @@ while cap.isOpened():
     # When everything done, release the capture
 cap.release()
 cv.destroyAllWindows()
+

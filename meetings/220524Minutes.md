@@ -18,7 +18,7 @@
 | Mehwish    | Power and Sensors      |
 | Rayyan     | Power and Sensors      |
 | Corey      | Computer vision        |
-| Matteusz   | Network Backend and UI |
+| Mateusz   | Network Backend and UI |
 | Raymon     | Network Backend and UI |
 
 # 3. Sharing ideas

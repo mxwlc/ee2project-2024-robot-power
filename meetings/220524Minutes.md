@@ -55,9 +55,7 @@
 
 ## Further Goals
 
-- Map the arena
-
-- 
+- Map the arena 
 
 # 4. Any other business
 

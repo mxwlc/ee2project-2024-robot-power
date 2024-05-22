@@ -1,3 +1,13 @@
+# Task Allocation
+| Name       | Task                   |
+| ---------- | ---------------------- |
+| Zakariyyaa | Control Algorithm      |
+| Mehwish    | Power and Sensors      |
+| Rayyan     | Power and Sensors      |
+| Corey      | Computer vision        |
+| Mateusz    | Network Backend and UI |
+| Raymon     | Network Backend and UI |
+
 # Key Dates
 
 ## Assessments and Deadlines

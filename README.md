@@ -2,7 +2,7 @@
 | Name       | Task                   |
 | ---------- | ---------------------- |
 | Zakariyyaa | Control Algorithm      |
-| Mehwish    | Power and Sensors      |
+| Meshwish    | Power and Sensors      |
 | Rayyan     | Power and Sensors      |
 | Corey      | Computer vision        |
 | Mateusz    | Network Backend and UI |

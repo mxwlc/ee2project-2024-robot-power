@@ -13,7 +13,7 @@ def joint_normal(img1):
     sd = (250, 250)
     mean = (0, 0)
 
-    constant = 1 / (2*np.pi*sd[0]sd[1])
+    constant = 1 / (2*np.pi*sd[0]*sd[1])
 
 shape = (300, 300)
 img = np.zeros(shape)

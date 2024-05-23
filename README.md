@@ -45,6 +45,8 @@
 
 - [Overleaf - online collaborative LaTex editor](https://www.overleaf.com/)
 
+- [IEEE Citing Style Guide](https://www.bath.ac.uk/publications/library-guides-to-citing-referencing/attachments/ieee-style-guide.pdf)
+
 - [Latex Equation Editor](https://latexeditor.lagrida.com/)
 
 - [Realtime Markdown Editing](https://stackedit.io/)

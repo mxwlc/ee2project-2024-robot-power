@@ -5,3 +5,11 @@ So the requiremnts say we need to use a cascaded controller, with the outerloop 
 - How can you correlate between a speed and an angle? What is a suitable way to determine the required angle?
 - What exactly are the inputs and outputs of the system?
 - Can I make a simplified model, and then find transfer functions of the system from this model? (May not actually need this in terms of implementation, but would be useful for the final report)
+
+## Plan from here:
+- Create inner loop PID controller (look through examples and code, don't worry about modelling yet), and tune parameters
+- Create outer loop controller (link the motors together, and use the 'speed' and a PID controller to create a angle setpoint)
+  - Should look into this more, not super sure why the tilt is necessary whilst moving?
+- Model the system and create transfer functions and graphs from this
+- Potentially look into generating PID values via loop-shaping and synthesis?
+

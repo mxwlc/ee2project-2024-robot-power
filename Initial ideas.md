@@ -15,3 +15,4 @@
 - power management from J2 where adc output shows current power usage
 - single supply rail opamp
 - Coulomb counting
+- DC offset on opamp to avoid clipping

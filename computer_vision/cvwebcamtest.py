@@ -16,8 +16,9 @@ while True:
         break
     # Our operations on the frame come here
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    dst = cv.threshold(gray, 100, 255, cv.THRESH_BINARY)[1]
     # Display the resulting frame
-    cv.imshow('frame', gray)
+    cv.imshow('frame', dst)
     if cv.waitKey(1) == ord('q'):
         break
     # When everything done, release the capture

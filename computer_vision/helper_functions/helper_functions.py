@@ -1,6 +1,7 @@
 import datetime
 import cv2 as cv
 import numpy as np
+
 FORMAT = "%Y%m%d"
 
 
@@ -31,3 +32,40 @@ def format_point_array(vertices):
     vertices = np.array(vertices)
     vertices.reshape((-1, 1, 2))
     return vertices
+
+
+def gbr2hsv_bounds(gbr):
+    """
+    Converts an RGB tuple to a lower and upper bounds for image recognition
+    :param gbr:
+    :return: lower_bound, upper_bound : the HSV lower and upper bounds of the rgb tuple
+    """
+    lower = np.array([0, 40, 100])
+    upper = np.array([0, 255, 255])
+    hsv = cv.cvtColor(gbr, cv.COLOR_BGR2HSV)
+    lower[0] = hsv[:, :, 0] - 10
+    upper[0] = hsv[:, :, 0] + 10
+
+    return lower, upper
+
+
+def colour_2_hsv(colour):
+    color_dict_HSV = {'black': [[180, 255, 30], [0, 0, 0]],
+                      'white': [[180, 18, 255], [0, 0, 231]],
+                      'red1': [[180, 255, 255], [159, 50, 70]],
+                      'red2': [[9, 255, 255], [0, 50, 70]],
+                      'green': [[89, 255, 255], [36, 50, 70]],
+                      'blue': [[128, 255, 255], [90, 50, 70]],
+                      'yellow': [[35, 255, 255], [25, 50, 70]],
+                      'purple': [[158, 255, 255], [129, 50, 70]],
+                      'orange': [[24, 255, 255], [10, 50, 70]],
+                      'gray': [[180, 18, 230], [0, 0, 40]]}
+    if colour not in color_dict_HSV:
+        bounds = color_dict_HSV['black']
+        lower = np.array(bounds[1])
+        upper = np.array(bounds[0])
+        return lower, upper
+    bounds = color_dict_HSV[colour]
+    lower = np.array(bounds[1])
+    upper = np.array(bounds[0])
+    return lower, upper

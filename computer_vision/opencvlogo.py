@@ -36,13 +36,13 @@ def rotate(vertices, angle):
     return vertices
 
 
-def construct_openCV_logo(img, vertices, origin):
+def construct_opencv_logo(img, vertices, origin):
     if len(vertices) != 3:
         raise ValueError("The input vertices should have three values")
     # circle 1 - top
     center_1 = vertices[0]
     center_1 = (center_1[0] + origin[0], center_1[1] + origin[1])
-    cv.ellipse(img, np.array(center_1), (50, 50), 0, (90 - 20), (90 + 20),  255, -1)
+    cv.ellipse(img, np.array(center_1), (50, 50), 270 ,30 , -30,  255, -1)
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
         point = (point[0] + origin[0], point[1] + origin[1])
         cv.circle(img, (int(point[0]), int(point[1])), 2, 255, -1)
 
-    construct_openCV_logo(img, vertices, origin)
+    construct_opencv_logo(img, vertices, origin)
     cv.imshow('img', img)
     k = cv.waitKey(0)
 

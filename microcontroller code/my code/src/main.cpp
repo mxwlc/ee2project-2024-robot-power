@@ -1,3 +1,4 @@
+//Sorry code is very messy, use guide in log.md to tune
 #include <Arduino.h>
 #include <TimerInterrupt_Generic.h>
 #include <Adafruit_MPU6050.h>

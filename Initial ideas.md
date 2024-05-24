@@ -19,3 +19,9 @@
 ##
 - Check if our differential amplifier would work
 - Motor V * Motor I , Battery V,  Battery I --> Why would this not work?
+## Ed help
+- rail to rail, precision opamp --> small AC signal at rail voltage
+- capacitor in feedback loop
+- Rails at 5,0 V
+- R = 10mOhms
+  ![image](https://github.com/mxwlc/ee2project-2024-robot-power/assets/54540123/99bce9d5-42c1-4a13-b07d-823b29d5a97d)

@@ -16,3 +16,6 @@
 - single supply rail opamp
 - Coulomb counting
 - DC offset on opamp to avoid clipping
+##
+- Check if our differential amplifier would work
+- Motor V * Motor I , Battery V,  Battery I --> Why would this not work?

@@ -27,7 +27,7 @@ Biggest unresolved issue thus far has been tuning. It has prooven very difficult
   - It will vary the ratio between the accelerometer and the gyroscope (acceloremter measures changes in angle over a longer period than the gyroscope, and the gyroscope will be more sensitive to rapid changes. If C is high, then the gyrscope is more favoured, and vice versa.
   - According to the project github, you want C to be close to 1.
 - The setpoint is the idle angle, and can be found by monitoring the robot while it's connected your laptop via PlatformIO, and holding it upright and viewing the angle (typically around -0.01 to 0.03)
-  - I've introduced a tolerance variable that can be adjusted to allow for the system to ignore some small changes in tilt, however this should be adjusted, and potentially even eliminated, as it may cause some issues with the response.
+  - I've introduced a tolerance variable that can be adjusted to allow for the system to ignore some small changes in tilt, however this should be set to 0, or something rather small, (since the system shouldn't experience large pertubations in angle, so you shouldn't ignore small changes)
 -The speed of motors can also be changed in the setup function, by default they are 10, but I haven't changed these at all, and and not sure what values are acceptable, so change with cuation.
 
 In order for this to work, you need Visual Studio Code installed, and you want to install the PlatformIO extention. To connect the microcontroller, you'll also need some drivers, these should automatically install, but if it doesn't, use the link below:

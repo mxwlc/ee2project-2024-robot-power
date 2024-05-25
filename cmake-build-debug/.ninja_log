@@ -1,0 +1,16 @@
+# ninja log v5
+2	30	1716646861476983830	build.ninja	6a58c5fbb6611ae2
+1	1862	1716646405016968118	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	b06fb91f2a80b8ee
+3	40	1716646861476983830	build.ninja	6a58c5fbb6611ae2
+9	1835	1716646863313650559	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+1835	2170	1716646863650317238	ee2project_2024_robot_power	4ff1d56991aef619
+1	1807	1716646893340318259	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+1808	2144	1716646893670318270	ee2project_2024_robot_power	4ff1d56991aef619
+3	1703	1716646921360319223	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+1703	1942	1716646921596985898	ee2project_2024_robot_power	4ff1d56991aef619
+1	2253	1716646940400319880	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+2253	2645	1716646940793653227	ee2project_2024_robot_power	4ff1d56991aef619
+4	1739	1716646959686987211	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+1739	1990	1716646959936987220	ee2project_2024_robot_power	4ff1d56991aef619
+6	1855	1716647034300323109	CMakeFiles/ee2project_2024_robot_power.dir/computer_vision_cpp/open-cv-ctest.cpp.o	257d3e8b5183dc02
+1855	2191	1716647034633656454	ee2project_2024_robot_power	4ff1d56991aef619

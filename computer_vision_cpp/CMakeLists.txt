@@ -10,4 +10,6 @@ include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 add_subdirectory(src)
 add_executable(marker src/marker_gen.cpp)
+add_executable(detector src/marker_detection.cpp)
 target_link_libraries( marker ${OpenCV_LIBS} )
+target_link_libraries( detector ${OpenCV_LIBS} )

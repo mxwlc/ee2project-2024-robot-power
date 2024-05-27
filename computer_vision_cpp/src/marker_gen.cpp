@@ -2,16 +2,19 @@
 // Created by maxwe on 27/05/24.
 //
 #include <cmath>
+#include <fstream>
 #include <iostream>
 #include <map>
+#include <opencv2/objdetect/aruco_board.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
-#include <fstream>
 
 // TODO : Save map to local file for persistance
 
-#define MARKER_EDGE_SIZE = 200;
-#define BORDER_SIZE = 1;
+#define MARKER_EDGE_SIZE  200
+#define BORDER_SIZE  1
+#define ARUCO_DICTIONARY cv::aruco::DICT_5X5_250
+#define MAX_MARKER_NUMBER 250
 
 typedef enum
 {
@@ -128,7 +131,7 @@ std::vector<uchar> id_array()
                 std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
                 valid = false;
             }
-            else if (total_marker > 255 || total_marker < 0)
+            else if (total_marker > MAX_MARKER_NUMBER || total_marker < 0)
             {
                 std::cout << std::endl << "Please Enter A number within the range (0-255)" << std::endl;
                 valid = false;
@@ -214,7 +217,7 @@ int main()
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Loading Predefined Dictionary" << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
-    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_5X5_250);
+    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
 
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
     std::cout << "Dictionary Initiated at memory address " << &md << std::endl;
@@ -231,7 +234,7 @@ int main()
         cv::Mat marker;
         uchar id = curr_id_array[i];
         std::cout << "Generating Marker With id = " << int(curr_id_array[i]) << std::endl;
-        cv::aruco::generateImageMarker(dict, curr_id_array[i], 200, marker, 1);
+        cv::aruco::generateImageMarker(dict, curr_id_array[i], MARKER_EDGE_SIZE, marker, BORDER_SIZE);
         std::string marker_filename = "markers/marker_id" + std::to_string(int(id)) + ".bmp";
         cv::imwrite(marker_filename, marker);
         std::cout << "-------------------------------------------------------------------------------" << std::endl;

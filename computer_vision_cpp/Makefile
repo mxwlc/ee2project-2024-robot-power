@@ -129,6 +129,43 @@ marker/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/build
 .PHONY : marker/fast
 
+#=============================================================================
+# Target rules for targets named detector
+
+# Build rule for target.
+detector: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 detector
+.PHONY : detector
+
+# fast build rule for target.
+detector/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/build
+.PHONY : detector/fast
+
+src/marker_detection.o: src/marker_detection.cpp.o
+.PHONY : src/marker_detection.o
+
+# target to build an object file
+src/marker_detection.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.cpp.o
+.PHONY : src/marker_detection.cpp.o
+
+src/marker_detection.i: src/marker_detection.cpp.i
+.PHONY : src/marker_detection.i
+
+# target to preprocess a source file
+src/marker_detection.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.cpp.i
+.PHONY : src/marker_detection.cpp.i
+
+src/marker_detection.s: src/marker_detection.cpp.s
+.PHONY : src/marker_detection.s
+
+# target to generate assembly for a file
+src/marker_detection.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.cpp.s
+.PHONY : src/marker_detection.cpp.s
+
 src/marker_gen.o: src/marker_gen.cpp.o
 .PHONY : src/marker_gen.o
 
@@ -161,7 +198,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... detector"
 	@echo "... marker"
+	@echo "... src/marker_detection.o"
+	@echo "... src/marker_detection.i"
+	@echo "... src/marker_detection.s"
 	@echo "... src/marker_gen.o"
 	@echo "... src/marker_gen.i"
 	@echo "... src/marker_gen.s"

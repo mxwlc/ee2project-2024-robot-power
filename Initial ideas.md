@@ -26,3 +26,7 @@
 - R = 10mOhms
   ![image](https://github.com/mxwlc/ee2project-2024-robot-power/assets/54540123/99bce9d5-42c1-4a13-b07d-823b29d5a97d)
 - Current going straight into USB ports --> differential of voltages at I5 and 5 V will give power consumed
+
+  ##Mehwish
+  ![image](https://github.com/mxwlc/ee2project-2024-robot-power/assets/170433436/f9e0758c-59cd-4b77-87ce-9506f7811fb7)
+

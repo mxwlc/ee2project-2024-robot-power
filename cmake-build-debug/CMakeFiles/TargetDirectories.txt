@@ -1,3 +1,0 @@
-/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/cmake-build-debug/CMakeFiles/ee2project_2024_robot_power.dir
-/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/cmake-build-debug/CMakeFiles/rebuild_cache.dir

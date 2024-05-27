@@ -1,4 +1,0 @@
-/home/maxwe/clion-2024.1.1/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/maxwe/clion-2024.1.1/bin/ninja/linux/x64/ninja -G Ninja -S /home/maxwe/Documents/ee2project/ee2project-2024-robot-power -B /home/maxwe/Documents/ee2project/ee2project-2024-robot-power/cmake-build-debug
--- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/maxwe/Documents/ee2project/ee2project-2024-robot-power/cmake-build-debug

@@ -1,3 +1,11 @@
 computer_vision/videos/housetouraftermath.mp4
 computer_vision/images/slideshow
 .idea/
+.vscode/
+.idea/
+computer_vision_cpp/CMakeFiles
+.clang-format
+.clang-tidy
+Makefile
+computer_vision_cpp/build
+computer_vision/bin

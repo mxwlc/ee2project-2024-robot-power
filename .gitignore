@@ -8,4 +8,5 @@ computer_vision_cpp/CMakeFiles
 .clang-tidy
 Makefile
 computer_vision_cpp/build
-computer_vision/bin
+computer_vision_cpp/bin
+computer_vision_cpp/markers/*.bmp

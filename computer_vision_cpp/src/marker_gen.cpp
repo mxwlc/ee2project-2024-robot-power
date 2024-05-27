@@ -4,8 +4,14 @@
 #include <cmath>
 #include <iostream>
 #include <map>
-#include <opencv2/objdetect/aruco_board.hpp>
+#include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
+#include <fstream>
+
+// TODO : Save map to local file for persistance
+
+#define MARKER_EDGE_SIZE = 200;
+#define BORDER_SIZE = 1;
 
 typedef enum
 {
@@ -34,13 +40,15 @@ public:
 
     // returns the state for a given id
     states marker_translate(int id);
+
+    // debug : entire map
+    void print_dict();
 };
 
 marker_dict::marker_dict()
 {
     std::cout << "Marker Dictionary Initialisation Start" << std::endl;
     std::map<int, states> temp_map({{0, states::STOP}});
-    // temp_map->insert({0, states::STOP});
     marker_map = temp_map;
     std::cout << "Marker Dictionary Initialisation End" << std::endl;
 }
@@ -65,14 +73,136 @@ states marker_dict::marker_translate(int id)
     return marker_map[id];
 }
 
+void marker_dict::print_dict()
+{
+    std::cout << "Key, Value " << std::endl;
+    for (auto &t : marker_map)
+    {
+        std::cout << t.first << " " << states(t.second) << std::endl;
+    }
+}
+
+
 std::vector<uchar> id_array()
 {
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+    bool valid = false;
+    int total_marker;
+    do
+    {
+        std::cout << "Please insert the total Number of Markers You would Like to generate (1-10): ";
+        std::cin >> total_marker;
+        if (std::cin.fail())
+        {
+            std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+            valid = false;
+        }
+        else if (total_marker > 10 || total_marker < 1)
+        {
+            std::cout << std::endl << "Please Enter A number within the range (1-10)" << std::endl;
+            valid = false;
+        }
+        else
+        {
+            valid = true;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    } while (!valid);
+
     std::cout << "-------------------------------------------------------------------------------" << std::endl
-              << "Please insert the total Number of Markers You would Like to generate : ";
-    uchar marker_number;
+              << "You are generating " << total_marker << " marker(s)" << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+    std::vector<uchar> marker_ids;
 
-
+    for (int i = 0; i < total_marker; i++)
+    {
+        valid = false;
+        int current_id;
+        do
+        {
+            std::cout << "Please insert the ID for marker " << (i + 1) << std::endl;
+            std::cin >> current_id;
+            if (std::cin.fail())
+            {
+                std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+                valid = false;
+            }
+            else if (total_marker > 255 || total_marker < 0)
+            {
+                std::cout << std::endl << "Please Enter A number within the range (0-255)" << std::endl;
+                valid = false;
+            }
+            else
+            {
+                valid = true;
+                marker_ids.push_back(current_id & 0xff);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } while (!valid);
+    }
+    return marker_ids;
 }
+
+
+void add_to_dictionary(marker_dict &dict, int id)
+{
+    int choice;
+    bool valid = false;
+    do
+    {
+        std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
+        std::cout << "-------------------------------------------------------------------------------" << std::endl
+                  << "(0) : STOP" << std::endl
+                  << "(1) : FORWARD" << std::endl
+                  << "(2) : BACKWARDS" << std::endl
+                  << "(3) : TURN_L (turn left)" << std::endl
+                  << "(4) : TURN_R (turn right)" << std::endl
+                  << "-------------------------------------------------------------------------------" << std::endl;
+        std::cin >> choice;
+        if (std::cin.fail())
+        {
+            std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+            valid = false;
+        }
+        else if (choice > 4 || choice < 0)
+        {
+            std::cout << std::endl << "Please Enter A valid choice (0-4)" << std::endl;
+            valid = false;
+        }
+        else
+        {
+            valid = true;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    } while (!valid);
+    states curr_state;
+    switch (choice)
+    {
+    case 0:
+        curr_state = states::STOP;
+        break;
+    case 1:
+        curr_state = states::FORWARD;
+        break;
+    case 2:
+        curr_state = states::BACKWARD;
+        break;
+    case 3:
+        curr_state = states::TURN_L;
+        break;
+    case 4:
+        curr_state = states::TURN_R;
+        break;
+    default:
+        curr_state = states::STOP;
+        break;
+    }
+    dict.add_marker(id, curr_state);
+}
+
 
 int main()
 {
@@ -80,22 +210,36 @@ int main()
               << "Marker Generator" << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
     std::shared_ptr<marker_dict> md(new marker_dict());
+
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "Loading Predefined Dictionary" << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_5X5_250);
+
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
     std::cout << "Dictionary Initiated at memory address " << &md << std::endl;
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
 
+    std::vector<uchar> curr_id_array = id_array();
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "Id Array Size : " << curr_id_array.size() << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
 
-    md->add_marker(10, states::STOP);
-    std::cout << md->marker_translate(10) << std::endl;
-    uchar marker_id[] = {10, 20, 30, 40, 50};
-    cv::Mat marker;
-    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_5X5_250);
-    std::cout << marker_id << " is of size " << sizeof(marker_id) << std::endl;
-    for (int i = 0; i < sizeof(marker_id); ++i)
+    for (int i = 0; i < curr_id_array.size(); i++)
     {
-        std::cout << "Marker ID = " << i << std::endl;
-        cv::aruco::generateImageMarker(dict, marker_id[i], 200, marker, 1);
-        std::string marker_filename = "/markers/marker_id" + std::to_string(marker_id[i]) + ".bmp";
+
+        cv::Mat marker;
+        uchar id = curr_id_array[i];
+        std::cout << "Generating Marker With id = " << int(curr_id_array[i]) << std::endl;
+        cv::aruco::generateImageMarker(dict, curr_id_array[i], 200, marker, 1);
+        std::string marker_filename = "markers/marker_id" + std::to_string(int(id)) + ".bmp";
         cv::imwrite(marker_filename, marker);
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout << "Starting state selection logic" << std::endl;
+        add_to_dictionary(*md, id);
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
     }
+
+    md->print_dict();
     return 0;
 }

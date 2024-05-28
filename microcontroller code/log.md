@@ -38,7 +38,7 @@ In order for this to work, you need Visual Studio Code installed, and you want t
 Any questions let me know :)
   
 
-#Tuesday 28th July
+# Tuesday 28th July
 Today I corrected an error in the angle calculation, which meant the PID parameters could be tuned properly. The setpoint has also been adjusted accordingly, and now the bot can balance, with some small oscillations, which will always occur. It also has some good robustness to purtubations from external sources (I poked it with my finger and it didn't fall, and corrected relatively quickly). It cannot overcome large pertubations in tilt angle, however this is not possible to rectify within the scope of our project (don't poke it too hard). Some finer tuning to the PID values can be attempted, however the values as they stand do work correctly. 
 
 Now the task from here is to design the outer-loop controller. This is also to be done via a PID controller, and I have a one main idea on how this will work:

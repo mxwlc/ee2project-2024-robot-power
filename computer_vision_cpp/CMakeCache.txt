@@ -215,6 +215,9 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Include
+INCLUDE:FILEPATH=/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp/include
+
 //The directory containing a CMake configuration file for OpenCV.
 OpenCV_DIR:PATH=/usr/local/lib/cmake/opencv4
 

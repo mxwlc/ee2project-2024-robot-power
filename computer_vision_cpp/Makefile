@@ -166,6 +166,33 @@ src/marker_detection.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.cpp.s
 .PHONY : src/marker_detection.cpp.s
 
+src/marker_dict.o: src/marker_dict.cpp.o
+.PHONY : src/marker_dict.o
+
+# target to build an object file
+src/marker_dict.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.cpp.o
+.PHONY : src/marker_dict.cpp.o
+
+src/marker_dict.i: src/marker_dict.cpp.i
+.PHONY : src/marker_dict.i
+
+# target to preprocess a source file
+src/marker_dict.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.cpp.i
+.PHONY : src/marker_dict.cpp.i
+
+src/marker_dict.s: src/marker_dict.cpp.s
+.PHONY : src/marker_dict.s
+
+# target to generate assembly for a file
+src/marker_dict.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.cpp.s
+.PHONY : src/marker_dict.cpp.s
+
 src/marker_gen.o: src/marker_gen.cpp.o
 .PHONY : src/marker_gen.o
 
@@ -203,6 +230,9 @@ help:
 	@echo "... src/marker_detection.o"
 	@echo "... src/marker_detection.i"
 	@echo "... src/marker_detection.s"
+	@echo "... src/marker_dict.o"
+	@echo "... src/marker_dict.i"
+	@echo "... src/marker_dict.s"
 	@echo "... src/marker_gen.o"
 	@echo "... src/marker_gen.i"
 	@echo "... src/marker_gen.s"

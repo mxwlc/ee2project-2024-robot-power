@@ -3,13 +3,13 @@
 #include <iostream>
 #include <map>
 #include <opencv2/opencv.hpp>
-// #include <opencv2/objdetect/aruco_detector.hpp>
+#include <opencv2/objdetect/aruco_detector.hpp>
 // #include <boost/serialization/map.hpp>
 // #include <boost/archive/text_oarchive.hpp>
 // #include <boost/archive/text_iarchive.hpp>
 
 
-// #pragma once
+#pragma once
 
 typedef enum
 {
@@ -44,5 +44,5 @@ public:
 
     void print_dict();
 
-    // void save_dict();
+    void save_dict();
 };

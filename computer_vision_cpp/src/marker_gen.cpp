@@ -8,6 +8,8 @@
 #include <opencv2/objdetect/aruco_board.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
+#include "../include/marker_dict.hpp"
+
 
 // TODO : Save map to local file for persistance
 
@@ -15,75 +17,6 @@
 #define BORDER_SIZE  1
 #define ARUCO_DICTIONARY cv::aruco::DICT_5X5_250
 #define MAX_MARKER_NUMBER 250
-
-typedef enum
-{
-    STOP = 0,
-    FORWARD = 1,
-    BACKWARD = 2,
-    TURN_L = 3,
-    TURN_R = 4
-} states;
-
-class marker_dict
-{
-private:
-    std::map<int, states> marker_map;
-
-public:
-    // Constructors
-    marker_dict();
-    marker_dict(std::map<int, states> &dict);
-
-    // Destructor
-    ~marker_dict();
-
-    // Add {marker_id, state} pair to the internal marker map
-    void add_marker(int id, states marker_state);
-
-    // returns the state for a given id
-    states marker_translate(int id);
-
-    // debug : entire map
-    void print_dict();
-};
-
-marker_dict::marker_dict()
-{
-    std::cout << "Marker Dictionary Initialisation Start" << std::endl;
-    std::map<int, states> temp_map({{0, states::STOP}});
-    marker_map = temp_map;
-    std::cout << "Marker Dictionary Initialisation End" << std::endl;
-}
-
-marker_dict::marker_dict(std::map<int, states> &dict)
-{
-    marker_map = dict;
-}
-
-marker_dict::~marker_dict()
-{
-    std::cout << "Marker Dictionary Leaves Scope" << std::endl;
-}
-
-void marker_dict::add_marker(int id, states marker_state)
-{
-    marker_map.insert({id, marker_state});
-}
-
-states marker_dict::marker_translate(int id)
-{
-    return marker_map[id];
-}
-
-void marker_dict::print_dict()
-{
-    std::cout << "Key, Value " << std::endl;
-    for (auto &t : marker_map)
-    {
-        std::cout << t.first << " " << states(t.second) << std::endl;
-    }
-}
 
 
 std::vector<uchar> id_array()
@@ -244,5 +177,6 @@ int main()
     }
 
     md->print_dict();
+    md->save_dict();
     return 0;
 }

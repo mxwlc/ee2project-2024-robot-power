@@ -42,12 +42,22 @@ void marker_dict::print_dict()
     }
 }
 
-// void marker_dict::save_dict()
-// {
-//     std::ofstream ofs("marker_dict");
+void marker_dict::save_dict()
+{
+    std::string filename("marker_dict");
+    std::ofstream outfile(filename);
 
-//     {
-//         boost::archive::text_oarchive oa(ofs);
-//         oa << marker_map;
-//     }
-// }
+    if (!outfile.is_open()) {
+        std::cerr << "Failed to open file for writing: " << filename << std::endl;
+        return;
+    }
+    for (const auto& pair : marker_map) {
+        outfile << pair.first << " " << pair.second << std::endl;
+    }
+
+    outfile.close();
+
+    if (!outfile.good()) {
+        std::cerr << "Error occurred at writing time!" << std::endl;
+    }
+}

@@ -38,3 +38,16 @@ In order for this to work, you need Visual Studio Code installed, and you want t
 Any questions let me know :)
   
 
+#Tuesday 28th July
+Today I corrected an error in the angle calculation, which meant the PID parameters could be tuned properly. The setpoint has also been adjusted accordingly, and now the bot can balance, with some small oscillations, which will always occur. It also has some good robustness to purtubations from external sources (I poked it with my finger and it didn't fall, and corrected relatively quickly). It cannot overcome large pertubations in tilt angle, however this is not possible to rectify within the scope of our project (don't poke it too hard). Some finer tuning to the PID values can be attempted, however the values as they stand do work correctly. 
+
+Now the task from here is to design the outer-loop controller. This is also to be done via a PID controller, and I have a one main idea on how this will work:
+Firstly, setting the setpoint to be something slightly off centre, may achieve the effect of cuasing the bot to move forwwards and backwards. I noticed while tuning the setpoint today, that if it is set too high/low, the robot will have a tendancy to drift towrards one side (the side it's tilting).
+  - This will be easy to test
+  - Doesn't account for turning
+  - However, the speed for this method is likely to be slow, so some offset of the motor speed may need to be experimented with (this would also solve the turning issue)
+Experimenting with this tomorrow will likely adjust the course of future development, but this is a good starting point. Derriving the speed input from the two motors can be done relatively easily, under the following condition:
+-The magnitude of the speed of each motors should always be the same (the direction/sign can differ)
+This will allow me to take an average of the speeds, to find a singular one. For example, if you are travelling forwards at 10m/s (10 on both motors), then the output will be 10, but if you are turning at the same speed (10 and -10) then the average gives 0. This allows me to then adjust the setpoint based of the speed (since you want a tilt if going forwards or back, but no tilt whilst turning).
+
+I will begin tomorrow by testing the above theory, and seeing if it works. If it does, adding some code to derrive setpoint from speed won't be difficult, then it's just a case of adjusting PID values again. I'll also likely need to discuss how the speed will show up in my script, however I imagine it's just through a variable. 

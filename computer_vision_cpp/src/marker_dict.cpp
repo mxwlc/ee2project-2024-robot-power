@@ -35,11 +35,12 @@ std::map<int, states> marker_dict::return_dict()
 
 void marker_dict::print_dict()
 {
-    std::cout << "Key, Value " << std::endl;
+    std::cout << "ID, State \n" << "{\n";
     for (auto &t : marker_map)
     {
-        std::cout << t.first << " " << states(t.second) << std::endl;
+        std::cout << t.first << " : " << states(t.second) << "\n";
     }
+    std::cout << "}\n";
 }
 
 void marker_dict::save_dict()

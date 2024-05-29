@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -9,7 +11,7 @@
 // #include <boost/archive/text_iarchive.hpp>
 
 
-#pragma once
+
 
 typedef enum
 {
@@ -42,7 +44,9 @@ public:
     // debug : output entire map
     std::map<int, states> return_dict();
 
+    // debug : prints the marker map hash
     void print_dict();
+
 
     void save_dict();
 };

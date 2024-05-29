@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named camera_test
+
+# Build rule for target.
+camera_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 camera_test
+.PHONY : camera_test
+
+# fast build rule for target.
+camera_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/build
+.PHONY : camera_test/fast
+
+#=============================================================================
 # Target rules for targets named marker
 
 # Build rule for target.
@@ -217,6 +230,30 @@ src/marker_gen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_gen.cpp.s
 .PHONY : src/marker_gen.cpp.s
 
+src/webcam_test.o: src/webcam_test.cpp.o
+.PHONY : src/webcam_test.o
+
+# target to build an object file
+src/webcam_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.cpp.o
+.PHONY : src/webcam_test.cpp.o
+
+src/webcam_test.i: src/webcam_test.cpp.i
+.PHONY : src/webcam_test.i
+
+# target to preprocess a source file
+src/webcam_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.cpp.i
+.PHONY : src/webcam_test.cpp.i
+
+src/webcam_test.s: src/webcam_test.cpp.s
+.PHONY : src/webcam_test.s
+
+# target to generate assembly for a file
+src/webcam_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.cpp.s
+.PHONY : src/webcam_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -225,6 +262,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... camera_test"
 	@echo "... detector"
 	@echo "... marker"
 	@echo "... src/marker_detection.o"
@@ -236,6 +274,9 @@ help:
 	@echo "... src/marker_gen.o"
 	@echo "... src/marker_gen.i"
 	@echo "... src/marker_gen.s"
+	@echo "... src/webcam_test.o"
+	@echo "... src/webcam_test.i"
+	@echo "... src/webcam_test.s"
 .PHONY : help
 
 

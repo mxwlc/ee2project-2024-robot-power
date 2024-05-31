@@ -12,3 +12,4 @@ computer_vision_cpp/bin/
 computer_vision_cpp/markers/*.bmp
 computer_vision/doc/
 computer_vision_cpp/src/CMakeFiles/
+computer_vision/venv/

@@ -4,8 +4,8 @@ computer_vision_py/images/slideshow/
 .vscode/
 .idea/
 computer_vision_cpp/CMakeFiles
-.clang-format/
-.clang-tidy/
+/.clang-format
+/.clang-tidy
 Makefile
 computer_vision_cpp/build/
 computer_vision_cpp/bin/

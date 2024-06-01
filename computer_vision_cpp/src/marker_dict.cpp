@@ -1,5 +1,6 @@
 #include "../include/marker_dict.hpp"
 
+/// @brief
 marker_dict::marker_dict()
 {
     std::cout << "Marker Dictionary Initialisation Start" << std::endl;
@@ -53,7 +54,7 @@ void marker_dict::save_dict()
         return;
     }
     for (const auto& pair : marker_map) {
-        outfile << pair.first << " " << pair.second << std::endl;
+        outfile << pair.first << "|" << pair.second << std::endl;
     }
 
     outfile.close();

@@ -13,3 +13,7 @@ computer_vision_cpp/markers/*.bmp
 computer_vision_py/doc/
 computer_vision_cpp/src/CMakeFiles/
 computer_vision_py/venv/
+.clang-*
+.editorconfig
+.gitattributes
+Makefile

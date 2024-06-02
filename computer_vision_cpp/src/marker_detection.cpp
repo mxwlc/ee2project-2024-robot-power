@@ -1,7 +1,6 @@
 //
 // Created by maxwe on 27/05/24.
 //
-#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <map>

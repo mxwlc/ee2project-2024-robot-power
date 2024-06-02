@@ -1,17 +1,13 @@
 #pragma once
 
-#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <map>
-#include <opencv2/opencv.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
+#include <opencv2/opencv.hpp>
 // #include <boost/serialization/map.hpp>
 // #include <boost/archive/text_oarchive.hpp>
 // #include <boost/archive/text_iarchive.hpp>
-
-
-
 
 typedef enum
 {
@@ -22,15 +18,23 @@ typedef enum
     TURN_R = 4
 } states;
 
+
+
 class marker_dict
 {
 private:
     std::map<int, states> marker_map;
+    std::map<states, std::string> enum_to_string = {{states::STOP, "STOP"},
+                                                {states::FORWARD, "FORWARD"},
+                                                {states::BACKWARD, "BACKWARD"},
+                                                {states::TURN_L, "TURN_L"},
+                                                {states::TURN_R, "TURN_R"}};
 
 public:
     // Constructors
     marker_dict();
     marker_dict(std::map<int, states> &dict);
+    marker_dict(std::string filename);
 
     // Destructor
     ~marker_dict();
@@ -47,6 +51,15 @@ public:
     // debug : prints the marker map hash
     void print_dict();
 
-
+    // Stores the internal marker_map locally
     void save_dict();
+
+    // debug : translates state enums to a corresponding string
+    std::string enum_string_translation(states in_state);
+
+    // returns the size of the internal marker map
+    int size_of_map();
+
+    // Read marker_map from a file
+    std::map<int, states> load_marker_map(std::string filename);
 };

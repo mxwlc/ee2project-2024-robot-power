@@ -5,9 +5,6 @@
 #include <map>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
-// #include <boost/serialization/map.hpp>
-// #include <boost/archive/text_oarchive.hpp>
-// #include <boost/archive/text_iarchive.hpp>
 
 typedef enum
 {
@@ -23,7 +20,11 @@ typedef enum
 class marker_dict
 {
 private:
+
+    // internal MarkID -> State mapping
     std::map<int, states> marker_map;
+
+    // maps State to the corresponding label
     std::map<states, std::string> enum_to_string = {{states::STOP, "STOP"},
                                                 {states::FORWARD, "FORWARD"},
                                                 {states::BACKWARD, "BACKWARD"},

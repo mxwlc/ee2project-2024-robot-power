@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" modified="2024-06-03T13:59:09.588Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0" etag="IQBJOp1PeWdkuImopu9H" version="24.4.13" type="github">
+  <diagram name="Page-1" id="p1NchWYGwwng7uam-boC">
+    <mxGraphModel dx="1893" dy="1045" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gD_BH9XtEY2GzEz4XQBM-5" value="Speed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;startArrow=classic;startFill=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeWidth=4;fontSize=15;" parent="1" source="gD_BH9XtEY2GzEz4XQBM-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gD_BH9XtEY2GzEz4XQBM-7" value="Speed Error" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;fontSize=15;" parent="1" source="gD_BH9XtEY2GzEz4XQBM-3" target="gD_BH9XtEY2GzEz4XQBM-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gD_BH9XtEY2GzEz4XQBM-3" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;strokeWidth=4;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="240" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-2" value="Desired Speed" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="gD_BH9XtEY2GzEz4XQBM-6" target="Xeid1Emmv3_Os49AA0S0-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gD_BH9XtEY2GzEz4XQBM-6" value="&lt;div style=&quot;font-size: 15px;&quot;&gt;PID Speed Controller&lt;/div&gt;" style="whiteSpace=wrap;html=1;strokeWidth=4;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="460" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-6" value="&lt;div style=&quot;font-size: 15px;&quot;&gt;Desired Tilt Angle&lt;/div&gt;" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-1" target="Xeid1Emmv3_Os49AA0S0-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-1" value="&lt;div style=&quot;font-size: 15px;&quot;&gt;Speed to Angle&lt;/div&gt;&lt;div style=&quot;font-size: 15px;&quot;&gt;Dynamics&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;strokeWidth=4;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="740" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-8" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-5" target="Xeid1Emmv3_Os49AA0S0-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-5" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;strokeWidth=4;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-10" value="Motor Output Speed (m/s)" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1650" y="140" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1270" y="140" />
+              <mxPoint x="1350" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-7" value="PID Angle Controller" style="whiteSpace=wrap;html=1;strokeWidth=4;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-12" style="edgeStyle=none;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=15;startSize=8;endSize=8;startArrow=classic;startFill=1;endArrow=none;endFill=0;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1340" y="140" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1280" y="250" />
+              <mxPoint x="1340" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-14" style="edgeStyle=none;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-11" target="Xeid1Emmv3_Os49AA0S0-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1050" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-11" value="Angle Measurement" style="whiteSpace=wrap;html=1;strokeWidth=4;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-16" style="edgeStyle=none;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=15;startSize=8;endSize=8;startArrow=classic;startFill=1;endArrow=none;endFill=0;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1590" y="140" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1590" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-17" style="edgeStyle=none;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=15;startSize=8;endSize=8;strokeWidth=4;" edge="1" parent="1" source="Xeid1Emmv3_Os49AA0S0-15" target="gD_BH9XtEY2GzEz4XQBM-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-15" value="Speed Measurement" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="840" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-18" value="-" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="220" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-19" value="+" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="190" y="100" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-20" value="+" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="960" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xeid1Emmv3_Os49AA0S0-21" value="-" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="180" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -29,7 +29,7 @@ std::vector<int> translate_found_markers(std::shared_ptr<marker_dict> &md, std::
 std::string gen_file_name_formatted(std::string key, std::string file_type)
 {
     std::time_t t = std::time(nullptr);
-    std::tm * now = std::localtime(&t);
+    std::tm *now = std::localtime(&t);
     std::ostringstream datestream;
     datestream << std::put_time(now, "-%d%m%y-%H%M");
     return "output/" + key + datestream.str() + "." + file_type;
@@ -69,16 +69,7 @@ int main()
             std::cerr << "Error : Blank Frame Grabbed\n";
             break;
         }
-        // --  close window when key pressed --
-        if (key_press >= 0)
-        {
-            if(key_press == int('s')){
-                std::string format_str =  gen_file_name_formatted("webcam", "bmp");
-                std::cout << "Saving to " << format_str << "\n";
-                cv::imwrite(format_str, frame);
-            }
-            break;
-        }
+
 
         std::vector<int> marker_ids;
         std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
@@ -105,6 +96,18 @@ int main()
         cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 
         cv::imshow("Live", frame);
+
+        // --  close window when key pressed --
+        if (key_press >= 0)
+        {
+            if (key_press == int('s'))
+            {
+                std::string format_str = gen_file_name_formatted("webcam", "bmp");
+                std::cout << "Saving to " << format_str << "\n";
+                cv::imwrite(format_str, frame);
+            }
+            break;
+        }
     }
 
     return 0;

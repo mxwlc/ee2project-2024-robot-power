@@ -62,7 +62,7 @@ int main()
     for (;;)
     {
         cap.read(frame);
-
+        int key_press = cv::waitKey(5);
         // -- validate frame --
         if (frame.empty())
         {
@@ -70,10 +70,13 @@ int main()
             break;
         }
         // --  close window when key pressed --
-        if (cv::waitKey(5) >= 0)
+        if (key_press >= 0)
         {
-            std::string format_str =  gen_file_name_formatted("webcam", "bmp");
-            cv::imwrite(format_str, frame);
+            if(key_press == int('s')){
+                std::string format_str =  gen_file_name_formatted("webcam", "bmp");
+                std::cout << "Saving to " << format_str << "\n";
+                cv::imwrite(format_str, frame);
+            }
             break;
         }
 

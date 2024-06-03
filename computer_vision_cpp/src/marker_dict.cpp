@@ -1,8 +1,11 @@
 #include "../include/marker_dict.hpp"
-
+// TODO write comments and documentation
 
 marker_dict::marker_dict()
 {
+    // @brief : Empty/Default Constructor
+    // @params :
+    // Initialises the marker map with a {0,states::STOP} Key value pair -- functionally empty
     std::cout << "Marker Dictionary Initialisation Start" << std::endl;
     std::map<int, states> temp_map({{0, states::STOP}});
     marker_map = temp_map;
@@ -11,6 +14,7 @@ marker_dict::marker_dict()
 
 marker_dict::marker_dict(std::map<int, states> &dict)
 {
+    // In
     marker_map = dict;
 }
 
@@ -22,6 +26,8 @@ marker_dict::marker_dict(std::string filename)
 
 marker_dict::~marker_dict()
 {
+    // Debug atm
+    // Destructor that tells the user when the marker dict object (and thus the shared_ptr to the object) leaves the current scope (or the ptr is deleted)
     std::cout << "Marker Dictionary Leaves Scope" << std::endl;
 }
 

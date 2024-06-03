@@ -155,43 +155,6 @@ detector/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/build
 .PHONY : detector/fast
 
-#=============================================================================
-# Target rules for targets named map_test
-
-# Build rule for target.
-map_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 map_test
-.PHONY : map_test
-
-# fast build rule for target.
-map_test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_test.dir/build.make CMakeFiles/map_test.dir/build
-.PHONY : map_test/fast
-
-src/map_test.o: src/map_test.cpp.o
-.PHONY : src/map_test.o
-
-# target to build an object file
-src/map_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_test.dir/build.make CMakeFiles/map_test.dir/src/map_test.cpp.o
-.PHONY : src/map_test.cpp.o
-
-src/map_test.i: src/map_test.cpp.i
-.PHONY : src/map_test.i
-
-# target to preprocess a source file
-src/map_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_test.dir/build.make CMakeFiles/map_test.dir/src/map_test.cpp.i
-.PHONY : src/map_test.cpp.i
-
-src/map_test.s: src/map_test.cpp.s
-.PHONY : src/map_test.s
-
-# target to generate assembly for a file
-src/map_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/map_test.dir/build.make CMakeFiles/map_test.dir/src/map_test.cpp.s
-.PHONY : src/map_test.cpp.s
-
 src/marker_detection.o: src/marker_detection.cpp.o
 .PHONY : src/marker_detection.o
 
@@ -304,11 +267,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... camera_test"
 	@echo "... detector"
-	@echo "... map_test"
 	@echo "... marker"
-	@echo "... src/map_test.o"
-	@echo "... src/map_test.i"
-	@echo "... src/map_test.s"
 	@echo "... src/marker_detection.o"
 	@echo "... src/marker_detection.i"
 	@echo "... src/marker_detection.s"

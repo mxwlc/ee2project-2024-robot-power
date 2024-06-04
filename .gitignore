@@ -1,12 +1,6 @@
 computer_vision_py/videos/housetouraftermath.mp4
-computer_vision_py/images/slideshow/
-computer_vision_cpp/CMakeFiles
 /Makefile
-computer_vision_cpp/build/
-computer_vision_cpp/bin/
 computer_vision_cpp/markers/*.bmp
-computer_vision_py/doc/
-computer_vision_cpp/src/CMakeFiles/
 computer_vision_py/venv/
 .*
 !.gitignore

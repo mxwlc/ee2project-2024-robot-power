@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/camera_test.dir/src/marker_dict.cpp.o"
-  "CMakeFiles/camera_test.dir/src/marker_dict.cpp.o.d"
-  "CMakeFiles/camera_test.dir/src/webcam_test.cpp.o"
-  "CMakeFiles/camera_test.dir/src/webcam_test.cpp.o.d"
+  "CMakeFiles/camera_test.dir/src/marker_dict.o"
+  "CMakeFiles/camera_test.dir/src/marker_dict.o.d"
+  "CMakeFiles/camera_test.dir/src/webcam_test.o"
+  "CMakeFiles/camera_test.dir/src/webcam_test.o.d"
   "bin/camera_test"
   "bin/camera_test.pdb"
 )

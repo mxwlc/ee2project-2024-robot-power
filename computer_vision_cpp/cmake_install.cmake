@@ -1,4 +1,4 @@
-# Install script for directory: /home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp
+# Install script for directory: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -29,7 +29,7 @@ endif()
 
 # Install shared libraries without execute permission?
 if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  set(CMAKE_INSTALL_SO_NO_EXE "0")
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
 # Is this installation the result of a crosscompile?
@@ -43,8 +43,9 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp/src/cmake_install.cmake")
+  # Include the install script for each subdirectory.
+  include("/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/cmake_install.cmake")
+
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 3.28)
 project(ee2-computer-vision)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)

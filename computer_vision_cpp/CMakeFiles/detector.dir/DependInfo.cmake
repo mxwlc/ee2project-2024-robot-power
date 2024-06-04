@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp" "CMakeFiles/detector.dir/src/marker_detection.cpp.o" "gcc" "CMakeFiles/detector.dir/src/marker_detection.cpp.o.d"
-  "/home/maxwe/Documents/ee2project/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp" "CMakeFiles/detector.dir/src/marker_dict.cpp.o" "gcc" "CMakeFiles/detector.dir/src/marker_dict.cpp.o.d"
+  "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp" "CMakeFiles/detector.dir/src/marker_detection.o" "gcc" "CMakeFiles/detector.dir/src/marker_detection.o.d"
+  "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp" "CMakeFiles/detector.dir/src/marker_dict.o" "gcc" "CMakeFiles/detector.dir/src/marker_dict.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

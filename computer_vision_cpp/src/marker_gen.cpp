@@ -84,6 +84,12 @@ std::vector<uchar> id_array()
 
 void add_to_dictionary(marker_dict &dict, int id)
 {
+/* Needs changing to support a variable enum size
+ *
+ * */
+
+
+
     int choice;
     bool valid = false;
     do

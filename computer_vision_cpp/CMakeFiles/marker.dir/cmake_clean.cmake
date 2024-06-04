@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/marker.dir/src/marker_dict.cpp.o"
-  "CMakeFiles/marker.dir/src/marker_dict.cpp.o.d"
-  "CMakeFiles/marker.dir/src/marker_gen.cpp.o"
-  "CMakeFiles/marker.dir/src/marker_gen.cpp.o.d"
+  "CMakeFiles/marker.dir/src/marker_dict.o"
+  "CMakeFiles/marker.dir/src/marker_dict.o.d"
+  "CMakeFiles/marker.dir/src/marker_gen.o"
+  "CMakeFiles/marker.dir/src/marker_gen.o.d"
   "bin/marker"
   "bin/marker.pdb"
 )

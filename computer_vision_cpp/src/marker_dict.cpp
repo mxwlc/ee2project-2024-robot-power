@@ -3,9 +3,7 @@
 
 marker_dict::marker_dict()
 {
-    // @brief : Empty/Default Constructor
-    // @params :
-    // Initialises the marker map with a {0,states::STOP} Key value pair -- functionally empty
+
     std::cout << "Marker Dictionary Initialisation Start" << std::endl;
     std::map<int, states> temp_map({{0, states::STOP}});
     marker_map = temp_map;

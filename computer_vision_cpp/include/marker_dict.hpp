@@ -6,13 +6,18 @@
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
 
+
+/*
+This needs changing to add for more "jobs"
+*/
 typedef enum
 {
     STOP = 0,
     FORWARD = 1,
     BACKWARD = 2,
     TURN_L = 3,
-    TURN_R = 4
+    TURN_R = 4,
+    STATES_NR_ITEMS = 5
 } states;
 
 
@@ -29,7 +34,8 @@ private:
                                                 {states::FORWARD, "FORWARD"},
                                                 {states::BACKWARD, "BACKWARD"},
                                                 {states::TURN_L, "TURN_L"},
-                                                {states::TURN_R, "TURN_R"}};
+                                                {states::TURN_R, "TURN_R"},
+                                                {states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS))}};
 
 public:
     // Constructors
@@ -47,10 +53,10 @@ public:
     states marker_translate(int id);
 
     // debug : output entire map
-    std::map<int, states> return_dict();
+    std::map<int, states> return_dict() const;
 
     // debug : prints the marker map hash
-    void print_dict();
+    std::string print_dict() const;
 
     // Stores the internal marker_map locally
     void save_dict();
@@ -64,3 +70,6 @@ public:
     // Read marker_map from a file
     std::map<int, states> load_marker_map(std::string filename);
 };
+
+// Cout class#
+std::ostream &operator<<(std::ostream &os, marker_dict const &m);

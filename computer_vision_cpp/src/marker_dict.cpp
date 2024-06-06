@@ -3,7 +3,9 @@
 
 marker_dict::marker_dict()
 {
-
+    /*
+     * Default constructor, initialises the map with a {0, STOP} pair
+     */
     std::cout << "Marker Dictionary Initialisation Start" << std::endl;
     std::map<int, states> temp_map({{0, states::STOP}});
     marker_map = temp_map;
@@ -12,12 +14,17 @@ marker_dict::marker_dict()
 
 marker_dict::marker_dict(std::map<int, states> &dict)
 {
-    // In
+    /*
+     * Constructor setting the internal map to the provided arguement map
+     */
     marker_map = dict;
 }
 
 marker_dict::marker_dict(std::string filename)
 {
+    /*
+     * Constructor, setting marker map to the map stored in the provided text file
+     */
     std::map<int, states> t_marker_map;
     marker_map = load_marker_map(filename);
 }
@@ -31,30 +38,51 @@ marker_dict::~marker_dict()
 
 void marker_dict::add_marker(int id, states marker_state)
 {
+    /*
+     * Adds a {marker_id, state} Pair to the internal map
+     */
     marker_map.insert({id, marker_state});
 }
 
 states marker_dict::marker_translate(int id)
 {
+    /*
+     * Returns the corresponding enum State from the provided marker id
+     */
     return marker_map[id];
 }
 
-std::map<int, states> marker_dict::return_dict()
+std::map<int, states> marker_dict::return_dict() const
 {
+    /*
+     * Returns the internal marker map object
+     */
     return marker_map;
 }
 
-void marker_dict::print_dict()
+std::string marker_dict::print_dict() const
 {
-    std::cout << "ID, State \n"
-              << "{\n";
+    /*
+     * Debug print
+     * May haps be useless
+     */
+    std::string output;
+    std::string line;
+    output = std::string("ID, State \n") + std::string("{\n");
     for (auto &t : marker_map)
     {
-        std::cout << t.first << " : " << states(t.second) << "\n";
+        line = std::to_string(t.first) +  std::string(" : ") + std::to_string(states(t.second)) + std::string("\n");
+        output.append(line);
     }
-    std::cout << "}\n";
+    output.append("}\n");
+    return output;
 }
 
+std::ostream &operator<<(std::ostream &os, marker_dict const &m)
+{
+    std::string output = m.print_dict();
+    return os << output;
+}
 
 void marker_dict::save_dict()
 {

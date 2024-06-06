@@ -1,0 +1,7 @@
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/camera_test.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/marker.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/detector.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/edit_cache.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/rebuild_cache.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/src/CMakeFiles/edit_cache.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/src/CMakeFiles/rebuild_cache.dir

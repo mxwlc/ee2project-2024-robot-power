@@ -95,13 +95,16 @@ void add_to_dictionary(marker_dict &dict, int id)
     do
     {
         std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
-        std::cout << "-------------------------------------------------------------------------------" << std::endl
-                  << "(0) : STOP" << std::endl
-                  << "(1) : FORWARD" << std::endl
-                  << "(2) : BACKWARDS" << std::endl
-                  << "(3) : TURN_L (turn left)" << std::endl
-                  << "(4) : TURN_R (turn right)" << std::endl
-                  << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        // Print Menu
+        // for(int i =0; i < states[STATES_NR_ITEMS]; i++){
+        //     std::cout << i << "\n";
+        // }
+
+
+
+
+         std::cout  << "-------------------------------------------------------------------------------" << std::endl;
         std::cin >> choice;
         if (std::cin.fail())
         {
@@ -166,14 +169,14 @@ int main()
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Id Array Size : " << curr_id_array.size() << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
-
-    for (int i = 0; i < curr_id_array.size(); i++)
+    
+    for (unsigned char i : curr_id_array)
     {
 
         cv::Mat marker;
-        uchar id = curr_id_array[i];
-        std::cout << "Generating Marker With id = " << int(curr_id_array[i]) << std::endl;
-        cv::aruco::generateImageMarker(dict, curr_id_array[i], MARKER_EDGE_SIZE, marker, BORDER_SIZE);
+        uchar id = i;
+        std::cout << "Generating Marker With id = " << int(i) << std::endl;
+        cv::aruco::generateImageMarker(dict, i, MARKER_EDGE_SIZE, marker, BORDER_SIZE);
         std::string marker_filename = "markers/marker_id" + std::to_string(int(id)) + ".bmp";
         cv::imwrite(marker_filename, marker);
         std::cout << "-------------------------------------------------------------------------------" << std::endl;
@@ -183,6 +186,7 @@ int main()
     }
 
     md->print_dict();
+    std::cout << * md << std::endl;
     md->save_dict();
     return 0;
 }

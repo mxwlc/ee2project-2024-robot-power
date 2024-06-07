@@ -14,26 +14,55 @@
 // Diagnostic pin for oscilloscope
 #define TOGGLE_PIN  32        //Arduino A4
 
+//Loops
 const int PRINT_INTERVAL = 500;
 const int LOOP_INTERVAL = 10;
 const int  STEPPER_INTERVAL_US = 20;
+
+//Angle Tuning
 const float C = 0.95;
-
-const float kp = 20.0;
+const float idle_setpoint = 0.02;
+float setpoint_angle = 0.025;//0.032 - Roughly upright
+const float kp = 1500.0;
 const float ki = 0;//should be 0 if static setpoint is set correctly
-const float kd = 1;//Should come directly from gyroscope value
+float kd = 2250;
 
+//Errors
 float error = 0;
 float previous_error;
 
+//Angles
 float a_angle;
 float g_angle;
 float current_angle = 0;
+float current_angle_rad = 0;
 float previous_angle = 0;
 
-float p_term;
-float i_term;
-float d_term;
+float angle_p_term;
+float angle_i_term;
+float angle_d_term;
+
+//Speed Tuning
+const float speed_kp = 0.0075;
+const float speed_ki = 0;
+const float speed_kd = 100;
+
+//This is how large the error can be for setpoint to change
+const float change_tollerance = 0.01;
+
+//Speeds
+float speed1 = 0;
+float speed2 = 0;
+float current_speed = 0;
+float accel = 0;
+float previous_accel = 0;
+
+float speed_error = 0;
+float previous_speed_error = 0;
+
+float speed_p_term;
+float speed_i_term;
+float speed_d_term;
 
 float PIDout;
 
@@ -88,8 +117,8 @@ void setup()
   Serial.println("Initialised Interrupt for Stepper");
 
   //Set motor acceleration values
-  step1.setAccelerationRad(10.0);
-  step2.setAccelerationRad(10.0);
+  step1.setAccelerationRad(15.0);
+  step2.setAccelerationRad(15.0);
 
   //Enable the stepper motor drivers
   pinMode(STEPPER_EN,OUTPUT);
@@ -102,19 +131,59 @@ void loop()
   //Static variables are initialised once and then the value is remembered betweeen subsequent calls to this function
   static unsigned long printTimer = 0;  //time of the next print
   static unsigned long loopTimer = 0;   //time of the next control update
-  static float setpoint_angle = 0.0;             //current tilt angle
+  
+  //Run the control loop every LOOP_INTERVAL ms
+  if (millis() > loopTimer) {
+    loopTimer += LOOP_INTERVAL;
+
+    // Fetch data from MPU6050
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
+
+    //Calculate Tilt using accelerometer and sin x = x approximation for a small tilt angle
+    a_angle = a.acceleration.z/9.67;//Assuming that's gravitational constant
+    g_angle = g.gyro.pitch;
+    previous_angle = current_angle;
+    current_angle = ((1-C)*a_angle + C*(g_angle*LOOP_INTERVAL*0.001+previous_angle));
+    
+    //Calculate setpoint angle
+    float speed_avg = (speed1 + speed1)/2;//Not gonna bother making this loop closed (no measuring yet)
+    previous_accel = accel;
+    accel = a.acceleration.z;
+    current_speed = ((step1.getSpeedRad() + step2.getSpeedRad())/2);
+    previous_speed_error = speed_error;
+    speed_error = speed_avg - current_speed;
+    
+    speed_p_term = speed_kp*speed_error;
+    speed_i_term = speed_ki*speed_error*LOOP_INTERVAL*0.01;
+    speed_d_term = speed_kd*((speed_error - previous_speed_error)/LOOP_INTERVAL*0.01);
+    setpoint_angle = speed_p_term + speed_i_term + speed_d_term + idle_setpoint;
+    
+
+    previous_error = error;
+    error = setpoint_angle - current_angle;
+  
+    angle_p_term = kp*error;
+    angle_i_term = ki*(error*LOOP_INTERVAL*0.001); //0.001 for ms
+    angle_d_term = kd*((error-previous_error)/LOOP_INTERVAL*0.001);
+  
+    PIDout = angle_p_term + angle_i_term + angle_d_term;
+    step1.setTargetSpeedRad(PIDout);
+    step2.setTargetSpeedRad(-PIDout);
+  }
   
   //Print updates every PRINT_INTERVAL ms
   if (millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-    Serial.print("x : ");
-    Serial.print(a.acceleration.x);
-    Serial.print(" | y : ");
-    Serial.print(a.acceleration.y);
-    Serial.print(" | z : ");
-    Serial.print(a.acceleration.z);
+    Serial.print(setpoint_angle);
     Serial.println();
+  }
+  if (millis() > 5000){
+    speed1 = 1.5;
+    speed2 = -1.5;
+  }
+  if (millis() > 7000){
+    speed1 = 0;
+    speed2 = 0;
   }
 }

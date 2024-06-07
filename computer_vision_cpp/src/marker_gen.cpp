@@ -19,27 +19,20 @@
 #define MAX_MARKER_NUMBER 250
 
 
-std::vector<uchar> id_array()
-{
+std::vector<uchar> id_array() {
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
     bool valid = false;
     int total_marker;
-    do
-    {
+    do {
         std::cout << "Please insert the total Number of Markers You would Like to generate (1-10): ";
         std::cin >> total_marker;
-        if (std::cin.fail())
-        {
+        if (std::cin.fail()) {
             std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
             valid = false;
-        }
-        else if (total_marker > 10 || total_marker < 1)
-        {
+        } else if (total_marker > 10 || total_marker < 1) {
             std::cout << std::endl << "Please Enter A number within the range (1-10)" << std::endl;
             valid = false;
-        }
-        else
-        {
+        } else {
             valid = true;
         }
         std::cin.clear();
@@ -51,26 +44,19 @@ std::vector<uchar> id_array()
               << "-------------------------------------------------------------------------------" << std::endl;
     std::vector<uchar> marker_ids;
 
-    for (int i = 0; i < total_marker; i++)
-    {
+    for (int i = 0; i < total_marker; i++) {
         valid = false;
         int current_id;
-        do
-        {
+        do {
             std::cout << "Please insert the ID for marker " << (i + 1) << std::endl;
             std::cin >> current_id;
-            if (std::cin.fail())
-            {
+            if (std::cin.fail()) {
                 std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
                 valid = false;
-            }
-            else if (total_marker > MAX_MARKER_NUMBER || total_marker < 0)
-            {
+            } else if (total_marker > MAX_MARKER_NUMBER || total_marker < 0) {
                 std::cout << std::endl << "Please Enter A number within the range (0-255)" << std::endl;
                 valid = false;
-            }
-            else
-            {
+            } else {
                 valid = true;
                 marker_ids.push_back(current_id & 0xff);
             }
@@ -82,8 +68,7 @@ std::vector<uchar> id_array()
 }
 
 
-void add_to_dictionary(marker_dict &dict, int id)
-{
+void add_to_dictionary(marker_dict &dict, int id) {
 /* Needs changing to support a variable enum size
  *
  * */
@@ -92,65 +77,54 @@ void add_to_dictionary(marker_dict &dict, int id)
 
     int choice;
     bool valid = false;
-    do
-    {
+    do {
         std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
         std::cout << "-------------------------------------------------------------------------------" << std::endl;
         // Print Menu
-        // for(int i =0; i < states[STATES_NR_ITEMS]; i++){
-        //     std::cout << i << "\n";
-        // }
+        for (int i = 0; i < (int)states::STATES_NR_ITEMS; i++) {
+            std::cout << i << "\n";
+        }
 
-
-
-
-         std::cout  << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
         std::cin >> choice;
-        if (std::cin.fail())
-        {
+        if (std::cin.fail()) {
             std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
             valid = false;
-        }
-        else if (choice > 4 || choice < 0)
-        {
+        } else if (choice > 4 || choice < 0) {
             std::cout << std::endl << "Please Enter A valid choice (0-4)" << std::endl;
             valid = false;
-        }
-        else
-        {
+        } else {
             valid = true;
         }
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     } while (!valid);
     states curr_state;
-    switch (choice)
-    {
-    case 0:
-        curr_state = states::STOP;
-        break;
-    case 1:
-        curr_state = states::FORWARD;
-        break;
-    case 2:
-        curr_state = states::BACKWARD;
-        break;
-    case 3:
-        curr_state = states::TURN_L;
-        break;
-    case 4:
-        curr_state = states::TURN_R;
-        break;
-    default:
-        curr_state = states::STOP;
-        break;
+    switch (choice) {
+        case 0:
+            curr_state = states::STOP;
+            break;
+        case 1:
+            curr_state = states::FORWARD;
+            break;
+        case 2:
+            curr_state = states::BACKWARD;
+            break;
+        case 3:
+            curr_state = states::TURN_L;
+            break;
+        case 4:
+            curr_state = states::TURN_R;
+            break;
+        default:
+            curr_state = states::STOP;
+            break;
     }
     dict.add_marker(id, curr_state);
 }
 
 
-int main()
-{
+int main() {
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Marker Generator" << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
@@ -169,9 +143,8 @@ int main()
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Id Array Size : " << curr_id_array.size() << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
-    
-    for (unsigned char i : curr_id_array)
-    {
+
+    for (unsigned char i: curr_id_array) {
 
         cv::Mat marker;
         uchar id = i;
@@ -186,7 +159,7 @@ int main()
     }
 
     md->print_dict();
-    std::cout << * md << std::endl;
+    std::cout << *md << std::endl;
     md->save_dict();
     return 0;
 }

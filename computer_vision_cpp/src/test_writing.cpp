@@ -7,7 +7,6 @@
 
 int main (){
     cv::Mat m = cv::Mat::ones(10,10, CV_8UC3);
-
     m.setTo(cv::Scalar(1,1,1));
     std::cout << cv::format(m, cv::Formatter::FMT_NUMPY) << "\n";
     std::cout << m.size() << "\n";

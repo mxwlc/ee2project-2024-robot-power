@@ -8,14 +8,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 find_package( OpenCV REQUIRED )
 #include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-MESSAGE(STATUS "Include dirs ${OpenCV_INCLUDE_DIRS}")
-MESSAGE(STATUS "LINK LIBRARIES ${OpenCV_LIBS}")
+MESSAGE(STATUS "OpenCV_INCLUDE_DIRS :  ${OpenCV_INCLUDE_DIRS}")
+MESSAGE(STATUS "OpenCV_LIBS :  ${OpenCV_LIBS}")
 
 set(INCLUDE ${PROJECT_SOURCE_DIR}/include/ CACHE FILEPATH "Include")
 
 file(GLOB ALL_FILES
         "${PROJECT_SOURCE_DIR}/src/*.c",
         "${PROJECT_SOURCE_DIR}/src/marker_dict.cpp",
+        "${PROJECT_SOURCE_DIR}/src/overlay.cpp",
         "${PROJECT_SOURCE_DIR}/include/*.h",
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
 )

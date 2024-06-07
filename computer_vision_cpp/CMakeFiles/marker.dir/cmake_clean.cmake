@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/marker.dir/src/marker_dict.o.d"
   "CMakeFiles/marker.dir/src/marker_gen.o"
   "CMakeFiles/marker.dir/src/marker_gen.o.d"
+  "CMakeFiles/marker.dir/src/overlay.o"
+  "CMakeFiles/marker.dir/src/overlay.o.d"
   "bin/marker"
   "bin/marker.pdb"
 )

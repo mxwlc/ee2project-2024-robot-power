@@ -223,6 +223,30 @@ src/marker_gen.s:
 .PHONY : src/marker_gen.s
 
 # target to build an object file
+src/overlay.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.o
+.PHONY : src/overlay.o
+
+# target to preprocess a source file
+src/overlay.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.i
+.PHONY : src/overlay.i
+
+# target to generate assembly for a file
+src/overlay.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.s
+.PHONY : src/overlay.s
+
+# target to build an object file
 src/test_writing.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.o
 .PHONY : src/test_writing.o
@@ -273,6 +297,9 @@ help:
 	@echo "... src/marker_gen.o"
 	@echo "... src/marker_gen.i"
 	@echo "... src/marker_gen.s"
+	@echo "... src/overlay.o"
+	@echo "... src/overlay.i"
+	@echo "... src/overlay.s"
 	@echo "... src/test_writing.o"
 	@echo "... src/test_writing.i"
 	@echo "... src/test_writing.s"

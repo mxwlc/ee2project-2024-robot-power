@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EE2_COMPUTER_VISION_MARKER_DICT_HPP
+#define EE2_COMPUTER_VISION_MARKER_DICT_HPP
 
 #include <fstream>
 #include <iostream>
@@ -73,3 +74,5 @@ public:
 
 // Cout class#
 std::ostream &operator<<(std::ostream &os, marker_dict const &m);
+
+#endif //EE2_COMPUTER_VISION_MARKER_DICT_HPP

@@ -180,6 +180,12 @@
 			<Option target="detector"/>
 			<Option target="test_memory"/>
 		</Unit>
+		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/overlay.hpp">
+			<Option target="camera_test"/>
+			<Option target="marker"/>
+			<Option target="detector"/>
+			<Option target="test_memory"/>
+		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp">
 			<Option target="detector"/>
 		</Unit>
@@ -191,6 +197,12 @@
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_gen.cpp">
 			<Option target="marker"/>
+		</Unit>
+		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp">
+			<Option target="camera_test"/>
+			<Option target="marker"/>
+			<Option target="detector"/>
+			<Option target="test_memory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp">
 			<Option target="test_memory"/>

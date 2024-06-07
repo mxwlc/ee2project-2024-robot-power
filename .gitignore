@@ -1,12 +1,12 @@
 /Makefile
-computer_vision_cpp/markers/*.bmp
-computer_vision_py/venv/
+/computer_vision_cpp/markers/*.bmp
+/computer_vision_py/venv/
 .*
 !.gitignore
 
-computer_vision_cpp/bin/
-computer_vision_cpp/output/
-computer_vision_cpp/Testing/
-computer_vision_cpp/CMakeFiles/
-computer_vision_cpp/cmake-build-debug/
-computer_vision_cpp/CMakeCache.txt
+/computer_vision_cpp/bin/
+/computer_vision_cpp/output/
+/computer_vision_cpp/Testing/
+/computer_vision_cpp/CMakeFiles/
+/computer_vision_cpp/cmake-build-debug/
+/computer_vision_cpp/CMakeCache.txt

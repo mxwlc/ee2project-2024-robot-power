@@ -28,5 +28,15 @@
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
   "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/detector.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/test_memory.dir/src/test_writing.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/test_memory.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
 }
 ]

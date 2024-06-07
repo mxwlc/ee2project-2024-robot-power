@@ -54,4 +54,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/camera_test.dir/DependInfo.cmake"
   "CMakeFiles/marker.dir/DependInfo.cmake"
   "CMakeFiles/detector.dir/DependInfo.cmake"
+  "CMakeFiles/test_memory.dir/DependInfo.cmake"
   )

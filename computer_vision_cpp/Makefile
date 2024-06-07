@@ -155,6 +155,19 @@ detector/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/build
 .PHONY : detector/fast
 
+#=============================================================================
+# Target rules for targets named test_memory
+
+# Build rule for target.
+test_memory: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_memory
+.PHONY : test_memory
+
+# fast build rule for target.
+test_memory/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/build
+.PHONY : test_memory/fast
+
 # target to build an object file
 src/marker_detection.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.o
@@ -175,6 +188,7 @@ src/marker_dict.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.o
 .PHONY : src/marker_dict.o
 
 # target to preprocess a source file
@@ -182,6 +196,7 @@ src/marker_dict.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.i
 .PHONY : src/marker_dict.i
 
 # target to generate assembly for a file
@@ -189,6 +204,7 @@ src/marker_dict.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.s
 .PHONY : src/marker_dict.s
 
 # target to build an object file
@@ -205,6 +221,21 @@ src/marker_gen.i:
 src/marker_gen.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_gen.s
 .PHONY : src/marker_gen.s
+
+# target to build an object file
+src/test_writing.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.o
+.PHONY : src/test_writing.o
+
+# target to preprocess a source file
+src/test_writing.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.i
+.PHONY : src/test_writing.i
+
+# target to generate assembly for a file
+src/test_writing.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.s
+.PHONY : src/test_writing.s
 
 # target to build an object file
 src/webcam_test.o:
@@ -232,6 +263,7 @@ help:
 	@echo "... camera_test"
 	@echo "... detector"
 	@echo "... marker"
+	@echo "... test_memory"
 	@echo "... src/marker_detection.o"
 	@echo "... src/marker_detection.i"
 	@echo "... src/marker_detection.s"
@@ -241,6 +273,9 @@ help:
 	@echo "... src/marker_gen.o"
 	@echo "... src/marker_gen.i"
 	@echo "... src/marker_gen.s"
+	@echo "... src/test_writing.o"
+	@echo "... src/test_writing.i"
+	@echo "... src/test_writing.s"
 	@echo "... src/webcam_test.o"
 	@echo "... src/webcam_test.i"
 	@echo "... src/webcam_test.s"

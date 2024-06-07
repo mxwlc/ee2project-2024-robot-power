@@ -3,3 +3,8 @@ computer_vision_cpp/markers/*.bmp
 computer_vision_py/venv/
 .*
 !.gitignore
+
+computer_vision_cpp/bin.
+computer_vision_cpp/output
+computer_vision_cpp/Testing
+

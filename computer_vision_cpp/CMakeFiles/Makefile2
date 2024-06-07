@@ -66,6 +66,7 @@ CMAKE_BINARY_DIR = /home/maxwe/Documents/ee2project24/ee2project-2024-robot-powe
 all: CMakeFiles/camera_test.dir/all
 all: CMakeFiles/marker.dir/all
 all: CMakeFiles/detector.dir/all
+all: CMakeFiles/test_memory.dir/all
 all: src/all
 .PHONY : all
 
@@ -77,6 +78,7 @@ preinstall: src/preinstall
 clean: CMakeFiles/camera_test.dir/clean
 clean: CMakeFiles/marker.dir/clean
 clean: CMakeFiles/detector.dir/clean
+clean: CMakeFiles/test_memory.dir/clean
 clean: src/clean
 .PHONY : clean
 
@@ -172,6 +174,32 @@ detector: CMakeFiles/detector.dir/rule
 CMakeFiles/detector.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/clean
 .PHONY : CMakeFiles/detector.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_memory.dir
+
+# All Build rule for target.
+CMakeFiles/test_memory.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=10,11,12 "Built target test_memory"
+.PHONY : CMakeFiles/test_memory.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_memory.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_memory.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 0
+.PHONY : CMakeFiles/test_memory.dir/rule
+
+# Convenience name for target.
+test_memory: CMakeFiles/test_memory.dir/rule
+.PHONY : test_memory
+
+# clean rule for target.
+CMakeFiles/test_memory.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/clean
+.PHONY : CMakeFiles/test_memory.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

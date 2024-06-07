@@ -15,15 +15,28 @@ set(INCLUDE ${PROJECT_SOURCE_DIR}/include/ CACHE FILEPATH "Include")
 
 file(GLOB ALL_FILES
         "${PROJECT_SOURCE_DIR}/src/*.c",
-        "${PROJECT_SOURCE_DIR}/src/marker_dict.cpp",
-        "${PROJECT_SOURCE_DIR}/src/overlay.cpp",
+        "${PROJECT_SOURCE_DIR}/src/*.cpp",
         "${PROJECT_SOURCE_DIR}/include/*.h",
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
 )
 
+list(APPEND EXCLUDE_FILES
+        "${PROJECT_SOURCE_DIR}/src/marker_gen.cpp",
+        "${PROJECT_SOURCE_DIR}/src/marker_detection.cpp",
+        "${PROJECT_SOURCE_DIR}/src/test_writing.cpp",
+        "${PROJECT_SOURCE_DIR}/src/webcam_test.cpp"
+)
+
+
+
+list(REMOVE_ITEM ALL_FILES ${EXCLUDE_FILES})
 
 add_subdirectory(src)
 link_directories(include)
+
+include_directories( include )
+
+
 
 add_executable( camera_test ${PROJECT_SOURCE_DIR}/src/webcam_test.cpp ${ALL_FILES} )
 add_executable( marker ${PROJECT_SOURCE_DIR}/src/marker_gen.cpp ${ALL_FILES} )

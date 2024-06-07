@@ -24,6 +24,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -41,6 +42,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -58,6 +60,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -75,6 +78,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -92,6 +96,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -109,6 +114,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include"/>
 					<Add directory="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
@@ -186,6 +192,12 @@
 			<Option target="detector"/>
 			<Option target="test_memory"/>
 		</Unit>
+		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/square_overlay.hpp">
+			<Option target="camera_test"/>
+			<Option target="marker"/>
+			<Option target="detector"/>
+			<Option target="test_memory"/>
+		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp">
 			<Option target="detector"/>
 		</Unit>
@@ -199,6 +211,12 @@
 			<Option target="marker"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp">
+			<Option target="camera_test"/>
+			<Option target="marker"/>
+			<Option target="detector"/>
+			<Option target="test_memory"/>
+		</Unit>
+		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp">
 			<Option target="camera_test"/>
 			<Option target="marker"/>
 			<Option target="detector"/>

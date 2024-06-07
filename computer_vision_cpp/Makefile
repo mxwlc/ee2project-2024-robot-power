@@ -247,6 +247,30 @@ src/overlay.s:
 .PHONY : src/overlay.s
 
 # target to build an object file
+src/square_overlay.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.o
+.PHONY : src/square_overlay.o
+
+# target to preprocess a source file
+src/square_overlay.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.i
+.PHONY : src/square_overlay.i
+
+# target to generate assembly for a file
+src/square_overlay.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.s
+.PHONY : src/square_overlay.s
+
+# target to build an object file
 src/test_writing.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.o
 .PHONY : src/test_writing.o
@@ -300,6 +324,9 @@ help:
 	@echo "... src/overlay.o"
 	@echo "... src/overlay.i"
 	@echo "... src/overlay.s"
+	@echo "... src/square_overlay.o"
+	@echo "... src/square_overlay.i"
+	@echo "... src/square_overlay.s"
 	@echo "... src/test_writing.o"
 	@echo "... src/test_writing.i"
 	@echo "... src/test_writing.s"

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4
+CXX_INCLUDES = -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4
 
 CXX_FLAGS = -g -fdiagnostics-color=always
 

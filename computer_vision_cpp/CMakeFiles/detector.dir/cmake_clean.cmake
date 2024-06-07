@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/detector.dir/src/marker_dict.o.d"
   "CMakeFiles/detector.dir/src/overlay.o"
   "CMakeFiles/detector.dir/src/overlay.o.d"
+  "CMakeFiles/detector.dir/src/square_overlay.o"
+  "CMakeFiles/detector.dir/src/square_overlay.o.d"
   "bin/detector"
   "bin/detector.pdb"
 )

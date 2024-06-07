@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/marker.dir/src/marker_gen.o.d"
   "CMakeFiles/marker.dir/src/overlay.o"
   "CMakeFiles/marker.dir/src/overlay.o.d"
+  "CMakeFiles/marker.dir/src/square_overlay.o"
+  "CMakeFiles/marker.dir/src/square_overlay.o.d"
   "bin/marker"
   "bin/marker.pdb"
 )

@@ -16,7 +16,7 @@ done
 
 
 echo "================================================" >> appendix.txt
-echo "Header Files" >> appendix.txt
+echo "Source Files" >> appendix.txt
 echo "================================================" >> appendix.txt
 for filename in src/*.cpp; do
   echo "--------------------" >> appendix.txt

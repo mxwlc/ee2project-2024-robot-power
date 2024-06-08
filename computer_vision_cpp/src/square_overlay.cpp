@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "../include/square_overlay.hpp"
-// TODO : IMPLEMENT SQUARE OVERLAY FUNCTIONS
 
 square_overlay::square_overlay(std::vector<cv::Point2i> &corners_in) {
 

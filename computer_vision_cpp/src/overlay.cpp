@@ -21,6 +21,7 @@ namespace overlay {
 
     std::ostream& operator<<(std::ostream& os, const overlay& o)
     {
-        return os;
+		std::string output("Empty overlay");
+        return os << output;
     }
 }

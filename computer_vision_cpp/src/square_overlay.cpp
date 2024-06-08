@@ -81,7 +81,7 @@ namespace overlay
 		return false;
 	}
 
-	std::vector<cv::Point2f> square_overlay::getCorners()
+	std::vector<cv::Point2f> square_overlay::getCorners() const
 	{
 		return corners;
 	}
@@ -106,5 +106,20 @@ namespace overlay
 			}
 		}
 	}
+	std::string square_overlay::print() const
+	{
+		std::string output;
+		output = "-- Square Overlay --\n";
+		std::vector<cv::Point2f> vertices = getCorners();
+		for(auto vertex : vertices){
+			output += ("(" + std::to_string(vertex.x) + ", " + std::to_string(vertex.y) + ")\n");
+		}
+		return output;
+	}
 
+	std::ostream& operator<<(std::ostream& os, const square_overlay& so)
+	{
+		std::string output = so.print();
+		return os << output;
+	}
 }

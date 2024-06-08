@@ -24,11 +24,12 @@ namespace overlay {
 
         void draw(cv::Mat& m);
 
-        std::vector<cv::Point2f> getCorners();
+        std::vector<cv::Point2f> getCorners() const;
 
+		std::string print() const;
     private:
         std::vector<cv::Point2f> corners;
     };
-
+	std::ostream& operator<<(std::ostream &os, square_overlay const& so);
 }
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP

@@ -18,14 +18,21 @@ namespace overlay {
         int right_pad;
 
     public:
-        column_overlay();
+		column_overlay();
 
         column_overlay(int left_pad, int right_pad);
 
-        bool within_bounds(std::vector<cv::Point2f>& marker);
+		int GetLeftPad() const;
+
+		int GetRightPad() const;
+
+		std::string print() const;
+
+		bool within_bounds(std::vector<cv::Point2f>& marker);
 
         void draw(cv::Mat& m);
     };
 
+	std::ostream& operator<<(std::ostream& os, column_overlay const& o);
 }
 #endif //EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP

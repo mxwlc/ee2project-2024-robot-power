@@ -37,4 +37,27 @@ namespace overlay
 		cv::line(m, cv::Point2f((window_width - right_pad_f), 0.0), cv::Point2f(
 			window_width - right_pad_f, window_height), cv::Scalar(0, 255, 0), 2);
 	}
+	int column_overlay::GetLeftPad() const
+	{
+		return left_pad;
+	}
+	int column_overlay::GetRightPad() const
+	{
+		return right_pad;
+	}
+	std::string column_overlay::print() const
+	{
+		std::string output;
+		output = std::string("--Column Overlay--\n") + std::string("Left Padding : ") + std::to_string(GetLeftPad())
+				 + std::string("\n") + std::string("Right Padding : ") + std::to_string(GetRightPad())
+				 + std::string("\n");
+		return output;
+	}
+
+	std::ostream& operator<<(std::ostream& os, const column_overlay& o)
+	{
+		std::string output;
+		output = o.print();
+		return os << output;
+	}
 }

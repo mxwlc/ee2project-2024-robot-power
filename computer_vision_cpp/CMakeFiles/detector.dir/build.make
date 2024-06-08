@@ -83,10 +83,24 @@ CMakeFiles/detector.dir/src/marker_detection.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/marker_detection.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp -o CMakeFiles/detector.dir/src/marker_detection.s
 
+CMakeFiles/detector.dir/src/column_overlay.o: CMakeFiles/detector.dir/flags.make
+CMakeFiles/detector.dir/src/column_overlay.o: src/column_overlay.cpp
+CMakeFiles/detector.dir/src/column_overlay.o: CMakeFiles/detector.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/detector.dir/src/column_overlay.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/column_overlay.o -MF CMakeFiles/detector.dir/src/column_overlay.o.d -o CMakeFiles/detector.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp
+
+CMakeFiles/detector.dir/src/column_overlay.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/detector.dir/src/column_overlay.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp > CMakeFiles/detector.dir/src/column_overlay.i
+
+CMakeFiles/detector.dir/src/column_overlay.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/column_overlay.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp -o CMakeFiles/detector.dir/src/column_overlay.s
+
 CMakeFiles/detector.dir/src/marker_dict.o: CMakeFiles/detector.dir/flags.make
 CMakeFiles/detector.dir/src/marker_dict.o: src/marker_dict.cpp
 CMakeFiles/detector.dir/src/marker_dict.o: CMakeFiles/detector.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/detector.dir/src/marker_dict.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/detector.dir/src/marker_dict.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/marker_dict.o -MF CMakeFiles/detector.dir/src/marker_dict.o.d -o CMakeFiles/detector.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
 
 CMakeFiles/detector.dir/src/marker_dict.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/detector.dir/src/marker_dict.s: cmake_force
 CMakeFiles/detector.dir/src/overlay.o: CMakeFiles/detector.dir/flags.make
 CMakeFiles/detector.dir/src/overlay.o: src/overlay.cpp
 CMakeFiles/detector.dir/src/overlay.o: CMakeFiles/detector.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/detector.dir/src/overlay.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/detector.dir/src/overlay.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/overlay.o -MF CMakeFiles/detector.dir/src/overlay.o.d -o CMakeFiles/detector.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp
 
 CMakeFiles/detector.dir/src/overlay.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/detector.dir/src/overlay.s: cmake_force
 CMakeFiles/detector.dir/src/square_overlay.o: CMakeFiles/detector.dir/flags.make
 CMakeFiles/detector.dir/src/square_overlay.o: src/square_overlay.cpp
 CMakeFiles/detector.dir/src/square_overlay.o: CMakeFiles/detector.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/detector.dir/src/square_overlay.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/detector.dir/src/square_overlay.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/square_overlay.o -MF CMakeFiles/detector.dir/src/square_overlay.o.d -o CMakeFiles/detector.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp
 
 CMakeFiles/detector.dir/src/square_overlay.i: cmake_force
@@ -128,6 +142,7 @@ CMakeFiles/detector.dir/src/square_overlay.s: cmake_force
 # Object files for target detector
 detector_OBJECTS = \
 "CMakeFiles/detector.dir/src/marker_detection.o" \
+"CMakeFiles/detector.dir/src/column_overlay.o" \
 "CMakeFiles/detector.dir/src/marker_dict.o" \
 "CMakeFiles/detector.dir/src/overlay.o" \
 "CMakeFiles/detector.dir/src/square_overlay.o"
@@ -136,6 +151,7 @@ detector_OBJECTS = \
 detector_EXTERNAL_OBJECTS =
 
 bin/detector: CMakeFiles/detector.dir/src/marker_detection.o
+bin/detector: CMakeFiles/detector.dir/src/column_overlay.o
 bin/detector: CMakeFiles/detector.dir/src/marker_dict.o
 bin/detector: CMakeFiles/detector.dir/src/overlay.o
 bin/detector: CMakeFiles/detector.dir/src/square_overlay.o
@@ -194,7 +210,7 @@ bin/detector: /usr/local/lib/libopencv_photo.so.4.10.0
 bin/detector: /usr/local/lib/libopencv_imgproc.so.4.10.0
 bin/detector: /usr/local/lib/libopencv_core.so.4.10.0
 bin/detector: CMakeFiles/detector.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable bin/detector"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable bin/detector"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/detector.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

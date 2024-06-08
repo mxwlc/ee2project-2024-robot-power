@@ -12,15 +12,22 @@
 #include "overlay.hpp"
 
 
-
-
 class square_overlay : public overlay {
 public:
     square_overlay() = default;
 
-    square_overlay(const std::vector<cv::Point2i>&, cv::Mat &m);
+    square_overlay(std::vector<cv::Point2i> &);
+
+    square_overlay(int side_length);
 
     bool within_bounds(std::vector<cv::Point2i> &marker);
+
+    void draw(cv::Mat &m);
+
+    std::vector<cv::Point2i> getCorners();
+
+private:
+    std::vector<cv::Point2i> corners;
 };
 
 

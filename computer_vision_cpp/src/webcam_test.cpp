@@ -2,7 +2,9 @@
 // Created by maxwe on 25/05/24.
 //
 
+#include "../include/column_overlay.hpp"
 #include "../include/marker_dict.hpp"
+#include "../include/square_overlay.hpp"
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -18,11 +20,26 @@
 
 std::vector<int> translate_found_markers(std::shared_ptr<marker_dict> &md, std::vector<int> &input_ids) {
     std::vector<int> marker_states;
-    for (int i = 0; i < input_ids.size(); i++) {
-        int temp_id = input_ids[i];
-        marker_states.push_back(int(md->marker_translate(input_ids[i])));
+    for (int input_id : input_ids) {
+        marker_states.push_back(int(md->marker_translate(input_id)));
     }
     return marker_states;
+}
+
+void draw_center_poly_line(cv::Mat &m, int len){
+    int half_len = len / 2;
+    cv::Size m_size = m.size();
+    int y_0 = m_size.height / 2;
+    int x_0 = m_size.width / 2;
+    cv::Point2i center(x_0, y_0);
+    std::vector<cv::Point2i> box_add = {{half_len,  half_len},
+                                        {half_len,  -half_len},
+                                        {-half_len, -half_len},
+                                        {-half_len, half_len}};
+    for(cv::Point2i &vertex : box_add){
+        vertex = vertex + center;
+    }
+    cv::polylines(m, box_add, true,{0,255,0});
 }
 
 void draw_center(cv::Mat &m, int len) {
@@ -52,8 +69,16 @@ std::string gen_file_name_formatted(std::string key, std::string file_type) {
 
 
 int main() {
+    DEBUG_FLAG = true;
+
     cv::Mat frame;
+
+    square_overlay sq_o(100);
+    column_overlay c_o(200,200);
+
+    if(DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
     std::shared_ptr<marker_dict> md(new marker_dict("marker_dict"));
+
 
     // -- verify marker dict has been loaded properly --
     if (md->size_of_map() <= 1) {
@@ -63,7 +88,7 @@ int main() {
 
     // -- Video Capture Init --
     cv::VideoCapture cap;
-    cap.open(0);
+    cap.open(-1);
     if (!cap.isOpened()) {
         std::cerr << "Error : Unable to open Camera\n";
         return -1;
@@ -87,7 +112,7 @@ int main() {
         cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
         cv::aruco::ArucoDetector detector(dict, detector_params);
         detector.detectMarkers(frame, marker_corners, marker_ids, rejected_candidates);
-        if (!marker_ids.empty()) {
+        if (!marker_ids.empty() && DEBUG_FLAG) {
             for (int i = 0; i < marker_ids.size(); ++i) {
                 std::cout << marker_ids[i] << '\n';
                 int k = 0;
@@ -100,8 +125,12 @@ int main() {
 
         std::vector<int> marker_states = translate_found_markers(md, marker_ids);
 
+        // Draw Polygon Boundaries
+        if(DEBUG_FLAG) std::cout << "Draw\n";
 
-        draw_center(frame, 100);
+        sq_o.draw(frame);
+        c_o.draw(frame);
+
         cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 
         cv::imshow("Live", frame);

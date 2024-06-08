@@ -169,6 +169,30 @@ test_memory/fast:
 .PHONY : test_memory/fast
 
 # target to build an object file
+src/column_overlay.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.o
+.PHONY : src/column_overlay.o
+
+# target to preprocess a source file
+src/column_overlay.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.i
+.PHONY : src/column_overlay.i
+
+# target to generate assembly for a file
+src/column_overlay.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.s
+.PHONY : src/column_overlay.s
+
+# target to build an object file
 src/marker_detection.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.o
 .PHONY : src/marker_detection.o
@@ -312,6 +336,9 @@ help:
 	@echo "... detector"
 	@echo "... marker"
 	@echo "... test_memory"
+	@echo "... src/column_overlay.o"
+	@echo "... src/column_overlay.i"
+	@echo "... src/column_overlay.s"
 	@echo "... src/marker_detection.o"
 	@echo "... src/marker_detection.i"
 	@echo "... src/marker_detection.s"

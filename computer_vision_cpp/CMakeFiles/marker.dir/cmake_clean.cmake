@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/marker.dir/src/column_overlay.o"
+  "CMakeFiles/marker.dir/src/column_overlay.o.d"
   "CMakeFiles/marker.dir/src/marker_dict.o"
   "CMakeFiles/marker.dir/src/marker_dict.o.d"
   "CMakeFiles/marker.dir/src/marker_gen.o"

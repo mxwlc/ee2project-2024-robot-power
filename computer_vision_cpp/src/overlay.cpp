@@ -4,17 +4,15 @@
 #include "../include/overlay.hpp"
 
 overlay::overlay() {
-    *corners = {};
-    height = 0;
-    length = 0;
+    window_height = WINDOW_HEIGHT;
+    window_width = WINDOW_WIDTH;
 }
 
-overlay::~overlay() {
-    delete corners;
-}
+overlay::~overlay() {}
 
 bool overlay::within_bounds() {
-    // debug ig
     return false;
 }
+
+void overlay::draw() {}
 

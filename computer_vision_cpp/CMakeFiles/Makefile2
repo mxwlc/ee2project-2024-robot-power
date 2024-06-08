@@ -76,6 +76,7 @@ preinstall: src/preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/clear.dir/clean
+clean: CMakeFiles/appendix.dir/clean
 clean: CMakeFiles/MarkerDetect.dir/clean
 clean: CMakeFiles/MarkerGen.dir/clean
 clean: CMakeFiles/ImageDetector.dir/clean
@@ -105,7 +106,7 @@ src/clean:
 CMakeFiles/clear.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear.dir/build.make CMakeFiles/clear.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear.dir/build.make CMakeFiles/clear.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=25 "Built target clear"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=26 "Built target clear"
 .PHONY : CMakeFiles/clear.dir/all
 
 # Build rule for subdir invocation for target.
@@ -123,6 +124,32 @@ clear: CMakeFiles/clear.dir/rule
 CMakeFiles/clear.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear.dir/build.make CMakeFiles/clear.dir/clean
 .PHONY : CMakeFiles/clear.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/appendix.dir
+
+# All Build rule for target.
+CMakeFiles/appendix.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/appendix.dir/build.make CMakeFiles/appendix.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/appendix.dir/build.make CMakeFiles/appendix.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=25 "Built target appendix"
+.PHONY : CMakeFiles/appendix.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/appendix.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/appendix.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 0
+.PHONY : CMakeFiles/appendix.dir/rule
+
+# Convenience name for target.
+appendix: CMakeFiles/appendix.dir/rule
+.PHONY : appendix
+
+# clean rule for target.
+CMakeFiles/appendix.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/appendix.dir/build.make CMakeFiles/appendix.dir/clean
+.PHONY : CMakeFiles/appendix.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/MarkerDetect.dir

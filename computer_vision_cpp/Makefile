@@ -130,6 +130,19 @@ clear/fast:
 .PHONY : clear/fast
 
 #=============================================================================
+# Target rules for targets named appendix
+
+# Build rule for target.
+appendix: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 appendix
+.PHONY : appendix
+
+# fast build rule for target.
+appendix/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/appendix.dir/build.make CMakeFiles/appendix.dir/build
+.PHONY : appendix/fast
+
+#=============================================================================
 # Target rules for targets named MarkerDetect
 
 # Build rule for target.
@@ -345,6 +358,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... appendix"
 	@echo "... clear"
 	@echo "... ImageDetector"
 	@echo "... MarkerDetect"

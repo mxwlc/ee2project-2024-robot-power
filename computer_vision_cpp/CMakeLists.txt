@@ -37,9 +37,21 @@ link_directories(include)
 include_directories( include )
 
 add_custom_target(clear
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
         COMMAND ${CMAKE_COMMAND} -E echo "Emptying /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
         COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
-        COMMENT "Clears /markers and/bin"
+        COMMENT "Clears /bin"
+        VERBATIM
+
+)
+
+add_custom_target(appendix
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Sending source code to appendix.txt"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/appendix.sh
+        COMMENT "Generates an Appendix containing all code."
         VERBATIM
 
 )

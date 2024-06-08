@@ -1,0 +1,973 @@
+================================================
+Header Files
+================================================
+--------------------
+include/column_overlay.hpp
+--------------------
+//
+// Created by maxwe on 08/06/24.
+//
+
+#ifndef EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
+#define EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
+
+#include "overlay.hpp"
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+
+namespace overlay {
+    class column_overlay : public overlay {
+    private:
+        int left_pad;
+
+        int right_pad;
+
+    public:
+        column_overlay();
+
+        column_overlay(int left_pad, int right_pad);
+
+        bool within_bounds(std::vector<cv::Point2f>& marker);
+
+        void draw(cv::Mat& m);
+    };
+
+}
+#endif //EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
+--------------------
+include/marker_dict.hpp
+--------------------
+
+
+#ifndef EE2_COMPUTER_VISION_MARKER_DICT_HPP
+#define EE2_COMPUTER_VISION_MARKER_DICT_HPP
+
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <opencv2/objdetect/aruco_detector.hpp>
+#include <opencv2/opencv.hpp>
+
+#pragma once
+namespace dictionary {
+/*
+This needs changing to add for more "jobs"
+*/
+    typedef enum {
+        STOP = 0,
+        FORWARD = 1,
+        BACKWARD = 2,
+        TURN_L = 3,
+        TURN_R = 4,
+        STATES_NR_ITEMS = 5
+    } states;
+
+    class marker_dict {
+    private:
+
+        // internal MarkID -> State mapping
+        std::map<int, states> marker_map;
+
+        // maps State to the corresponding label
+        std::map<states, std::string> enum_to_string = {{states::STOP, "STOP"},
+                {states::FORWARD, "FORWARD"},
+                {states::BACKWARD, "BACKWARD"},
+                {states::TURN_L, "TURN_L"},
+                {states::TURN_R, "TURN_R"},
+                {states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS))}};
+
+    public:
+        // Constructors
+        marker_dict();
+
+        marker_dict(std::map<int, states>& dict);
+
+        marker_dict(std::string filename);
+
+        // Destructor
+        ~marker_dict();
+
+        // Add {marker_id, state} pair to the internal marker map
+        void add_marker(int id, states marker_state);
+
+        // returns the state for a given id
+        states marker_translate(int id);
+
+        // debug : output entire map
+        std::map<int, states> return_dict() const;
+
+        // debug : prints the marker map hash
+        std::string print_dict() const;
+
+        // Stores the internal marker_map locally
+        void save_dict();
+
+        // debug : translates state enums to a corresponding string
+        std::string enum_string_translation(states in_state);
+
+        // returns the size of the internal marker map
+        int size_of_map();
+
+        // Read marker_map from a file
+        std::map<int, states> load_marker_map(std::string filename);
+    };
+
+// Cout class#
+    std::ostream& operator<<(std::ostream& os, marker_dict const& m);
+}
+
+#endif //EE2_COMPUTER_VISION_MARKER_DICT_HPP--------------------
+include/overlay.hpp
+--------------------
+//
+// Created by maxwe on 08/06/24.
+//
+#ifndef EE2_COMPUTER_VISION_OVERLAY_HPP
+#define EE2_COMPUTER_VISION_OVERLAY_HPP
+
+#include <iostream>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+
+#define quote(x) #x
+
+#pragma once
+namespace overlay {
+
+    static int WINDOW_HEIGHT = 480;
+    static int WINDOW_WIDTH = 640;
+    static bool DEBUG_FLAG;
+
+    class overlay {
+    protected:
+        int window_height;
+        int window_width;
+    public:
+        overlay();
+
+        virtual ~overlay();
+
+        virtual bool within_bounds();
+
+        virtual void draw();
+
+
+    };
+
+    std::ostream& operator<<(std::ostream& os, overlay const& o);
+}
+#endif //EE2_COMPUTER_VISION_OVERLAY_HPP
+--------------------
+include/square_overlay.hpp
+--------------------
+//
+// Created by maxwe on 07/06/24.
+//
+#pragma once
+
+#ifndef EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP
+#define EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP
+
+#include<opencv2/core.hpp>
+#include<map>
+#include<iostream>
+#include "overlay.hpp"
+
+namespace overlay {
+    class square_overlay : public overlay {
+    public:
+        square_overlay() = default;
+
+        square_overlay(std::vector<cv::Point2f>&);
+
+        explicit square_overlay(int side_length);
+
+        bool within_bounds(std::vector<cv::Point2f>& marker);
+
+        void draw(cv::Mat& m);
+
+        std::vector<cv::Point2f> getCorners();
+
+    private:
+        std::vector<cv::Point2f> corners;
+    };
+
+}
+#endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP
+================================================
+Header Files
+================================================
+--------------------
+src/column_overlay.cpp
+--------------------
+//
+// Created by maxwe on 08/06/24.
+//
+
+#include "column_overlay.hpp"
+// TODO : Simple position location
+namespace overlay
+{
+	column_overlay::column_overlay()
+	{
+		left_pad = 0;
+		right_pad = 0;
+	}
+
+	column_overlay::column_overlay(int left_pad_, int right_pad_) : left_pad(left_pad_), right_pad(right_pad_)
+	{
+	}
+
+	bool column_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	{
+		bool inside = false;
+		for (cv::Point2f vertex : marker)
+		{
+			inside = (vertex.x >= (float)left_pad && vertex.x <= (float)right_pad);
+		}
+		return inside;
+	}
+
+	void column_overlay::draw(cv::Mat& m)
+	{
+		auto left_pad_f = (float)left_pad;
+		auto right_pad_f = (float)right_pad;
+		auto window_width = (float)WINDOW_WIDTH;
+		auto window_height = (float)WINDOW_HEIGHT;
+		if (DEBUG_FLAG) std::cout << "Draw Column Overlay\n";
+		cv::line(m, cv::Point2f(left_pad_f, 0.0), cv::Point2f(left_pad_f, window_height), cv::Scalar(0, 255, 0), 2);
+		cv::line(m, cv::Point2f((window_width - right_pad_f), 0.0), cv::Point2f(
+			window_width - right_pad_f, window_height), cv::Scalar(0, 255, 0), 2);
+	}
+}
+--------------------
+src/marker_detect_camera.cpp
+--------------------
+//
+// Created by maxwe on 27/05/24.
+//
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <opencv2/objdetect/aruco_board.hpp>
+#include <opencv2/objdetect/aruco_detector.hpp>
+#include <opencv2/opencv.hpp>
+#include "../include/marker_dict.hpp"
+
+// TODO : Save map to local file for persistance
+
+#define MARKER_EDGE_SIZE = 200
+#define BORDER_SIZE = 1
+#define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
+
+
+int main()
+{
+    cv::Mat input_image;
+    cv::Mat raw_image;
+    int down_height = 600;
+    int down_width = down_height * 4/3;
+    raw_image = cv::imread("doc/arucofieldtest.jpg");
+    cv::resize(raw_image, input_image, cv::Size(down_width,down_height), cv::INTER_LINEAR);
+    cv::imshow("Test", input_image);
+    std::cout << input_image.size() << std::endl;
+    cv::waitKey(0);
+    if (!input_image.data)
+    {
+        exit(1);
+    }
+    std::vector<int> marker_ids;
+    std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
+    cv::aruco::DetectorParameters detector_params = cv::aruco::DetectorParameters();
+    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
+    cv::aruco::ArucoDetector detector(dict, detector_params);
+    detector.detectMarkers(input_image, marker_corners, marker_ids, rejected_candidates);
+    cv::Mat output_image;
+    output_image = input_image.clone();
+    cv::aruco::drawDetectedMarkers(output_image, marker_corners, marker_ids);
+    cv::imshow("Detected", output_image);
+    cv::waitKey(0);
+    cv::imwrite("output/detected_image.bmp", output_image);
+}
+
+--------------------
+src/marker_detect.cpp
+--------------------
+//
+// Created by maxwe on 25/05/24.
+//
+
+#include "../include/column_overlay.hpp"
+#include "../include/marker_dict.hpp"
+#include "../include/square_overlay.hpp"
+#include <ctime>
+#include <iostream>
+#include <map>
+#include <opencv2/highgui.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/videoio.hpp>
+#include <sstream>
+
+#define MARKER_EDGE_SIZE = 200
+#define BORDER_SIZE = 1
+#define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
+
+std::vector<int> translate_found_markers(std::shared_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
+{
+	std::vector<int> marker_states;
+	for (int input_id : input_ids)
+	{
+		marker_states.push_back(int(md->marker_translate(input_id)));
+	}
+	return marker_states;
+}
+
+std::string gen_file_name_formatted(const std::string& key, const std::string& file_type)
+{
+	std::time_t t = std::time(nullptr);
+	std::tm* now = std::localtime(&t);
+	std::ostringstream datestream;
+	datestream << std::put_time(now, "-%d%m%y-%H%M");
+	return "output/" + key + datestream.str() + "." + file_type;
+}
+
+int main()
+{
+	overlay::DEBUG_FLAG = true;
+
+	cv::Mat frame;
+
+	overlay::square_overlay sq_o(100);
+	overlay::column_overlay c_o(200, 200);
+
+	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
+	std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
+
+
+	// -- verify marker dict has been loaded properly --
+	if (md->size_of_map() <= 1)
+	{
+		std::cerr << "Error : marker_dict no initialised properly\n";
+		return 1;
+	}
+
+	// -- Video Capture Init --
+	cv::VideoCapture cap;
+	cap.open(-1);
+	if (!cap.isOpened())
+	{
+		std::cerr << "Error : Unable to open Camera\n";
+		return -1;
+	}
+
+	// -- Main Loop --
+	std::cout << "Press any key to terminate\n";
+	for (;;)
+	{
+		cap.read(frame);
+		int key_press = cv::waitKey(5);
+		// -- validate frame --
+		if (frame.empty())
+		{
+			std::cerr << "Error : Blank Frame Grabbed\n";
+			break;
+		}
+
+		std::vector<int> marker_ids;
+		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
+		cv::aruco::DetectorParameters detector_params = cv::aruco::DetectorParameters();
+		cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
+		cv::aruco::ArucoDetector detector(dict, detector_params);
+		detector.detectMarkers(frame, marker_corners, marker_ids, rejected_candidates);
+		if (!marker_ids.empty() && overlay::DEBUG_FLAG)
+		{
+			for (int i = 0; i < marker_ids.size(); ++i)
+			{
+				std::cout << marker_ids[i] << '\n';
+				int k = 0;
+				for (auto corner : marker_corners[i])
+				{
+					std::cout << "Point " << k << " : " << "( " << corner.x << ", " << corner.y << ")" << "\n";
+					k++;
+				}
+			}
+		}
+
+		std::vector<int> marker_states = translate_found_markers(md, marker_ids);
+
+		// Draw Polygon Boundaries
+		sq_o.draw(frame);
+		c_o.draw(frame);
+
+		if (overlay::DEBUG_FLAG)
+		{
+			for (int i = 0; i < marker_ids.size(); i++)
+			{
+				std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i])
+						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]);
+			}
+		}
+		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
+
+		cv::imshow("Live", frame);
+
+		// --  close window when key pressed --
+		if (key_press >= 0)
+		{
+			if (key_press == int('s'))
+			{
+				std::string format_str = gen_file_name_formatted("webcam", "bmp");
+				std::cout << "Saving to " << format_str << "\n";
+				cv::imwrite(format_str, frame);
+			}
+			break;
+		}
+	}
+
+	return 0;
+}
+
+--------------------
+src/marker_dict.cpp
+--------------------
+#include "../include/marker_dict.hpp"
+// TODO write comments and documentation
+
+namespace dictionary {
+    marker_dict::marker_dict()
+    {
+        /*
+         * Default constructor, initialises the map with a {0, STOP} pair
+         */
+        std::cout << "Marker Dictionary Initialisation Start" << std::endl;
+        std::map<int, states> temp_map({{0, states::STOP}});
+        marker_map = temp_map;
+        std::cout << "Marker Dictionary Initialisation End" << std::endl;
+    }
+
+    marker_dict::marker_dict(std::map<int, states>& dict)
+    {
+        /*
+         * Constructor setting the internal map to the provided arguement map
+         */
+        marker_map = dict;
+    }
+
+    marker_dict::marker_dict(std::string filename)
+    {
+        /*
+         * Constructor, setting marker map to the map stored in the provided text file
+         */
+        std::map<int, states> t_marker_map;
+        marker_map = load_marker_map(filename);
+    }
+
+    marker_dict::~marker_dict()
+    {
+        // Debug atm
+        // Destructor that tells the user when the marker dict object (and thus the shared_ptr to the object) leaves the current scope (or the ptr is deleted)
+        std::cout << "Marker Dictionary Leaves Scope" << std::endl;
+    }
+
+    void marker_dict::add_marker(int id, states marker_state)
+    {
+        /*
+         * Adds a {marker_id, state} Pair to the internal map
+         */
+        marker_map.insert({id, marker_state});
+    }
+
+    states marker_dict::marker_translate(int id)
+    {
+        /*
+         * Returns the corresponding enum State from the provided marker id
+         */
+        return marker_map[id];
+    }
+
+    std::map<int, states> marker_dict::return_dict() const
+    {
+        /*
+         * Returns the internal marker map object
+         */
+        return marker_map;
+    }
+
+    std::string marker_dict::print_dict() const
+    {
+        /*
+         * Debug print
+         * May haps be useless
+         */
+        std::string output;
+        std::string line;
+        output = std::string("ID, State \n")+std::string("{\n");
+        for (auto& t : marker_map) {
+            line = std::to_string(t.first)+std::string(" : ")+std::to_string(states(t.second))+std::string("\n");
+            output.append(line);
+        }
+        output.append("}\n");
+        return output;
+    }
+
+    void marker_dict::save_dict()
+    {
+        std::string filename("marker_dict");
+        std::ofstream outfile(filename);
+
+        if (!outfile.is_open()) {
+            std::cerr << "Failed to open file for writing: " << filename << std::endl;
+            return;
+        }
+        for (const auto& pair : marker_map) {
+            outfile << pair.first << " " << pair.second << std::endl;
+        }
+
+        outfile.close();
+
+        if (!outfile.good()) {
+            std::cerr << "Error occurred at writing time!" << std::endl;
+        }
+    }
+
+    int marker_dict::size_of_map()
+    {
+        return (int)marker_map.size();
+    }
+
+    std::map<int, states> marker_dict::load_marker_map(std::string filename)
+    {
+        std::ifstream input_file(filename);
+        std::map<int, states> marker_map_in;
+        if (!input_file) {
+            std::cerr << "Error : Cannot open file\n";
+            marker_map_in.insert({{0, states::STOP}});
+            return marker_map_in;
+        }
+        std::string key, value;
+        while (input_file >> key >> value) {
+            marker_map_in[std::stoi(key)] = (states) std::stoi(value);
+        }
+        return marker_map_in;
+    }
+
+    std::string marker_dict::enum_string_translation(states in_state)
+    {
+        return enum_to_string[in_state];
+    }
+
+    std::ostream& operator<<(std::ostream& os, marker_dict const& m)
+    {
+        std::string output = m.print_dict();
+        return os << output;
+    }
+}
+--------------------
+src/marker_gen.cpp
+--------------------
+//
+// Created by maxwe on 27/05/24.
+//
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <opencv2/objdetect/aruco_board.hpp>
+#include <opencv2/objdetect/aruco_detector.hpp>
+#include <opencv2/opencv.hpp>
+#include "../include/marker_dict.hpp"
+
+
+// TODO : Save map to local file for persistance
+
+#define MARKER_EDGE_SIZE  200
+#define BORDER_SIZE  1
+#define ARUCO_DICTIONARY cv::aruco::DICT_5X5_250
+#define MAX_MARKER_NUMBER 250
+
+
+std::vector<uchar> id_array() {
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+    bool valid = false;
+    int total_marker;
+    do {
+        std::cout << "Please insert the total Number of Markers You would Like to generate (1-10): ";
+        std::cin >> total_marker;
+        if (std::cin.fail()) {
+            std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+            valid = false;
+        } else if (total_marker > 10 || total_marker < 1) {
+            std::cout << std::endl << "Please Enter A number within the range (1-10)" << std::endl;
+            valid = false;
+        } else {
+            valid = true;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    } while (!valid);
+
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "You are generating " << total_marker << " marker(s)" << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+    std::vector<uchar> marker_ids;
+
+    for (int i = 0; i < total_marker; i++) {
+        valid = false;
+        int current_id;
+        do {
+            std::cout << "Please insert the ID for marker " << (i + 1) << std::endl;
+            std::cin >> current_id;
+            if (std::cin.fail()) {
+                std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+                valid = false;
+            } else if (total_marker > MAX_MARKER_NUMBER || total_marker < 0) {
+                std::cout << std::endl << "Please Enter A number within the range (0-255)" << std::endl;
+                valid = false;
+            } else {
+                valid = true;
+                marker_ids.push_back(current_id & 0xff);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } while (!valid);
+    }
+    return marker_ids;
+}
+
+
+void add_to_dictionary(dictionary::marker_dict &dict, int id) {
+/* Needs changing to support a variable enum size
+ *
+ * */
+
+
+
+    int choice;
+    bool valid = false;
+    do {
+        std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        // Print Menu
+        for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++) {
+            std::cout << i << "\n";
+        }
+
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        std::cin >> choice;
+        if (std::cin.fail()) {
+            std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
+            valid = false;
+        } else if (choice > 4 || choice < 0) {
+            std::cout << std::endl << "Please Enter A valid choice (0-4)" << std::endl;
+            valid = false;
+        } else {
+            valid = true;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    } while (!valid);
+    dictionary::states curr_state;
+    switch (choice) {
+        case 0:
+            curr_state = dictionary::states::STOP;
+            break;
+        case 1:
+            curr_state = dictionary::states::FORWARD;
+            break;
+        case 2:
+            curr_state = dictionary::states::BACKWARD;
+            break;
+        case 3:
+            curr_state = dictionary::states::TURN_L;
+            break;
+        case 4:
+            curr_state = dictionary::states::TURN_R;
+            break;
+        default:
+            curr_state = dictionary::states::STOP;
+            break;
+    }
+    dict.add_marker(id, curr_state);
+}
+
+
+int main() {
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "Marker Generator" << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+    std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict());
+
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "Loading Predefined Dictionary" << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+    cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
+
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+    std::cout << "Dictionary Initiated at memory address " << &md << std::endl;
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+
+    std::vector<uchar> curr_id_array = id_array();
+    std::cout << "-------------------------------------------------------------------------------" << std::endl
+              << "Id Array Size : " << curr_id_array.size() << std::endl
+              << "-------------------------------------------------------------------------------" << std::endl;
+
+    for (unsigned char i: curr_id_array) {
+
+        cv::Mat marker;
+        uchar id = i;
+        std::cout << "Generating Marker With id = " << int(i) << std::endl;
+        cv::aruco::generateImageMarker(dict, i, MARKER_EDGE_SIZE, marker, BORDER_SIZE);
+        std::string marker_filename = "markers/marker_id" + std::to_string(int(id)) + ".bmp";
+        cv::imwrite(marker_filename, marker);
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout << "Starting state selection logic" << std::endl;
+        add_to_dictionary(*md, id);
+        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+    }
+
+    md->print_dict();
+    std::cout << *md << std::endl;
+    md->save_dict();
+    return 0;
+}
+
+--------------------
+src/overlay.cpp
+--------------------
+//
+// Created by maxwe on 08/06/24.
+//
+#include "../include/overlay.hpp"
+
+namespace overlay {
+    overlay::overlay()
+    {
+        window_height = WINDOW_HEIGHT;
+        window_width = WINDOW_WIDTH;
+    }
+
+    overlay::~overlay() { }
+
+    bool overlay::within_bounds()
+    {
+        return false;
+    }
+
+    void overlay::draw() { }
+
+    std::ostream& operator<<(std::ostream& os, const overlay& o)
+    {
+        return os;
+    }
+}
+--------------------
+src/square_overlay.cpp
+--------------------
+//
+// Created by maxwe on 07/06/24.
+//
+
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+
+#include "../include/square_overlay.hpp"
+
+// TODO : Simple position location
+
+namespace overlay
+{
+	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)
+	{
+
+		corners = corners_in;
+		window_height = WINDOW_HEIGHT;
+		window_width = WINDOW_WIDTH;
+	}
+
+	square_overlay::square_overlay(int side_length)
+	{
+		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
+		auto window_width_f = (float)window_width;
+		auto window_height_f = (float)window_height;
+		auto x_0 = (float)(window_width_f / 2);
+		auto y_0 = (float)(window_height_f / 2);
+		auto half_len = (float)(side_length / 2);
+		cv::Point2f origin = cv::Point2f(x_0, y_0);
+
+		std::vector<cv::Point2f> box_vertices = { cv::Point2f(half_len, half_len), cv::Point2f(half_len, -half_len),
+			cv::Point2f(-half_len, -half_len), cv::Point2f(-half_len, half_len) };
+		for (auto& vertex : box_vertices)
+		{
+			vertex += origin;
+		}
+		corners = box_vertices;
+	}
+
+	bool square_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	{
+		for (cv::Point2f vertex : marker)
+		{
+			bool inside = false;
+			for (int i = 0; i < corners.size(); i++)
+			{
+				/*  *---------*
+				 *  |         |
+				 *  |    x----|
+				 *  |    |    |
+				 *  |    |    |
+				 *  *---------*
+				 */
+				cv::Point2f p1 = corners[i];
+				cv::Point2f p2 = corners[i + 1];
+				if (i == corners.size() - 1)
+				{
+					p2 = corners[0];
+				}
+				if (vertex.y > std::min(p1.y, p2.y))
+				{
+					if (vertex.y <= std::max(p1.y, p2.y))
+					{
+						if (vertex.x <= std::max(p1.x, p2.x))
+						{
+							if (p1.y != p2.y)
+							{
+								float x_intercept = ((vertex.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y)) + p1.x;
+								if (p1.x == p2.x || vertex.x <= x_intercept)
+								{
+									inside = !inside;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	std::vector<cv::Point2f> square_overlay::getCorners()
+	{
+		return corners;
+	}
+
+	void square_overlay::draw(cv::Mat& m)
+	{
+		// God knows why this is an issue :3
+
+		if (DEBUG_FLAG) std::cout << "Draw Square Overlay\n";
+
+// Poly lines only accepts integer points
+		std::vector<cv::Point2i> IntCornersVec;
+		cv::Mat FloatCorners(corners);
+		cv::Mat IntCorners;
+		FloatCorners.convertTo(IntCorners, CV_32S);
+		IntCorners.copyTo(IntCornersVec);
+		if (corners.size() > 1)
+		{
+			if (!IntCorners.empty())
+			{
+				cv::polylines(m, IntCorners, true, cv::Scalar(0, 255, 0), 2);
+			}
+		}
+	}
+
+}
+--------------------
+src/test_writing.cpp
+--------------------
+//
+// Created by maxwe on 06/06/24.
+//
+#include <iostream>
+#include <opencv2/core.hpp>
+
+
+int main (){
+    cv::Mat m = cv::Mat::ones(10,10, CV_8UC3);
+    m.setTo(cv::Scalar(1,1,1));
+    std::cout << cv::format(m, cv::Formatter::FMT_NUMPY) << "\n";
+    std::cout << m.size() << "\n";
+    std::cout << m.total() * m.elemSize() * 8 << "\n";
+    std::cout << sizeof(m) << "\n";
+    std::cout << "Hello World \n";
+}
+================================================
+CmakeFiles
+================================================
+--------------------
+CMakeLists.txt
+--------------------
+project(ee2-computer-vision)
+SET("OpenCV_DIR" "/usr/share/OpenCV")
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+
+find_package( OpenCV REQUIRED )
+#include_directories( ${OpenCV_INCLUDE_DIRS} )
+
+MESSAGE(STATUS "OpenCV_INCLUDE_DIRS :  ${OpenCV_INCLUDE_DIRS}")
+MESSAGE(STATUS "OpenCV_LIBS :  ${OpenCV_LIBS}")
+
+set(INCLUDE ${PROJECT_SOURCE_DIR}/include/ CACHE FILEPATH "Include")
+
+file(GLOB ALL_FILES
+        "${PROJECT_SOURCE_DIR}/src/*.c",
+        "${PROJECT_SOURCE_DIR}/src/*.cpp",
+        "${PROJECT_SOURCE_DIR}/include/*.h",
+        "${PROJECT_SOURCE_DIR}/include/*.hpp"
+)
+
+list(APPEND EXCLUDE_FILES
+        "${PROJECT_SOURCE_DIR}/src/marker_gen.cpp",
+        "${PROJECT_SOURCE_DIR}/src/marker_detect_camera.cpp",
+        "${PROJECT_SOURCE_DIR}/src/test_writing.cpp",
+        "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp"
+)
+
+
+
+list(REMOVE_ITEM ALL_FILES ${EXCLUDE_FILES})
+
+add_subdirectory(src)
+link_directories(include)
+
+include_directories( include )
+
+add_custom_target(clear
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Emptying /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
+        COMMENT "Clears /bin"
+        VERBATIM
+
+)
+
+add_custom_target(appendix
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Sending source code to appendix.txt"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/appendix.sh
+        COMMENT "Generates an Appendix containing all code."
+        VERBATIM
+
+)
+
+add_executable( MarkerDetect ${PROJECT_SOURCE_DIR}/src/marker_detect.cpp ${ALL_FILES} )
+add_executable( MarkerGen ${PROJECT_SOURCE_DIR}/src/marker_gen.cpp ${ALL_FILES} )
+add_executable( ImageDetector ${PROJECT_SOURCE_DIR}/src/marker_detect_camera.cpp ${ALL_FILES} )
+add_executable( TestMemory ${PROJECT_SOURCE_DIR}/src/test_writing.cpp ${ALL_FILES} )
+
+target_link_libraries( MarkerDetect ${OpenCV_LIBS} )
+target_link_libraries( MarkerGen ${OpenCV_LIBS} )
+target_link_libraries( ImageDetector ${OpenCV_LIBS} )
+target_link_libraries( TestMemory ${OpenCV_LIBS} )
+
+target_include_directories( MarkerDetect PRIVATE ${INCLUDE}/include )
+target_include_directories( MarkerGen PRIVATE ${INCLUDE}/include )
+target_include_directories( ImageDetector PRIVATE ${INCLUDE}/include )
+target_include_directories( TestMemory PRIVATE ${INCLUDE/}include )

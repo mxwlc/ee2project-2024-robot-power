@@ -117,212 +117,225 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named camera_test
+# Target rules for targets named clear
 
 # Build rule for target.
-camera_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 camera_test
-.PHONY : camera_test
+clear: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clear
+.PHONY : clear
 
 # fast build rule for target.
-camera_test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/build
-.PHONY : camera_test/fast
+clear/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear.dir/build.make CMakeFiles/clear.dir/build
+.PHONY : clear/fast
 
 #=============================================================================
-# Target rules for targets named marker
+# Target rules for targets named MarkerDetect
 
 # Build rule for target.
-marker: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 marker
-.PHONY : marker
+MarkerDetect: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MarkerDetect
+.PHONY : MarkerDetect
 
 # fast build rule for target.
-marker/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/build
-.PHONY : marker/fast
+MarkerDetect/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/build
+.PHONY : MarkerDetect/fast
 
 #=============================================================================
-# Target rules for targets named detector
+# Target rules for targets named MarkerGen
 
 # Build rule for target.
-detector: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 detector
-.PHONY : detector
+MarkerGen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MarkerGen
+.PHONY : MarkerGen
 
 # fast build rule for target.
-detector/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/build
-.PHONY : detector/fast
+MarkerGen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/build
+.PHONY : MarkerGen/fast
 
 #=============================================================================
-# Target rules for targets named test_memory
+# Target rules for targets named ImageDetector
 
 # Build rule for target.
-test_memory: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_memory
-.PHONY : test_memory
+ImageDetector: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ImageDetector
+.PHONY : ImageDetector
 
 # fast build rule for target.
-test_memory/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/build
-.PHONY : test_memory/fast
+ImageDetector/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/build
+.PHONY : ImageDetector/fast
+
+#=============================================================================
+# Target rules for targets named TestMemory
+
+# Build rule for target.
+TestMemory: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TestMemory
+.PHONY : TestMemory
+
+# fast build rule for target.
+TestMemory/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/build
+.PHONY : TestMemory/fast
 
 # target to build an object file
 src/column_overlay.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/column_overlay.o
 .PHONY : src/column_overlay.o
 
 # target to preprocess a source file
 src/column_overlay.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/column_overlay.i
 .PHONY : src/column_overlay.i
 
 # target to generate assembly for a file
 src/column_overlay.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/column_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/column_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/column_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/column_overlay.s
 .PHONY : src/column_overlay.s
 
 # target to build an object file
-src/marker_detection.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.o
-.PHONY : src/marker_detection.o
+src/marker_detect.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect.o
+.PHONY : src/marker_detect.o
 
 # target to preprocess a source file
-src/marker_detection.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.i
-.PHONY : src/marker_detection.i
+src/marker_detect.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect.i
+.PHONY : src/marker_detect.i
 
 # target to generate assembly for a file
-src/marker_detection.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_detection.s
-.PHONY : src/marker_detection.s
+src/marker_detect.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect.s
+.PHONY : src/marker_detect.s
+
+# target to build an object file
+src/marker_detect_camera.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.o
+.PHONY : src/marker_detect_camera.o
+
+# target to preprocess a source file
+src/marker_detect_camera.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.i
+.PHONY : src/marker_detect_camera.i
+
+# target to generate assembly for a file
+src/marker_detect_camera.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.s
+.PHONY : src/marker_detect_camera.s
 
 # target to build an object file
 src/marker_dict.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/marker_dict.o
 .PHONY : src/marker_dict.o
 
 # target to preprocess a source file
 src/marker_dict.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/marker_dict.i
 .PHONY : src/marker_dict.i
 
 # target to generate assembly for a file
 src/marker_dict.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/marker_dict.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_dict.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/marker_dict.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/marker_dict.s
 .PHONY : src/marker_dict.s
 
 # target to build an object file
 src/marker_gen.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_gen.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_gen.o
 .PHONY : src/marker_gen.o
 
 # target to preprocess a source file
 src/marker_gen.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_gen.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_gen.i
 .PHONY : src/marker_gen.i
 
 # target to generate assembly for a file
 src/marker_gen.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/marker_gen.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_gen.s
 .PHONY : src/marker_gen.s
 
 # target to build an object file
 src/overlay.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/overlay.o
 .PHONY : src/overlay.o
 
 # target to preprocess a source file
 src/overlay.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/overlay.i
 .PHONY : src/overlay.i
 
 # target to generate assembly for a file
 src/overlay.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/overlay.s
 .PHONY : src/overlay.s
 
 # target to build an object file
 src/square_overlay.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/square_overlay.o
 .PHONY : src/square_overlay.o
 
 # target to preprocess a source file
 src/square_overlay.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/square_overlay.i
 .PHONY : src/square_overlay.i
 
 # target to generate assembly for a file
 src/square_overlay.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/square_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker.dir/build.make CMakeFiles/marker.dir/src/square_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/detector.dir/build.make CMakeFiles/detector.dir/src/square_overlay.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/square_overlay.s
 .PHONY : src/square_overlay.s
 
 # target to build an object file
 src/test_writing.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/test_writing.o
 .PHONY : src/test_writing.o
 
 # target to preprocess a source file
 src/test_writing.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/test_writing.i
 .PHONY : src/test_writing.i
 
 # target to generate assembly for a file
 src/test_writing.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_memory.dir/build.make CMakeFiles/test_memory.dir/src/test_writing.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestMemory.dir/build.make CMakeFiles/TestMemory.dir/src/test_writing.s
 .PHONY : src/test_writing.s
-
-# target to build an object file
-src/webcam_test.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.o
-.PHONY : src/webcam_test.o
-
-# target to preprocess a source file
-src/webcam_test.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.i
-.PHONY : src/webcam_test.i
-
-# target to generate assembly for a file
-src/webcam_test.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/camera_test.dir/build.make CMakeFiles/camera_test.dir/src/webcam_test.s
-.PHONY : src/webcam_test.s
 
 # Help Target
 help:
@@ -332,16 +345,20 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... camera_test"
-	@echo "... detector"
-	@echo "... marker"
-	@echo "... test_memory"
+	@echo "... clear"
+	@echo "... ImageDetector"
+	@echo "... MarkerDetect"
+	@echo "... MarkerGen"
+	@echo "... TestMemory"
 	@echo "... src/column_overlay.o"
 	@echo "... src/column_overlay.i"
 	@echo "... src/column_overlay.s"
-	@echo "... src/marker_detection.o"
-	@echo "... src/marker_detection.i"
-	@echo "... src/marker_detection.s"
+	@echo "... src/marker_detect.o"
+	@echo "... src/marker_detect.i"
+	@echo "... src/marker_detect.s"
+	@echo "... src/marker_detect_camera.o"
+	@echo "... src/marker_detect_camera.i"
+	@echo "... src/marker_detect_camera.s"
 	@echo "... src/marker_dict.o"
 	@echo "... src/marker_dict.i"
 	@echo "... src/marker_dict.s"
@@ -357,9 +374,6 @@ help:
 	@echo "... src/test_writing.o"
 	@echo "... src/test_writing.i"
 	@echo "... src/test_writing.s"
-	@echo "... src/webcam_test.o"
-	@echo "... src/webcam_test.i"
-	@echo "... src/webcam_test.s"
 .PHONY : help
 
 

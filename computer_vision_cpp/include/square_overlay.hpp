@@ -11,24 +11,24 @@
 #include<iostream>
 #include "overlay.hpp"
 
+namespace overlay {
+    class square_overlay : public overlay {
+    public:
+        square_overlay() = default;
 
-class square_overlay : public overlay {
-public:
-    square_overlay() = default;
+        square_overlay(std::vector<cv::Point2f>&);
 
-    square_overlay(std::vector<cv::Point2i> &);
+        explicit square_overlay(int side_length);
 
-    square_overlay(int side_length);
+        bool within_bounds(std::vector<cv::Point2f>& marker);
 
-    bool within_bounds(std::vector<cv::Point2i> &marker);
+        void draw(cv::Mat& m);
 
-    void draw(cv::Mat &m);
+        std::vector<cv::Point2f> getCorners();
 
-    std::vector<cv::Point2i> getCorners();
+    private:
+        std::vector<cv::Point2f> corners;
+    };
 
-private:
-    std::vector<cv::Point2i> corners;
-};
-
-
+}
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP

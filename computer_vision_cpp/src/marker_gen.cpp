@@ -68,7 +68,7 @@ std::vector<uchar> id_array() {
 }
 
 
-void add_to_dictionary(marker_dict &dict, int id) {
+void add_to_dictionary(dictionary::marker_dict &dict, int id) {
 /* Needs changing to support a variable enum size
  *
  * */
@@ -81,7 +81,7 @@ void add_to_dictionary(marker_dict &dict, int id) {
         std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
         std::cout << "-------------------------------------------------------------------------------" << std::endl;
         // Print Menu
-        for (int i = 0; i < (int)states::STATES_NR_ITEMS; i++) {
+        for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++) {
             std::cout << i << "\n";
         }
 
@@ -99,25 +99,25 @@ void add_to_dictionary(marker_dict &dict, int id) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     } while (!valid);
-    states curr_state;
+    dictionary::states curr_state;
     switch (choice) {
         case 0:
-            curr_state = states::STOP;
+            curr_state = dictionary::states::STOP;
             break;
         case 1:
-            curr_state = states::FORWARD;
+            curr_state = dictionary::states::FORWARD;
             break;
         case 2:
-            curr_state = states::BACKWARD;
+            curr_state = dictionary::states::BACKWARD;
             break;
         case 3:
-            curr_state = states::TURN_L;
+            curr_state = dictionary::states::TURN_L;
             break;
         case 4:
-            curr_state = states::TURN_R;
+            curr_state = dictionary::states::TURN_R;
             break;
         default:
-            curr_state = states::STOP;
+            curr_state = dictionary::states::STOP;
             break;
     }
     dict.add_marker(id, curr_state);
@@ -128,7 +128,7 @@ int main() {
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Marker Generator" << std::endl
               << "-------------------------------------------------------------------------------" << std::endl;
-    std::shared_ptr<marker_dict> md(new marker_dict());
+    std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict());
 
     std::cout << "-------------------------------------------------------------------------------" << std::endl
               << "Loading Predefined Dictionary" << std::endl

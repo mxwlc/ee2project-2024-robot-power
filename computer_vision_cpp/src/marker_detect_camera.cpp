@@ -7,23 +7,13 @@
 #include <opencv2/objdetect/aruco_board.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
+#include "../include/marker_dict.hpp"
 
 // TODO : Save map to local file for persistance
 
 #define MARKER_EDGE_SIZE = 200
 #define BORDER_SIZE = 1
 #define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
-
-
-typedef enum
-{
-    STOP = 0,
-    FORWARD = 1,
-    BACKWARD = 2,
-    TURN_L = 3,
-    TURN_R = 4
-} states;
-
 
 
 int main()

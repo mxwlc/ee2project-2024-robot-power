@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/detector.dir/src/column_overlay.o"
   "CMakeFiles/detector.dir/src/column_overlay.o.d"
-  "CMakeFiles/detector.dir/src/marker_detection.o"
-  "CMakeFiles/detector.dir/src/marker_detection.o.d"
+  "CMakeFiles/detector.dir/src/marker_detect_camera.o"
+  "CMakeFiles/detector.dir/src/marker_detect_camera.o.d"
   "CMakeFiles/detector.dir/src/marker_dict.o"
   "CMakeFiles/detector.dir/src/marker_dict.o.d"
   "CMakeFiles/detector.dir/src/overlay.o"

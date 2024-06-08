@@ -69,19 +69,19 @@ include CMakeFiles/camera_test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/camera_test.dir/flags.make
 
-CMakeFiles/camera_test.dir/src/webcam_test.o: CMakeFiles/camera_test.dir/flags.make
-CMakeFiles/camera_test.dir/src/webcam_test.o: src/webcam_test.cpp
-CMakeFiles/camera_test.dir/src/webcam_test.o: CMakeFiles/camera_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/camera_test.dir/src/webcam_test.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/camera_test.dir/src/webcam_test.o -MF CMakeFiles/camera_test.dir/src/webcam_test.o.d -o CMakeFiles/camera_test.dir/src/webcam_test.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp
+CMakeFiles/camera_test.dir/src/marker_detect.o: CMakeFiles/camera_test.dir/flags.make
+CMakeFiles/camera_test.dir/src/marker_detect.o: src/marker_detect.cpp
+CMakeFiles/camera_test.dir/src/marker_detect.o: CMakeFiles/camera_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/camera_test.dir/src/marker_detect.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/camera_test.dir/src/marker_detect.o -MF CMakeFiles/camera_test.dir/src/marker_detect.o.d -o CMakeFiles/camera_test.dir/src/marker_detect.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp
 
-CMakeFiles/camera_test.dir/src/webcam_test.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera_test.dir/src/webcam_test.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp > CMakeFiles/camera_test.dir/src/webcam_test.i
+CMakeFiles/camera_test.dir/src/marker_detect.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera_test.dir/src/marker_detect.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp > CMakeFiles/camera_test.dir/src/marker_detect.i
 
-CMakeFiles/camera_test.dir/src/webcam_test.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera_test.dir/src/webcam_test.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp -o CMakeFiles/camera_test.dir/src/webcam_test.s
+CMakeFiles/camera_test.dir/src/marker_detect.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera_test.dir/src/marker_detect.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp -o CMakeFiles/camera_test.dir/src/marker_detect.s
 
 CMakeFiles/camera_test.dir/src/column_overlay.o: CMakeFiles/camera_test.dir/flags.make
 CMakeFiles/camera_test.dir/src/column_overlay.o: src/column_overlay.cpp
@@ -141,7 +141,7 @@ CMakeFiles/camera_test.dir/src/square_overlay.s: cmake_force
 
 # Object files for target camera_test
 camera_test_OBJECTS = \
-"CMakeFiles/camera_test.dir/src/webcam_test.o" \
+"CMakeFiles/camera_test.dir/src/marker_detect.o" \
 "CMakeFiles/camera_test.dir/src/column_overlay.o" \
 "CMakeFiles/camera_test.dir/src/marker_dict.o" \
 "CMakeFiles/camera_test.dir/src/overlay.o" \
@@ -150,7 +150,7 @@ camera_test_OBJECTS = \
 # External object files for target camera_test
 camera_test_EXTERNAL_OBJECTS =
 
-bin/camera_test: CMakeFiles/camera_test.dir/src/webcam_test.o
+bin/camera_test: CMakeFiles/camera_test.dir/src/marker_detect.o
 bin/camera_test: CMakeFiles/camera_test.dir/src/column_overlay.o
 bin/camera_test: CMakeFiles/camera_test.dir/src/marker_dict.o
 bin/camera_test: CMakeFiles/camera_test.dir/src/overlay.o

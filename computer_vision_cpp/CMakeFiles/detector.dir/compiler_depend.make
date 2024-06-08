@@ -320,7 +320,7 @@ CMakeFiles/detector.dir/src/column_overlay.o: src/column_overlay.cpp \
   /usr/local/include/opencv4/opencv2/highgui.hpp \
   /usr/local/include/opencv4/opencv2/imgcodecs.hpp
 
-CMakeFiles/detector.dir/src/marker_detection.o: src/marker_detection.cpp \
+CMakeFiles/detector.dir/src/marker_detect_camera.o: src/marker_detect_camera.cpp \
   /usr/include/stdc-predef.h \
   /usr/include/c++/12/fstream \
   /usr/include/c++/12/istream \
@@ -748,7 +748,8 @@ CMakeFiles/detector.dir/src/marker_detection.o: src/marker_detection.cpp \
   /usr/local/include/opencv4/opencv2/stitching/detail/camera.hpp \
   /usr/local/include/opencv4/opencv2/video.hpp \
   /usr/local/include/opencv4/opencv2/video/tracking.hpp \
-  /usr/local/include/opencv4/opencv2/video/background_segm.hpp
+  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+  include/marker_dict.hpp
 
 CMakeFiles/detector.dir/src/marker_dict.o: src/marker_dict.cpp \
   /usr/include/stdc-predef.h \
@@ -1963,8 +1964,6 @@ include/marker_dict.hpp:
 
 /usr/include/c++/12/fstream:
 
-src/marker_detection.cpp:
-
 /usr/local/include/opencv4/opencv2/imgcodecs.hpp:
 
 /usr/local/include/opencv4/opencv2/objdetect/charuco_detector.hpp:
@@ -2648,6 +2647,8 @@ src/square_overlay.cpp:
 /usr/include/c++/12/tr1/hypergeometric.tcc:
 
 /usr/include/c++/12/tr1/legendre_function.tcc:
+
+src/marker_detect_camera.cpp:
 
 /usr/local/include/opencv4/opencv2/core/saturate.hpp:
 

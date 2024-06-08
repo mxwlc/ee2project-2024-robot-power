@@ -365,4 +365,5 @@ CMakeFiles/detector.dir/src/marker_detection.o: \
  /usr/local/include/opencv4/opencv2/stitching/detail/camera.hpp \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
- /usr/local/include/opencv4/opencv2/video/background_segm.hpp
+ /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+ /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/../include/marker_dict.hpp

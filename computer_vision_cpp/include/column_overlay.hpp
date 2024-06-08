@@ -10,21 +10,22 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
+namespace overlay {
+    class column_overlay : public overlay {
+    private:
+        int left_pad;
 
-class column_overlay : public overlay{
-private:
-    int left_pad;
+        int right_pad;
 
-    int right_pad;
+    public:
+        column_overlay();
 
-public:
-    column_overlay();
+        column_overlay(int left_pad, int right_pad);
 
-    column_overlay(int left_pad, int right_pad);
+        bool within_bounds(std::vector<cv::Point2f>& marker);
 
-    bool within_bounds(std::vector<cv::Point2i> &marker);
-    void draw(cv::Mat &m);
-};
+        void draw(cv::Mat& m);
+    };
 
-
+}
 #endif //EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP

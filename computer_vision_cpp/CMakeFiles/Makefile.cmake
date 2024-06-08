@@ -51,8 +51,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/camera_test.dir/DependInfo.cmake"
-  "CMakeFiles/marker.dir/DependInfo.cmake"
-  "CMakeFiles/detector.dir/DependInfo.cmake"
-  "CMakeFiles/test_memory.dir/DependInfo.cmake"
+  "CMakeFiles/clear.dir/DependInfo.cmake"
+  "CMakeFiles/MarkerDetect.dir/DependInfo.cmake"
+  "CMakeFiles/MarkerGen.dir/DependInfo.cmake"
+  "CMakeFiles/ImageDetector.dir/DependInfo.cmake"
+  "CMakeFiles/TestMemory.dir/DependInfo.cmake"
   )

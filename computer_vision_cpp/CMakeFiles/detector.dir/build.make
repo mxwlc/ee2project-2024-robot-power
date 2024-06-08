@@ -69,19 +69,19 @@ include CMakeFiles/detector.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/detector.dir/flags.make
 
-CMakeFiles/detector.dir/src/marker_detection.o: CMakeFiles/detector.dir/flags.make
-CMakeFiles/detector.dir/src/marker_detection.o: src/marker_detection.cpp
-CMakeFiles/detector.dir/src/marker_detection.o: CMakeFiles/detector.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/detector.dir/src/marker_detection.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/marker_detection.o -MF CMakeFiles/detector.dir/src/marker_detection.o.d -o CMakeFiles/detector.dir/src/marker_detection.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp
+CMakeFiles/detector.dir/src/marker_detect_camera.o: CMakeFiles/detector.dir/flags.make
+CMakeFiles/detector.dir/src/marker_detect_camera.o: src/marker_detect_camera.cpp
+CMakeFiles/detector.dir/src/marker_detect_camera.o: CMakeFiles/detector.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/detector.dir/src/marker_detect_camera.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/marker_detect_camera.o -MF CMakeFiles/detector.dir/src/marker_detect_camera.o.d -o CMakeFiles/detector.dir/src/marker_detect_camera.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_camera.cpp
 
-CMakeFiles/detector.dir/src/marker_detection.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/detector.dir/src/marker_detection.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp > CMakeFiles/detector.dir/src/marker_detection.i
+CMakeFiles/detector.dir/src/marker_detect_camera.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/detector.dir/src/marker_detect_camera.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_camera.cpp > CMakeFiles/detector.dir/src/marker_detect_camera.i
 
-CMakeFiles/detector.dir/src/marker_detection.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/marker_detection.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp -o CMakeFiles/detector.dir/src/marker_detection.s
+CMakeFiles/detector.dir/src/marker_detect_camera.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/marker_detect_camera.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_camera.cpp -o CMakeFiles/detector.dir/src/marker_detect_camera.s
 
 CMakeFiles/detector.dir/src/column_overlay.o: CMakeFiles/detector.dir/flags.make
 CMakeFiles/detector.dir/src/column_overlay.o: src/column_overlay.cpp
@@ -141,7 +141,7 @@ CMakeFiles/detector.dir/src/square_overlay.s: cmake_force
 
 # Object files for target detector
 detector_OBJECTS = \
-"CMakeFiles/detector.dir/src/marker_detection.o" \
+"CMakeFiles/detector.dir/src/marker_detect_camera.o" \
 "CMakeFiles/detector.dir/src/column_overlay.o" \
 "CMakeFiles/detector.dir/src/marker_dict.o" \
 "CMakeFiles/detector.dir/src/overlay.o" \
@@ -150,7 +150,7 @@ detector_OBJECTS = \
 # External object files for target detector
 detector_EXTERNAL_OBJECTS =
 
-bin/detector: CMakeFiles/detector.dir/src/marker_detection.o
+bin/detector: CMakeFiles/detector.dir/src/marker_detect_camera.o
 bin/detector: CMakeFiles/detector.dir/src/column_overlay.o
 bin/detector: CMakeFiles/detector.dir/src/marker_dict.o
 bin/detector: CMakeFiles/detector.dir/src/overlay.o

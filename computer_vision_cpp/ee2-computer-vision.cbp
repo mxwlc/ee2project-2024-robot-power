@@ -17,8 +17,28 @@
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="marker_detect">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/marker_detect" prefix_auto="0" extension_auto="0"/>
+			<Target title="clear">
+				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clear"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="appendix">
+				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 appendix"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MarkerDetect">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/MarkerDetect" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -29,14 +49,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 marker_detect"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 MarkerDetect"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="marker_detect/fast">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/marker_detect" prefix_auto="0" extension_auto="0"/>
+			<Target title="MarkerDetect/fast">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/MarkerDetect" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -47,14 +67,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 marker_detect/fast"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 MarkerDetect/fast"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="marker">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/marker" prefix_auto="0" extension_auto="0"/>
+			<Target title="MarkerGen">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/MarkerGen" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -65,14 +85,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 marker"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 MarkerGen"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="marker/fast">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/marker" prefix_auto="0" extension_auto="0"/>
+			<Target title="MarkerGen/fast">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/MarkerGen" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -83,14 +103,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 marker/fast"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 MarkerGen/fast"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="detector">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector" prefix_auto="0" extension_auto="0"/>
+			<Target title="ImageDetector">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/ImageDetector" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -101,14 +121,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 detector"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 ImageDetector"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="detector/fast">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector" prefix_auto="0" extension_auto="0"/>
+			<Target title="ImageDetector/fast">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/ImageDetector" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -119,14 +139,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 detector/fast"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 ImageDetector/fast"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test_memory">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory" prefix_auto="0" extension_auto="0"/>
+			<Target title="TestMemory">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/TestMemory" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -136,14 +156,14 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 test_memory"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 TestMemory"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test_memory/fast">
-				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory" prefix_auto="0" extension_auto="0"/>
+			<Target title="TestMemory/fast">
+				<Option output="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/TestMemory" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -153,7 +173,7 @@
 					<Add directory="/usr/local/include/opencv4"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 test_memory/fast"/>
+					<Build command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 TestMemory/fast"/>
 					<CompileFile command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -f &quot;/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/Makefile&quot;  VERBOSE=1 clean"/>
@@ -181,64 +201,64 @@
 			</Target>
 		</Build>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/column_overlay.hpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/marker_dict.hpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/overlay.hpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/square_overlay.hpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp">
-			<Option target="marker_detect"/>
+			<Option target="MarkerDetect"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_camera.cpp">
-			<Option target="detector"/>
+			<Option target="ImageDetector"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_gen.cpp">
-			<Option target="marker"/>
+			<Option target="MarkerGen"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp">
-			<Option target="marker_detect"/>
-			<Option target="marker"/>
-			<Option target="detector"/>
-			<Option target="test_memory"/>
+			<Option target="MarkerDetect"/>
+			<Option target="MarkerGen"/>
+			<Option target="ImageDetector"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp">
-			<Option target="test_memory"/>
+			<Option target="TestMemory"/>
 		</Unit>
 		<Unit filename="/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

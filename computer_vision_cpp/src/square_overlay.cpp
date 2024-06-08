@@ -14,7 +14,9 @@ square_overlay::square_overlay(const std::vector<cv::Point2i>& corners_in, cv::M
 
 bool square_overlay::within_bounds(std::vector<cv::Point2i> &marker) {
     // PLACEHOLDER
-
+    for(cv::Point2i point : marker){
+        std::cout << "(" << point.x << ", " << point.y << ")\n";
+    }
     return false;
 }
 

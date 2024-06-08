@@ -21,7 +21,7 @@ public:
 
     virtual ~overlay();
 
-    virtual bool within_bounds() = 0;
+    virtual bool within_bounds();
 };
 
 

@@ -12,3 +12,9 @@ overlay::overlay() {
 overlay::~overlay() {
     delete corners;
 }
+
+bool overlay::within_bounds() {
+    // debug ig
+    return false;
+}
+

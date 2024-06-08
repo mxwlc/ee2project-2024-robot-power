@@ -20,7 +20,7 @@ public:
 
     square_overlay(const std::vector<cv::Point2i>&, cv::Mat &m);
 
-    bool within_bounds(std::vector<cv::Point2i> &marker) override;
+    bool within_bounds(std::vector<cv::Point2i> &marker);
 };
 
 

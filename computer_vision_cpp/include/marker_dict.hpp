@@ -36,9 +36,9 @@ This needs changing to add for more "jobs"
 		// Constructors
 		marker_dict();
 
-		marker_dict(std::map<int, states>& dict);
+		explicit marker_dict(std::map<int, states>& dict);
 
-		marker_dict(std::string filename);
+		explicit marker_dict(std::string filename);
 
 		// Destructor
 		~marker_dict();
@@ -50,10 +50,10 @@ This needs changing to add for more "jobs"
 		states marker_translate(int id);
 
 		// debug : output entire map
-		std::map<int, states> return_dict() const;
+		[[nodiscard]] std::map<int, states> return_dict() const;
 
 		// debug : prints the marker map hash
-		std::string print_dict() const;
+		[[nodiscard]] std::string print_dict() const;
 
 		// Stores the internal marker_map locally
 		void save_dict();

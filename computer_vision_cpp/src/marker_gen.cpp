@@ -2,7 +2,6 @@
 // Created by maxwe on 27/05/24.
 //
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <map>
 #include <opencv2/objdetect/aruco_board.hpp>
@@ -18,7 +17,7 @@
 std::vector<uchar> id_array()
 {
 	std::cout << "-------------------------------------------------------------------------------" << std::endl;
-	bool valid = false;
+	bool valid;
 	int total_marker;
 	do
 	{
@@ -49,7 +48,7 @@ std::vector<uchar> id_array()
 
 	for (int i = 0; i < total_marker; i++)
 	{
-		valid = false;
+
 		int current_id;
 		do
 		{
@@ -86,7 +85,7 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 
 
 	int choice;
-	bool valid = false;
+	bool valid;
 	do
 	{
 		std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
@@ -177,7 +176,6 @@ int main()
 		std::cout << "-------------------------------------------------------------------------------" << std::endl;
 	}
 
-	md->print_dict();
 	std::cout << *md << std::endl;
 	md->save_dict();
 	return 0;

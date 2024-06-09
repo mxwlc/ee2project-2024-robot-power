@@ -37,15 +37,15 @@ namespace overlay
 
 		virtual ~overlay();
 
-		virtual bool within_bounds();
+		[[maybe_unused]] virtual bool within_bounds();
 
-		virtual bool point_in_bounds();
+		[[maybe_unused]] virtual bool point_in_bounds();
 
-		virtual std::string print() const;
+		[[nodiscard]] virtual std::string print() const;
 
-		virtual void draw();
+		[[maybe_unused]] virtual void draw();
 
-		virtual uchar position();
+		[[maybe_unused]] virtual uchar position();
 	};
 
 	std::ostream& operator<<(std::ostream& os, overlay const& o);

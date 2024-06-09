@@ -20,15 +20,15 @@ namespace overlay
 	 public:
 		column_overlay();
 
-		column_overlay(int padding);
+		explicit column_overlay(int padding);
 
-		int GetPadding() const;
+		[[nodiscard]] int GetPadding() const;
 
-		uchar position(cv::Point2f &pt);
+		uchar position(cv::Point2f& pt);
 
-		uchar marker_position(std::vector<cv::Point2f> &m);
+		uchar marker_position(std::vector<cv::Point2f>& m);
 
-		std::string print() const;
+		std::string print() const override;
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 

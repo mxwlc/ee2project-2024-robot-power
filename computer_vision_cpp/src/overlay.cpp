@@ -12,7 +12,7 @@ namespace overlay {
 
     overlay::~overlay() { }
 
-    bool overlay::within_bounds()
+	[[maybe_unused]] bool overlay::within_bounds()
     {
         return false;
     }
@@ -23,13 +23,13 @@ namespace overlay {
 		return { quote(overlay)};
 	};
 
-    void overlay::draw(){};
+	[[maybe_unused]] void overlay::draw(){};
 
-	bool overlay::point_in_bounds()
+	[[maybe_unused]] bool overlay::point_in_bounds()
 	{
 		return false;
 	}
-	uchar overlay::position(){
+	[[maybe_unused]] uchar overlay::position(){
 		return 0b111;
 	}
 

@@ -18,7 +18,7 @@ namespace overlay
 	 public:
 		square_overlay() = default;
 
-		square_overlay(std::vector<cv::Point2f>&);
+		explicit square_overlay(std::vector<cv::Point2f>&);
 
 		explicit square_overlay(int side_length);
 
@@ -28,9 +28,9 @@ namespace overlay
 
 		void draw(cv::Mat& m);
 
-		std::vector<cv::Point2f> getCorners() const;
+		[[nodiscard]] std::vector<cv::Point2f> getCorners() const;
 
-		std::string print() const;
+		[[nodiscard]] std::string print() const;
 	 private:
 		std::vector<cv::Point2f> corners;
 		int side_length;

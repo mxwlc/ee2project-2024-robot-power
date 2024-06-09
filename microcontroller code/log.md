@@ -14,7 +14,7 @@ So the requiremnts say we need to use a cascaded controller, with the outerloop 
 - Potentially look into generating PID values via loop-shaping and synthesis?
 
 
-# Friday 24th July
+# Friday 24th May
 Created a basic PID controller, implemented tilt angle calculation, wired up robot and begain trial and error for PID values.
 
 Biggest unresolved issue thus far has been tuning. It has prooven very difficult to obtain suitable values of gain to stablise the robot. More time needs to be invested into either manually tuning, or calculating PID values through loop shaping (potentially long and difficult). If anyone reading this wants to try manually tuning, use the guide below to do so (since the code I have uploaded right now is very messy)
@@ -39,7 +39,7 @@ In order for this to work, you need Visual Studio Code installed, and you want t
 Any questions let me know :)
   
 
-# Tuesday 28th July
+# Tuesday 28th May
 Today I corrected an error in the angle calculation, which meant the PID parameters could be tuned properly. The setpoint has also been adjusted accordingly, and now the bot can balance, with some small oscillations, which will always occur. It also has some good robustness to purtubations from external sources (I poked it with my finger and it didn't fall, and corrected relatively quickly). It cannot overcome large pertubations in tilt angle, however this is not possible to rectify within the scope of our project (don't poke it too hard). Some finer tuning to the PID values can be attempted, however the values as they stand do work correctly. 
 
 Now the task from here is to design the outer-loop controller. This is also to be done via a PID controller, and I have a one main idea on how this will work:
@@ -56,3 +56,20 @@ This will allow me to take an average of the speeds, to find a singular one. For
 The obvious arguement here is then that if you get a average of 0 when turning, will the bot even move, which is where the offset comes in. If you use the average to find angle setpoint, and the origninal speeds as offsets for the motors speeds (so the input to the motors will be PID_correction + Speed_offset)
 
 I will begin tomorrow by testing the above theory, and seeing if it works. If it does, adding some code to derrive setpoint from speed won't be difficult, then it's just a case of adjusting PID values again. I'll also likely need to discuss how the speed will show up in my script, however I imagine it's just through a variable. 
+
+# Sunday 9th June 
+Haven't updated this over the week, but there hasn't been as much progress as I was hoping for. The theory outlined above sort of works, but there are still some major issues that prevent it from working consistently. 
+- At random intervals, the motors will stutter and cause the bot to collapse.
+  - No clue why this happens, and I can't seem to find an effective way to prevent it. It could be that the PID output suddenly becomes too high, but this isn't supported by any evidence (the angle error is never that big when this happens, and monitoring the angle never shows any glitches from the MPU)
+  - Could also be due to battery isssues, as this issue becomes more prevelant when the battery is low.
+  - Could also be a faulty connection.
+- The speed of movement seems to vary depending on the angle at which the speed is inputed
+  - For example, if it is told to go forward, but the current error is already high, then the bot will likely lose control.
+  - The obvious solution to this is to tune the PID values more accurately to ensure the bot is always stable, however due to the other issue above, and the batteries dying today, this is difficult.
+  - I have already implemented some changes to help correct this issue (speed/setpoint calulation placed in an outer loop, to ensure the inner loop has sufficient time to correct any error before the speed changes)
+- Using the speed as an offset didn't exactly work, as it caused the bot to become more unstable. Instead, I used it as an offset, but it with a term infront that will reduce it's effect if the error is too big, meaning error correction will take a greater priority.
+  - Need to investigate this further, as I'm not sure if it's effective.
+ 
+I also realised the angle system I have is very arbitrary and doesn't have any physical basis (not degrees or radians). I attempted to create an entirely new controller with a radians system, however this was a waste of time, as it required me tuning the PID values again, and I didn't see the point in that. I also realised a couple of hours ago, that the angle I have is likely in degreses, but probably a factor of 1000 out as demonstrated in the starter code. Baboon. 
+
+I will attempt to fix the issues above over the next week, and also begin on the report. I will likely require some assistance with this over the week, as it is a lot to do, in such a small amount of time. 

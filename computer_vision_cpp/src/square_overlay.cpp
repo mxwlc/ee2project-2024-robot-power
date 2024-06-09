@@ -8,8 +8,6 @@
 
 #include "../include/square_overlay.hpp"
 
-// TODO : Simple position location
-
 namespace overlay
 {
 	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)

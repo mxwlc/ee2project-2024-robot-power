@@ -16,28 +16,29 @@ include/column_overlay.hpp
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
-namespace overlay {
-    class column_overlay : public overlay {
-    private:
-        int left_pad;
+namespace overlay
+{
+	class column_overlay : public overlay
+	{
+	 private:
+		int padding;
 
-        int right_pad;
-
-    public:
+	 public:
 		column_overlay();
 
-        column_overlay(int left_pad, int right_pad);
+		column_overlay(int padding);
 
-		int GetLeftPad() const;
+		int GetPadding() const;
 
-		int GetRightPad() const;
 
 		std::string print() const;
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 
-        void draw(cv::Mat& m);
-    };
+		bool point_in_bounds(cv::Point2f point) const;
+
+		void draw(cv::Mat& m);
+	};
 
 	std::ostream& operator<<(std::ostream& os, column_overlay const& o);
 }
@@ -152,6 +153,10 @@ namespace overlay {
 
         virtual bool within_bounds();
 
+		virtual bool point_in_bounds();
+
+		virtual std::string print() const;
+
         virtual void draw();
 
 
@@ -176,26 +181,31 @@ include/square_overlay.hpp
 #include<iostream>
 #include "overlay.hpp"
 
-namespace overlay {
-    class square_overlay : public overlay {
-    public:
-        square_overlay() = default;
+namespace overlay
+{
+	class square_overlay : public overlay
+	{
+	 public:
+		square_overlay() = default;
 
-        square_overlay(std::vector<cv::Point2f>&);
+		square_overlay(std::vector<cv::Point2f>&);
 
-        explicit square_overlay(int side_length);
+		explicit square_overlay(int side_length);
 
-        bool within_bounds(std::vector<cv::Point2f>& marker);
+		bool within_bounds(std::vector<cv::Point2f>& marker);
 
-        void draw(cv::Mat& m);
+		bool point_in_bounds(cv::Point2f v);
 
-        std::vector<cv::Point2f> getCorners() const;
+		void draw(cv::Mat& m);
+
+		std::vector<cv::Point2f> getCorners() const;
 
 		std::string print() const;
-    private:
-        std::vector<cv::Point2f> corners;
-    };
-	std::ostream& operator<<(std::ostream &os, square_overlay const& so);
+	 private:
+		std::vector<cv::Point2f> corners;
+		int side_length;
+	};
+	std::ostream& operator<<(std::ostream& os, square_overlay const& so);
 }
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP
 ================================================
@@ -214,11 +224,10 @@ namespace overlay
 {
 	column_overlay::column_overlay()
 	{
-		left_pad = 0;
-		right_pad = 0;
+		padding = 0;
 	}
 
-	column_overlay::column_overlay(int left_pad_, int right_pad_) : left_pad(left_pad_), right_pad(right_pad_)
+	column_overlay::column_overlay(int padding_) : padding(padding_)
 	{
 	}
 
@@ -227,37 +236,39 @@ namespace overlay
 		bool inside = false;
 		for (cv::Point2f vertex : marker)
 		{
-			inside = (vertex.x >= (float)left_pad && vertex.x <= (float)right_pad);
+			inside = point_in_bounds(vertex);
+			if (!inside) return false;
 		}
 		return inside;
 	}
 
 	void column_overlay::draw(cv::Mat& m)
 	{
-		auto left_pad_f = (float)left_pad;
-		auto right_pad_f = (float)right_pad;
+		auto padding_f = (float)padding;
 		auto window_width = (float)WINDOW_WIDTH;
 		auto window_height = (float)WINDOW_HEIGHT;
 		if (DEBUG_FLAG) std::cout << "Draw Column Overlay\n";
-		cv::line(m, cv::Point2f(left_pad_f, 0.0), cv::Point2f(left_pad_f, window_height), cv::Scalar(0, 255, 0), 2);
-		cv::line(m, cv::Point2f((window_width - right_pad_f), 0.0), cv::Point2f(
-			window_width - right_pad_f, window_height), cv::Scalar(0, 255, 0), 2);
+		cv::line(m, cv::Point2f(padding_f, 0.0), cv::Point2f(padding_f, window_height), cv::Scalar(0, 255, 0), 2);
+		cv::line(m, cv::Point2f((window_width - padding_f), 0.0), cv::Point2f(
+			window_width - padding_f, window_height), cv::Scalar(0, 255, 0), 2);
 	}
-	int column_overlay::GetLeftPad() const
+	int column_overlay::GetPadding() const
 	{
-		return left_pad;
-	}
-	int column_overlay::GetRightPad() const
-	{
-		return right_pad;
+		return padding;
 	}
 	std::string column_overlay::print() const
 	{
 		std::string output;
-		output = std::string("--Column Overlay--\n") + std::string("Left Padding : ") + std::to_string(GetLeftPad())
-				 + std::string("\n") + std::string("Right Padding : ") + std::to_string(GetRightPad())
-				 + std::string("\n");
+		output = std::string("--Column Overlay--\n") + std::string("Padding : ") + std::to_string(GetPadding()) + "\n";
 		return output;
+	}
+	bool column_overlay::point_in_bounds(cv::Point2f point) const
+	{
+		if ((float)padding <= point.x && point.x <= (float)(window_width - padding))
+		{
+			return true;
+		}
+		return false;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const column_overlay& o)
@@ -360,12 +371,12 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 
 int main()
 {
-	overlay::DEBUG_FLAG = true;
+	overlay::DEBUG_FLAG = false;
 
 	cv::Mat frame;
 
-	overlay::square_overlay sq_o(100);
-	overlay::column_overlay c_o(200, 200);
+	overlay::square_overlay sq_o(200);
+	overlay::column_overlay c_o(200);
 
 	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
 	std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
@@ -399,6 +410,11 @@ int main()
 			std::cerr << "Error : Blank Frame Grabbed\n";
 			break;
 		}
+
+		if(overlay::DEBUG_FLAG){
+			std::cout << frame.type() << std::endl;
+		}
+
 
 		std::vector<int> marker_ids;
 		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
@@ -434,7 +450,12 @@ int main()
 						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]);
 			}
 		}
-		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
+		for (int i = 0; i < marker_ids.size(); i++)
+		{
+			std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i]);
+		}
+		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
+//		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 
 		cv::imshow("Live", frame);
 
@@ -780,11 +801,21 @@ namespace overlay {
         return false;
     }
 
-    void overlay::draw() { }
+	std::string overlay::print() const
+	{
+		return {"Empty Overlay"};
+	};
 
-    std::ostream& operator<<(std::ostream& os, const overlay& o)
+    void overlay::draw(){};
+
+	bool overlay::point_in_bounds()
+	{
+		return false;
+	}
+
+	std::ostream& operator<<(std::ostream& os, overlay const& o)
     {
-		std::string output("Empty overlay");
+		std::string output = o.print();
         return os << output;
     }
 }
@@ -807,20 +838,23 @@ namespace overlay
 {
 	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)
 	{
+		cv::Point2f p1 = corners_in[0];
+		cv::Point2f p2 = corners_in[1];
 
+		side_length = (int)cv::norm(p1 - p2);
 		corners = corners_in;
 		window_height = WINDOW_HEIGHT;
 		window_width = WINDOW_WIDTH;
 	}
 
-	square_overlay::square_overlay(int side_length)
+	square_overlay::square_overlay(int side_length_in)
 	{
 		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
 		auto window_width_f = (float)window_width;
 		auto window_height_f = (float)window_height;
 		auto x_0 = (float)(window_width_f / 2);
 		auto y_0 = (float)(window_height_f / 2);
-		auto half_len = (float)(side_length / 2);
+		auto half_len = (float)((float)side_length_in / (float)2);
 		cv::Point2f origin = cv::Point2f(x_0, y_0);
 
 		std::vector<cv::Point2f> box_vertices = { cv::Point2f(half_len, half_len), cv::Point2f(half_len, -half_len),
@@ -830,46 +864,38 @@ namespace overlay
 			vertex += origin;
 		}
 		corners = box_vertices;
+		side_length = side_length_in;
 	}
 
 	bool square_overlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
-		for (cv::Point2f vertex : marker)
+		bool inside = true;
+		for (auto corner : marker)
 		{
-			bool inside = false;
-			for (int i = 0; i < corners.size(); i++)
+			inside = point_in_bounds(corner);
+			if (!inside)
 			{
-				/*  *---------*
-				 *  |         |
-				 *  |    x----|
-				 *  |    |    |
-				 *  |    |    |
-				 *  *---------*
-				 */
-				cv::Point2f p1 = corners[i];
-				cv::Point2f p2 = corners[i + 1];
-				if (i == corners.size() - 1)
-				{
-					p2 = corners[0];
-				}
-				if (vertex.y > std::min(p1.y, p2.y))
-				{
-					if (vertex.y <= std::max(p1.y, p2.y))
-					{
-						if (vertex.x <= std::max(p1.x, p2.x))
-						{
-							if (p1.y != p2.y)
-							{
-								float x_intercept = ((vertex.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y)) + p1.x;
-								if (p1.x == p2.x || vertex.x <= x_intercept)
-								{
-									inside = !inside;
-								}
-							}
-						}
-					}
-				}
+				return inside;
 			}
+		}
+		return inside;
+	}
+
+	bool square_overlay::point_in_bounds(cv::Point2f v)
+	{
+		cv::Point2f p1 = corners[1];
+		cv::Point2f p2 = corners[3];
+		if (DEBUG_FLAG)
+		{
+			std::cout << "\np1 : " << p1 << "\n";
+
+			std::cout << "p2 : " << p2 << "\n";
+			std::cout << v.x << "<" << p1.x << "\n" << v.x << ">" << p2.x << "\n" << v.y << "<" << p1.y << "\n" << v.y
+					  << ">" << p2.y << "\n";
+		}
+		if (v.x < p1.x and v.x > p2.x and v.y > p1.y and v.y < p2.y)
+		{
+			return true;
 		}
 		return false;
 	}
@@ -885,7 +911,7 @@ namespace overlay
 
 		if (DEBUG_FLAG) std::cout << "Draw Square Overlay\n";
 
-// Poly lines only accepts integer points
+		// Poly lines only accepts integer points
 		std::vector<cv::Point2i> IntCornersVec;
 		cv::Mat FloatCorners(corners);
 		cv::Mat IntCorners;
@@ -904,7 +930,8 @@ namespace overlay
 		std::string output;
 		output = "-- Square Overlay --\n";
 		std::vector<cv::Point2f> vertices = getCorners();
-		for(auto vertex : vertices){
+		for (auto vertex : vertices)
+		{
 			output += ("(" + std::to_string(vertex.x) + ", " + std::to_string(vertex.y) + ")\n");
 		}
 		return output;
@@ -924,16 +951,62 @@ src/test_writing.cpp
 //
 #include <iostream>
 #include <opencv2/core.hpp>
+#include "../include/square_overlay.hpp"
+#include "../include/overlay.hpp"
+#include "../include/column_overlay.hpp"
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+
+int main()
+{
+	overlay::DEBUG_FLAG = true;
+
+	cv::Mat m = cv::Mat::zeros(overlay::WINDOW_HEIGHT, overlay::WINDOW_WIDTH, CV_8UC3);
+	overlay::square_overlay sq_o(200);
+	overlay::column_overlay c_o(250);
+	std::vector<cv::Point2f> v({cv::Point2f(300, 300), cv::Point2f(310, 300), cv::Point2f(300, 310), cv::Point2f(310, 310)});
+	sq_o.draw(m);
+	c_o.draw(m);
+	std::cout << "------------------------\n" << "DEBUG SQUARE\n";
+	for (auto corner : v)
+	{
+		std::cout << corner << "\n";
+		cv::circle(m, corner, 10, cv::Scalar(0, 255, 0), 3);
+	}
+	std::cout << "DEBUG SQUARE - Done\n";
+
+	std::cout << "------------------------\n" << "BOUNDARY SQUARE\n";
+	auto corners = sq_o.getCorners();
+	for (auto corner : corners)
+	{
+		std::cout << corner << "\n";
+		cv::circle(m, corner, 10, cv::Scalar(0, 255, 0), 3);
+	}
+	std::cout << "BOUNDARY SQUARE - Done\n";
+
+	cv::imshow("Test", m);
 
 
-int main (){
-    cv::Mat m = cv::Mat::ones(10,10, CV_8UC3);
-    m.setTo(cv::Scalar(1,1,1));
-    std::cout << cv::format(m, cv::Formatter::FMT_NUMPY) << "\n";
-    std::cout << m.size() << "\n";
-    std::cout << m.total() * m.elemSize() * 8 << "\n";
-    std::cout << sizeof(m) << "\n";
-    std::cout << "Hello World \n";
+	std::cout << "------------------------\n";
+	overlay::overlay o = overlay::overlay();
+	std::cout << "\nOverlay : " << o << "\n";
+
+	std::cout << std::boolalpha;
+	std::cout << "Points ";
+	for(auto vertex : v)
+	{
+		std::cout << " " << vertex;
+	}
+
+;
+
+
+	std::cout << "\nAre within\n";
+//	std::cout << "Point in Square : " << (bool)sq_o.point_in_bounds(p1) << "\n";
+	std::cout << "Square Overlay : " << (bool)sq_o.within_bounds(v) << "\n";
+	std::cout << "Column Overlay : " << (bool)c_o.within_bounds(v) << "\n";
+	std::cout << std::noboolalpha;
+	cv::waitKey(0);
 }
 ================================================
 CMakeFiles
@@ -1015,16 +1088,16 @@ MESSAGE( STATUS "Configuring Executables" )
 add_executable(MarkerDetect ${PROJECT_SOURCE_DIR}/src/marker_detect.cpp ${ALL_FILES})
 add_executable(MarkerGen ${PROJECT_SOURCE_DIR}/src/marker_gen.cpp ${ALL_FILES})
 add_executable(ImageDetector ${PROJECT_SOURCE_DIR}/src/marker_detect_camera.cpp ${ALL_FILES})
-add_executable(TestMemory ${PROJECT_SOURCE_DIR}/src/test_writing.cpp ${ALL_FILES})
+add_executable(Test ${PROJECT_SOURCE_DIR}/src/test_writing.cpp ${ALL_FILES})
 
 target_link_libraries(MarkerDetect ${OpenCV_LIBS})
 target_link_libraries(MarkerGen ${OpenCV_LIBS})
 target_link_libraries(ImageDetector ${OpenCV_LIBS})
-target_link_libraries(TestMemory ${OpenCV_LIBS})
+target_link_libraries(Test ${OpenCV_LIBS})
 
 target_include_directories(MarkerDetect PRIVATE ${INCLUDE}/include)
 target_include_directories(MarkerGen PRIVATE ${INCLUDE}/include)
 target_include_directories(ImageDetector PRIVATE ${INCLUDE}/include)
-target_include_directories(TestMemory PRIVATE ${INCLUDE/}include)
+target_include_directories(Test PRIVATE ${INCLUDE/}include)
 MESSAGE( STATUS "Configuring Executables - done" )
 MESSAGE( STATUS "=====================================================" )

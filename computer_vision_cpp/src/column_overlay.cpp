@@ -3,7 +3,6 @@
 //
 
 #include "column_overlay.hpp"
-// TODO : Simple position location
 namespace overlay
 {
 	column_overlay::column_overlay()

@@ -19,13 +19,13 @@ namespace overlay
 	static bool DEBUG_FLAG;
 
 	static std::map<uchar, std::string> position_translation = {
-		std::pair<uchar, std::string>(0b000, std::string("Invalid")),
-		std::pair<uchar, std::string>(0b100, std::string("Left")),
-		std::pair<uchar, std::string>(0b110, std::string("Left-Middle")),
-		std::pair<uchar, std::string>(0b010, std::string("Middle")),
-		std::pair<uchar, std::string>(0b011, std::string("Right-Middle")),
-		std::pair<uchar, std::string>(0b001, std::string("Right")),
-		std::pair<uchar, std::string>(0b111, std::string("Invalid")), };
+		std::pair<uchar, std::string>(0b0000, std::string("Invalid")),
+		std::pair<uchar, std::string>(0b0100, std::string("Left")),
+		std::pair<uchar, std::string>(0b0110, std::string("Left-Middle")),
+		std::pair<uchar, std::string>(0b0010, std::string("Middle")),
+		std::pair<uchar, std::string>(0b0011, std::string("Right-Middle")),
+		std::pair<uchar, std::string>(0b0001, std::string("Right")),
+		std::pair<uchar, std::string>(0b0111, std::string("Invalid")), };
 
 	class overlay
 	{

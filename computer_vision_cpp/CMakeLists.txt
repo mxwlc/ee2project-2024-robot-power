@@ -29,7 +29,7 @@ file(GLOB ALL_FILES
 
 list(APPEND EXCLUDE_FILES
         "${PROJECT_SOURCE_DIR}/src/marker_gen.cpp" ,
-        "${PROJECT_SOURCE_DIR}/src/marker_detect_camera.cpp" ,
+        "${PROJECT_SOURCE_DIR}/src/marker_detect_image.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/test_writing.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp"
 )
@@ -71,7 +71,7 @@ MESSAGE( STATUS "=====================================================" )
 MESSAGE( STATUS "Configuring Executables" )
 add_executable(MarkerDetect ${PROJECT_SOURCE_DIR}/src/marker_detect.cpp ${ALL_FILES})
 add_executable(MarkerGen ${PROJECT_SOURCE_DIR}/src/marker_gen.cpp ${ALL_FILES})
-add_executable(ImageDetector ${PROJECT_SOURCE_DIR}/src/marker_detect_camera.cpp ${ALL_FILES})
+add_executable(ImageDetector ${PROJECT_SOURCE_DIR}/src/marker_detect_image.cpp ${ALL_FILES})
 add_executable(Test ${PROJECT_SOURCE_DIR}/src/test_writing.cpp ${ALL_FILES})
 
 target_link_libraries(MarkerDetect ${OpenCV_LIBS})

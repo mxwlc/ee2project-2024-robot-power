@@ -65,17 +65,17 @@ namespace overlay
 	{
 		if (pt.x < (float)padding)
 		{
-			return 0b100;
+			return 0b0100;
 		}
 		if (pt.x > (float)(window_width - padding))
 		{
-			return 0b001;
+			return 0b0001;
 		}
-		return 0b010;
+		return 0b0010;
 	}
 	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
 	{
-		uchar valid = 0b0;
+		uchar valid = 0b0000;
 		for (auto& vertex : m)
 		{
 			valid = valid | position(vertex);

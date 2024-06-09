@@ -234,19 +234,19 @@ src/marker_detect.s:
 .PHONY : src/marker_detect.s
 
 # target to build an object file
-src/marker_detect_camera.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.o
-.PHONY : src/marker_detect_camera.o
+src/marker_detect_image.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_image.o
+.PHONY : src/marker_detect_image.o
 
 # target to preprocess a source file
-src/marker_detect_camera.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.i
-.PHONY : src/marker_detect_camera.i
+src/marker_detect_image.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_image.i
+.PHONY : src/marker_detect_image.i
 
 # target to generate assembly for a file
-src/marker_detect_camera.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_camera.s
-.PHONY : src/marker_detect_camera.s
+src/marker_detect_image.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_image.s
+.PHONY : src/marker_detect_image.s
 
 # target to build an object file
 src/marker_dict.o:
@@ -370,9 +370,9 @@ help:
 	@echo "... src/marker_detect.o"
 	@echo "... src/marker_detect.i"
 	@echo "... src/marker_detect.s"
-	@echo "... src/marker_detect_camera.o"
-	@echo "... src/marker_detect_camera.i"
-	@echo "... src/marker_detect_camera.s"
+	@echo "... src/marker_detect_image.o"
+	@echo "... src/marker_detect_image.i"
+	@echo "... src/marker_detect_image.s"
 	@echo "... src/marker_dict.o"
 	@echo "... src/marker_dict.i"
 	@echo "... src/marker_dict.s"

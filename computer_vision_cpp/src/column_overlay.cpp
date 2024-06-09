@@ -70,9 +70,9 @@ namespace overlay
 	}
 	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
 	{
-		uchar valid = 0b111;
+		uchar valid = 0b0;
 		for(auto &vertex : m){
-			valid = valid & position(vertex);
+			valid = valid | position(vertex);
 		}
 		return valid;
 	}

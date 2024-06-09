@@ -12,20 +12,21 @@
 
 #define quote(x) #x
 
-
 namespace overlay
 {
 
-	typedef uchar pos;
 	static int WINDOW_HEIGHT = 480;
 	static int WINDOW_WIDTH = 640;
 	static bool DEBUG_FLAG;
 
-	static std::map<pos, std::string> position_translation = { std::pair<pos, std::string>(0b000, std::string("Invalid")),
-		std::pair<pos, std::string>(0b100, std::string("Left")),
-		std::pair<pos, std::string>(0b001, std::string("Right")),
-		std::pair<pos, std::string>(0b111, std::string("Invalid")),
-		std::pair<pos, std::string>(0b010, std::string("Middle")), };
+	static std::map<uchar, std::string> position_translation = {
+		std::pair<uchar, std::string>(0b000, std::string("Invalid")),
+		std::pair<uchar, std::string>(0b100, std::string("Left")),
+		std::pair<uchar, std::string>(0b110, std::string("Left-Middle")),
+		std::pair<uchar, std::string>(0b010, std::string("Middle")),
+		std::pair<uchar, std::string>(0b011, std::string("Right-Middle")),
+		std::pair<uchar, std::string>(0b001, std::string("Right")),
+		std::pair<uchar, std::string>(0b111, std::string("Invalid")), };
 
 	class overlay
 	{

@@ -38,8 +38,9 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 
 int main()
 {
-	overlay::DEBUG_FLAG = true;
-
+	overlay::DEBUG_FLAG = false;
+	bool ids_flag = false;
+	bool location_flag = false;
 	cv::Mat frame;
 
 	overlay::square_overlay sq_o(200);
@@ -114,13 +115,33 @@ int main()
 						  << overlay::position_translation[c_o.marker_position(marker_corners[i])];
 			}
 		}
-		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
-//		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
+
+		if (location_flag)
+		{
+			for (int i = 0; i < marker_ids.size(); i++)
+			{
+				std::cout << "\nPos : " << overlay::position_translation[c_o.marker_position(marker_corners[i])]
+						  << "\n";
+			}
+		}
+
+		if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
+		else cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 
 		cv::imshow("Live", frame);
 
 		// --  close window when key pressed --
-		if (key_press >= 0)
+		if (key_press == (int)'i')
+		{
+			std::cout << "Toggle ID/METHOD\n";
+			ids_flag = !ids_flag;
+		}
+		else if (key_press == (int)'l')
+		{
+			std::cout << "Toggle Locations (l/r/m)\n";
+			location_flag = !location_flag;
+		}
+		else if (key_press >= 0)
 		{
 			if (key_press == int('s'))
 			{

@@ -14,20 +14,23 @@ namespace overlay
 {
 	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)
 	{
+		cv::Point2f p1 = corners_in[0];
+		cv::Point2f p2 = corners_in[1];
 
+		side_length = (int)cv::norm(p1 - p2);
 		corners = corners_in;
 		window_height = WINDOW_HEIGHT;
 		window_width = WINDOW_WIDTH;
 	}
 
-	square_overlay::square_overlay(int side_length)
+	square_overlay::square_overlay(int side_length_in)
 	{
 		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
 		auto window_width_f = (float)window_width;
 		auto window_height_f = (float)window_height;
 		auto x_0 = (float)(window_width_f / 2);
 		auto y_0 = (float)(window_height_f / 2);
-		auto half_len = (float)(side_length / 2);
+		auto half_len = (float)((float)side_length_in / (float)2);
 		cv::Point2f origin = cv::Point2f(x_0, y_0);
 
 		std::vector<cv::Point2f> box_vertices = { cv::Point2f(half_len, half_len), cv::Point2f(half_len, -half_len),
@@ -37,46 +40,38 @@ namespace overlay
 			vertex += origin;
 		}
 		corners = box_vertices;
+		side_length = side_length_in;
 	}
 
 	bool square_overlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
-		for (cv::Point2f vertex : marker)
+		bool inside = true;
+		for (auto corner : marker)
 		{
-			bool inside = false;
-			for (int i = 0; i < corners.size(); i++)
+			inside = point_in_bounds(corner);
+			if (!inside)
 			{
-				/*  *---------*
-				 *  |         |
-				 *  |    x----|
-				 *  |    |    |
-				 *  |    |    |
-				 *  *---------*
-				 */
-				cv::Point2f p1 = corners[i];
-				cv::Point2f p2 = corners[i + 1];
-				if (i == corners.size() - 1)
-				{
-					p2 = corners[0];
-				}
-				if (vertex.y > std::min(p1.y, p2.y))
-				{
-					if (vertex.y <= std::max(p1.y, p2.y))
-					{
-						if (vertex.x <= std::max(p1.x, p2.x))
-						{
-							if (p1.y != p2.y)
-							{
-								float x_intercept = ((vertex.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y)) + p1.x;
-								if (p1.x == p2.x || vertex.x <= x_intercept)
-								{
-									inside = !inside;
-								}
-							}
-						}
-					}
-				}
+				return inside;
 			}
+		}
+		return inside;
+	}
+
+	bool square_overlay::point_in_bounds(cv::Point2f v)
+	{
+		cv::Point2f p1 = corners[1];
+		cv::Point2f p2 = corners[3];
+		if (DEBUG_FLAG)
+		{
+			std::cout << "\np1 : " << p1 << "\n";
+
+			std::cout << "p2 : " << p2 << "\n";
+			std::cout << v.x << "<" << p1.x << "\n" << v.x << ">" << p2.x << "\n" << v.y << "<" << p1.y << "\n" << v.y
+					  << ">" << p2.y << "\n";
+		}
+		if (v.x < p1.x and v.x > p2.x and v.y > p1.y and v.y < p2.y)
+		{
+			return true;
 		}
 		return false;
 	}
@@ -92,7 +87,7 @@ namespace overlay
 
 		if (DEBUG_FLAG) std::cout << "Draw Square Overlay\n";
 
-// Poly lines only accepts integer points
+		// Poly lines only accepts integer points
 		std::vector<cv::Point2i> IntCornersVec;
 		cv::Mat FloatCorners(corners);
 		cv::Mat IntCorners;
@@ -111,7 +106,8 @@ namespace overlay
 		std::string output;
 		output = "-- Square Overlay --\n";
 		std::vector<cv::Point2f> vertices = getCorners();
-		for(auto vertex : vertices){
+		for (auto vertex : vertices)
+		{
 			output += ("(" + std::to_string(vertex.x) + ", " + std::to_string(vertex.y) + ")\n");
 		}
 		return output;

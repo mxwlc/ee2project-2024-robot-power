@@ -28,6 +28,10 @@ namespace overlay {
 
         virtual bool within_bounds();
 
+		virtual bool point_in_bounds();
+
+		virtual std::string print() const;
+
         virtual void draw();
 
 

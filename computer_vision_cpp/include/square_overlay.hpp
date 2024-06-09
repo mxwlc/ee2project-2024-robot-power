@@ -11,25 +11,30 @@
 #include<iostream>
 #include "overlay.hpp"
 
-namespace overlay {
-    class square_overlay : public overlay {
-    public:
-        square_overlay() = default;
+namespace overlay
+{
+	class square_overlay : public overlay
+	{
+	 public:
+		square_overlay() = default;
 
-        square_overlay(std::vector<cv::Point2f>&);
+		square_overlay(std::vector<cv::Point2f>&);
 
-        explicit square_overlay(int side_length);
+		explicit square_overlay(int side_length);
 
-        bool within_bounds(std::vector<cv::Point2f>& marker);
+		bool within_bounds(std::vector<cv::Point2f>& marker);
 
-        void draw(cv::Mat& m);
+		bool point_in_bounds(cv::Point2f v);
 
-        std::vector<cv::Point2f> getCorners() const;
+		void draw(cv::Mat& m);
+
+		std::vector<cv::Point2f> getCorners() const;
 
 		std::string print() const;
-    private:
-        std::vector<cv::Point2f> corners;
-    };
-	std::ostream& operator<<(std::ostream &os, square_overlay const& so);
+	 private:
+		std::vector<cv::Point2f> corners;
+		int side_length;
+	};
+	std::ostream& operator<<(std::ostream& os, square_overlay const& so);
 }
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP

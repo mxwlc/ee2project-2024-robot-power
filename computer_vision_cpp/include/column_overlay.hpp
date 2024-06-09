@@ -10,28 +10,29 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
-namespace overlay {
-    class column_overlay : public overlay {
-    private:
-        int left_pad;
+namespace overlay
+{
+	class column_overlay : public overlay
+	{
+	 private:
+		int padding;
 
-        int right_pad;
-
-    public:
+	 public:
 		column_overlay();
 
-        column_overlay(int left_pad, int right_pad);
+		column_overlay(int padding);
 
-		int GetLeftPad() const;
+		int GetPadding() const;
 
-		int GetRightPad() const;
 
 		std::string print() const;
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 
-        void draw(cv::Mat& m);
-    };
+		bool point_in_bounds(cv::Point2f point) const;
+
+		void draw(cv::Mat& m);
+	};
 
 	std::ostream& operator<<(std::ostream& os, column_overlay const& o);
 }

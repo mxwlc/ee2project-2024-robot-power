@@ -17,11 +17,21 @@ namespace overlay {
         return false;
     }
 
-    void overlay::draw() { }
+	std::string overlay::print() const
+	{
+		return {"Empty Overlay"};
+	};
 
-    std::ostream& operator<<(std::ostream& os, const overlay& o)
+    void overlay::draw(){};
+
+	bool overlay::point_in_bounds()
+	{
+		return false;
+	}
+
+	std::ostream& operator<<(std::ostream& os, overlay const& o)
     {
-		std::string output("Empty overlay");
+		std::string output = o.print();
         return os << output;
     }
 }

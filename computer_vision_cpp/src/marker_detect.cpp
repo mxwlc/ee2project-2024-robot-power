@@ -38,12 +38,12 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 
 int main()
 {
-	overlay::DEBUG_FLAG = true;
+	overlay::DEBUG_FLAG = false;
 
 	cv::Mat frame;
 
-	overlay::square_overlay sq_o(100);
-	overlay::column_overlay c_o(200, 200);
+	overlay::square_overlay sq_o(200);
+	overlay::column_overlay c_o(200);
 
 	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
 	std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
@@ -77,6 +77,11 @@ int main()
 			std::cerr << "Error : Blank Frame Grabbed\n";
 			break;
 		}
+
+		if(overlay::DEBUG_FLAG){
+			std::cout << frame.type() << std::endl;
+		}
+
 
 		std::vector<int> marker_ids;
 		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
@@ -112,7 +117,12 @@ int main()
 						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]);
 			}
 		}
-		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
+		for (int i = 0; i < marker_ids.size(); i++)
+		{
+			std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i]);
+		}
+		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
+//		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 
 		cv::imshow("Live", frame);
 

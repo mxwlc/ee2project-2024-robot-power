@@ -19,6 +19,11 @@ int main()
 	std::vector<cv::Point2f> v({cv::Point2f(300, 300), cv::Point2f(310, 300), cv::Point2f(300, 310), cv::Point2f(310, 310)});
 	sq_o.draw(m);
 	c_o.draw(m);
+	std::cout << "------------------------\n";
+	std::cout << c_o << std::endl;
+	std::cout << "------------------------\n";
+	std::cout << sq_o << std::endl;
+	std::cout << "------------------------\n";
 	std::cout << "------------------------\n" << "DEBUG SQUARE\n";
 	for (auto corner : v)
 	{

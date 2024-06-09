@@ -3,7 +3,6 @@
 //
 #ifndef EE2_COMPUTER_VISION_OVERLAY_HPP
 #define EE2_COMPUTER_VISION_OVERLAY_HPP
-#pragma once
 
 #include <iostream>
 #include <opencv2/core.hpp>

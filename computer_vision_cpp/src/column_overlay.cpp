@@ -21,10 +21,12 @@ namespace overlay
 
 	bool column_overlay::point_in_bounds(cv::Point2f point) const
 	{
-		if( point.x < (float)padding ){
+		if (point.x < (float)padding)
+		{
 			return false;
 		}
-		if(point.x > (float)(window_width-padding)){
+		if (point.x > (float)(window_width - padding))
+		{
 			return false;
 		}
 		return true;
@@ -55,15 +57,18 @@ namespace overlay
 	std::string column_overlay::print() const
 	{
 		std::string output;
-		output = std::string("--Column Overlay--\n") + std::string("Padding : ") + std::to_string(GetPadding()) + "\n";
+		output = std::string(quote(column_overlay)) + std::string("\n") + std::string("Padding : ")
+				 + std::to_string(GetPadding()) + "\n";
 		return output;
 	}
-	uchar column_overlay::position(cv::Point2f &pt)
+	uchar column_overlay::position(cv::Point2f& pt)
 	{
-		if( pt.x < (float)padding ){
+		if (pt.x < (float)padding)
+		{
 			return 0b100;
 		}
-		if(pt.x > (float)(window_width-padding)){
+		if (pt.x > (float)(window_width - padding))
+		{
 			return 0b001;
 		}
 		return 0b010;
@@ -71,7 +76,8 @@ namespace overlay
 	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
 	{
 		uchar valid = 0b0;
-		for(auto &vertex : m){
+		for (auto& vertex : m)
+		{
 			valid = valid | position(vertex);
 		}
 		return valid;

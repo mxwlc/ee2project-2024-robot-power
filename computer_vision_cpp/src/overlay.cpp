@@ -19,7 +19,8 @@ namespace overlay {
 
 	std::string overlay::print() const
 	{
-		return {"Empty Overlay"};
+
+		return { quote(overlay)};
 	};
 
     void overlay::draw(){};

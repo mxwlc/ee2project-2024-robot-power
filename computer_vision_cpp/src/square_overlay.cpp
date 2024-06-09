@@ -102,7 +102,7 @@ namespace overlay
 	std::string square_overlay::print() const
 	{
 		std::string output;
-		output = "-- Square Overlay --\n";
+		output = std::string(quote(square_overlay)) + "\n";
 		std::vector<cv::Point2f> vertices = getCorners();
 		for (auto vertex : vertices)
 		{

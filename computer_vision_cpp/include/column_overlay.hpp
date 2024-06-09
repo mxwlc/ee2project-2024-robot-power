@@ -24,6 +24,9 @@ namespace overlay
 
 		int GetPadding() const;
 
+		uchar position(cv::Point2f &pt);
+
+		uchar marker_position(std::vector<cv::Point2f> &m);
 
 		std::string print() const;
 

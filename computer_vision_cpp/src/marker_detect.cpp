@@ -38,7 +38,7 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 
 int main()
 {
-	overlay::DEBUG_FLAG = false;
+	overlay::DEBUG_FLAG = true;
 
 	cv::Mat frame;
 
@@ -64,6 +64,7 @@ int main()
 		std::cerr << "Error : Unable to open Camera\n";
 		return -1;
 	}
+	std::cout << "Press any Key to Start\n";
 
 	// -- Main Loop --
 	std::cout << "Press any key to terminate\n";
@@ -77,11 +78,6 @@ int main()
 			std::cerr << "Error : Blank Frame Grabbed\n";
 			break;
 		}
-
-		if(overlay::DEBUG_FLAG){
-			std::cout << frame.type() << std::endl;
-		}
-
 
 		std::vector<int> marker_ids;
 		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
@@ -114,12 +110,9 @@ int main()
 			for (int i = 0; i < marker_ids.size(); i++)
 			{
 				std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i])
-						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]);
+						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]) << "\nPos : "
+						  << overlay::position_translation[c_o.marker_position(marker_corners[i])];
 			}
-		}
-		for (int i = 0; i < marker_ids.size(); i++)
-		{
-			std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i]);
 		}
 		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
 //		cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);

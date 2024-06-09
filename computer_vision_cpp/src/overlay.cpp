@@ -28,6 +28,9 @@ namespace overlay {
 	{
 		return false;
 	}
+	uchar overlay::position(){
+		return 0b111;
+	}
 
 	std::ostream& operator<<(std::ostream& os, overlay const& o)
     {

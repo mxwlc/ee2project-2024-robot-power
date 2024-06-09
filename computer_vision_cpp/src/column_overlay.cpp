@@ -14,6 +14,22 @@ namespace overlay
 	{
 	}
 
+	int column_overlay::GetPadding() const
+	{
+		return padding;
+	}
+
+	bool column_overlay::point_in_bounds(cv::Point2f point) const
+	{
+		if( point.x < (float)padding ){
+			return false;
+		}
+		if(point.x > (float)(window_width-padding)){
+			return false;
+		}
+		return true;
+	}
+
 	bool column_overlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
 		bool inside = false;
@@ -35,23 +51,30 @@ namespace overlay
 		cv::line(m, cv::Point2f((window_width - padding_f), 0.0), cv::Point2f(
 			window_width - padding_f, window_height), cv::Scalar(0, 255, 0), 2);
 	}
-	int column_overlay::GetPadding() const
-	{
-		return padding;
-	}
+
 	std::string column_overlay::print() const
 	{
 		std::string output;
 		output = std::string("--Column Overlay--\n") + std::string("Padding : ") + std::to_string(GetPadding()) + "\n";
 		return output;
 	}
-	bool column_overlay::point_in_bounds(cv::Point2f point) const
+	uchar column_overlay::position(cv::Point2f &pt)
 	{
-		if ((float)padding <= point.x && point.x <= (float)(window_width - padding))
-		{
-			return true;
+		if( pt.x < (float)padding ){
+			return 0b100;
 		}
-		return false;
+		if(pt.x > (float)(window_width-padding)){
+			return 0b001;
+		}
+		return 0b010;
+	}
+	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
+	{
+		uchar valid = 0b111;
+		for(auto &vertex : m){
+			valid = valid & position(vertex);
+		}
+		return valid;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const column_overlay& o)

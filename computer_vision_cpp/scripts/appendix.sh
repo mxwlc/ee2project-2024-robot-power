@@ -1,39 +1,48 @@
 #!/bin/bash
 rm appendix.txt
+rm appendix.txt
 touch appendix.txt
 # shellcheck disable=SC2129
 
 # Save Header Files
-echo "================================================" >> appendix.txt
-echo "Header Files" >> appendix.txt
-echo "================================================" >> appendix.txt
+
+echo "# Header Files" >> appendix.txt
+
 for filename in include/*.hpp; do
-    echo "--------------------" >> appendix.txt
-    echo "$filename" >> appendix.txt
-    echo "--------------------" >> appendix.txt
+    printf "## %s\n" "$filename" >> appendix.txt
+    echo "\`\`\`cpp" >> appendix.txt
     cat $filename >> appendix.txt
+    printf "\n" >> appendix.txt
+    echo "\`\`\`" >> appendix.txt
 done
 
 # Save Source Files
-echo "================================================" >> appendix.txt
-echo "Source Files" >> appendix.txt
-echo "================================================" >> appendix.txt
+echo "# Source Files" >> appendix.txt
 for filename in src/*.cpp; do
-  echo "--------------------" >> appendix.txt
-  echo "$filename" >> appendix.txt
-  echo "--------------------" >> appendix.txt
+  printf "## %s\n" "$filename" >> appendix.txt
+  echo "\`\`\`cpp" >> appendix.txt
   cat $filename >> appendix.txt
-  echo "" >> appendix.txt
+  printf "\n" >> appendix.txt
+  echo "\`\`\`" >> appendix.txt
 done
 
 
 # Save CMake Files
-echo "================================================" >> appendix.txt
-echo "CMakeFiles" >> appendix.txt
-echo "================================================" >> appendix.txt
-FILENAME="CMakeLists.txt";
-echo "--------------------" >> appendix.txt
-echo "$FILENAME" >> appendix.txt
-echo "--------------------" >> appendix.txt
-cat $FILENAME >> appendix.txt
 
+echo "# CMakeFiles" >> appendix.txt
+FILENAME="CMakeLists.txt";
+printf "## %s\n" "$FILENAME" >> appendix.txt
+echo "\`\`\` cmake" >> appendix.txt
+cat $FILENAME >> appendix.txt
+printf "\n \`\`\` \n" >> appendix.txt
+
+echo "# Bash Scripts" >> appendix.txt
+for filename in scripts/*.sh; do
+  printf "## %s \n" "$filename" >> appendix.txt
+  printf "\`\`\` bash \n" >> appendix.txt
+  cat $filename >> appendix.txt
+  printf "\n \`\`\` \n" >> appendix.txt
+done
+
+cat appendix.txt > appendix.md
+echo "Appendix Generated -- Done!"

@@ -17,43 +17,37 @@
 #define BORDER_SIZE = 1
 #define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
 
-class target
-{
- public:
-	std::vector<std::vector<cv::Point2f>> target_coords;
-	std::vector<int> target_id;
+std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0000, "Stop"),
+	std::pair<uchar, std::string>(0b0001, "T_Right"), std::pair<uchar, std::string>(0b0010, "MV_Forward"),
+	std::pair<uchar, std::string>(0b0100, "T_Left"), std::pair<uchar, std::string>(0b1111, "Invalid"),
 
-	target()
-	{
-		cv::Point2f zero = cv::Point2f(0, 0);
-		std::vector<cv::Point2f> marker = { zero };
-		std::vector<std::vector<cv::Point2f>> mmarker = { marker };
-
-		target_coords = mmarker;
-		target_id = { 0 };
-	}
-	target(std::vector<std::vector<cv::Point2f>> target_coords_, std::vector<int> target_id_)
-		: target_id(target_id_), target_coords(target_coords_)
-	{
-	}
-
-	void set_target(std::vector<std::vector<cv::Point2f>> target_coords_, std::vector<int> target_id_)
-	{
-		target_coords = target_coords_;
-		target_id = target_id_;
-
-	}
-
-	std::vector<std::vector<cv::Point2f>> get_target_coords()
-	{
-		return target_coords;
-	}
-
-	std::vector<int> get_target_id()
-	{
-		return target_id;
-	}
 };
+
+uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::column_overlay& col_overlay)
+{
+	// 0b0001 :  TURN RIGHT
+	// 0b0010 :  MIDDLE
+	// 0b0100 : TURN LEFT
+	// All other pos :1 STOP
+	uchar pos = col_overlay.marker_position(target_marker);
+	if (pos == 0b0010)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Move Forward\n";
+		return 0b0010;
+	}
+	if (pos == 0b0001 || pos == 0b0011)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Turn Left\n";
+		return 0b0100;
+	}
+	if (pos == 0b0100 | pos == 0b0110)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Turn Right\n";
+		return 0b0001;
+	}
+	std::cout << "No Marker Found\n";
+	return 0b0000;
+}
 
 std::vector<int> translate_found_markers(std::unique_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
 {
@@ -81,6 +75,7 @@ int main()
 	bool ids_flag = false;
 	bool location_flag = false;
 	cv::Mat frame;
+	bool drive_flag = false;
 
 	overlay::square_overlay sq_o(200);
 	overlay::column_overlay c_o(200);
@@ -117,6 +112,8 @@ int main()
 	std::cout << "Press any key to terminate\n";
 	for (;;)
 	{
+		uchar direction = 0b0000;
+
 		cap.read(frame);
 		int key_press = cv::waitKey(5);
 		// -- validate frame --
@@ -161,8 +158,8 @@ int main()
 				if (marker_ids[j] == id)
 				{
 					t_coord = { marker_corners[j] };
-//						target_marker->set_target({ marker_corners[j] }, std::vector<int>(marker_ids[j]))
-					std::cout << "Found Target " << id << "\n";
+
+					if (overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
 				}
 			}
 		}
@@ -204,16 +201,29 @@ int main()
 				std::vector<int> t_state = translate_found_markers(md, t_id);
 				if (!t_corner.empty() && !t_id.empty())
 				{
-					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id);
-					else cv::aruco::drawDetectedMarkers(frame, t_corner, t_state);
+					std::vector<cv::Point2f> marker_coord = t_coord[0];
+					std::string state_string = md->enum_string_translation((dictionary::states)t_state[0]);
+
+					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id, cv::Scalar(0, 0, 0xff));
+					else cv::aruco::drawDetectedMarkers(frame, t_corner, t_state, cv::Scalar(0xff, 0, 0));
+
+					cv::putText(frame, //target image
+						state_string, //text
+						marker_coord[3], //top-left position
+						cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0, 255, 0), //font color
+						1);
+
+					direction = steering(t_corner[0], t_id, c_o);
+
 				}
 			}
 		}
 		else
 		{
-			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
+			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids, cv::Scalar(0, 0, 0xff));
 			else cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 		}
+		if (drive_flag) std::cout << direction_map[direction] << "\n";
 		cv::imshow("Live", frame);
 
 		// --  close window when key pressed --
@@ -221,6 +231,16 @@ int main()
 		{
 			std::cout << "Toggle ID/METHOD\n";
 			ids_flag = !ids_flag;
+		}
+		else if (key_press == (int)'d')
+		{
+			std::cout << "Toggle Debug\n";
+			overlay::DEBUG_FLAG = !overlay::DEBUG_FLAG;
+		}
+		else if (key_press == (int)'c')
+		{
+			std::cout << "Toggle Drive\n";
+			drive_flag = !drive_flag;
 		}
 		else if (key_press == (int)'l')
 		{

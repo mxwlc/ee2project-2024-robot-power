@@ -1,6 +1,5 @@
 #!/bin/bash
-rm appendix.txt
-rm appendix.txt
+rm appendix.md
 touch appendix.txt
 # shellcheck disable=SC2129
 
@@ -45,4 +44,5 @@ for filename in scripts/*.sh; do
 done
 
 cat appendix.txt > appendix.md
+rm appendix.txt
 echo "Appendix Generated -- Done!"

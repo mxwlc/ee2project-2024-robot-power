@@ -17,7 +17,7 @@ This needs changing to add for more "jobs"
 */
 	typedef enum
 	{
-		STOP = 0, FORWARD = 1, BACKWARD = 2, TURN_L = 3, TURN_R = 4, STATES_NR_ITEMS = 5
+		STOP = 0, GO_TOWARDS = 1, GO_AWAY_FROM = 2, STATES_NR_ITEMS = 3
 	} states;
 
 	class marker_dict
@@ -28,8 +28,8 @@ This needs changing to add for more "jobs"
 		std::map<int, states> marker_map;
 
 		// maps State to the corresponding label
-		std::map<states, std::string> enum_to_string = {{ states::STOP, "STOP" }, { states::FORWARD, "FORWARD" },
-			{ states::BACKWARD, "BACKWARD" }, { states::TURN_L, "TURN_L" }, { states::TURN_R, "TURN_R" },
+		std::map<states, std::string> enum_to_string = {{ states::STOP, "STOP" }, { states::GO_TOWARDS, "GO TOWARDS" },
+			{ states::GO_AWAY_FROM, "GO AWAY FROM" },
 			{ states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS)) }};
 
 	 public:

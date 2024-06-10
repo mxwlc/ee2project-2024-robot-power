@@ -16,6 +16,7 @@
 
 std::vector<uchar> id_array()
 {
+
 	std::cout << "-------------------------------------------------------------------------------" << std::endl;
 	bool valid;
 	int total_marker;
@@ -81,9 +82,7 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 /* Needs changing to support a variable enum size
  *
  * */
-
-
-
+	dictionary::states state_enum;
 	int choice;
 	bool valid;
 	do
@@ -93,7 +92,7 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 		// Print Menu
 		for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++)
 		{
-			std::cout << i << "\n";
+			std::cout << i << " : " << dict.enum_string_translation(static_cast<dictionary::states>(i)) << "\n";
 		}
 
 		std::cout << "-------------------------------------------------------------------------------" << std::endl;
@@ -103,9 +102,9 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 			std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
 			valid = false;
 		}
-		else if (choice > 4 || choice < 0)
+		else if (choice >= (int)dictionary::STATES_NR_ITEMS || choice < 0)
 		{
-			std::cout << std::endl << "Please Enter A valid choice (0-4)" << std::endl;
+			std::cout << std::endl << "Please Enter A valid choice (0-" << (int)dictionary::STATES_NR_ITEMS << ")\n";
 			valid = false;
 		}
 		else
@@ -122,16 +121,10 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 		curr_state = dictionary::states::STOP;
 		break;
 	case 1:
-		curr_state = dictionary::states::FORWARD;
+		curr_state = dictionary::states::GO_TOWARDS;
 		break;
 	case 2:
-		curr_state = dictionary::states::BACKWARD;
-		break;
-	case 3:
-		curr_state = dictionary::states::TURN_L;
-		break;
-	case 4:
-		curr_state = dictionary::states::TURN_R;
+		curr_state = dictionary::states::GO_AWAY_FROM;
 		break;
 	default:
 		curr_state = dictionary::states::STOP;

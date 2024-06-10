@@ -66,7 +66,7 @@ This needs changing to add for more "jobs"
 */
 	typedef enum
 	{
-		STOP = 0, FORWARD = 1, BACKWARD = 2, TURN_L = 3, TURN_R = 4, STATES_NR_ITEMS = 5
+		STOP = 0, GO_TOWARDS = 1, GO_AWAY_FROM = 2, STATES_NR_ITEMS = 3
 	} states;
 
 	class marker_dict
@@ -77,8 +77,8 @@ This needs changing to add for more "jobs"
 		std::map<int, states> marker_map;
 
 		// maps State to the corresponding label
-		std::map<states, std::string> enum_to_string = {{ states::STOP, "STOP" }, { states::FORWARD, "FORWARD" },
-			{ states::BACKWARD, "BACKWARD" }, { states::TURN_L, "TURN_L" }, { states::TURN_R, "TURN_R" },
+		std::map<states, std::string> enum_to_string = {{ states::STOP, "STOP" }, { states::GO_TOWARDS, "GO TOWARDS" },
+			{ states::GO_AWAY_FROM, "GO AWAY FROM" },
 			{ states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS)) }};
 
 	 public:
@@ -342,43 +342,37 @@ namespace overlay
 #define BORDER_SIZE = 1
 #define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
 
-class target
-{
- public:
-	std::vector<std::vector<cv::Point2f>> target_coords;
-	std::vector<int> target_id;
+std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0000, "Stop"),
+	std::pair<uchar, std::string>(0b0001, "T_Right"), std::pair<uchar, std::string>(0b0010, "MV_Forward"),
+	std::pair<uchar, std::string>(0b0100, "T_Left"), std::pair<uchar, std::string>(0b1111, "Invalid"),
 
-	target()
-	{
-		cv::Point2f zero = cv::Point2f(0, 0);
-		std::vector<cv::Point2f> marker = { zero };
-		std::vector<std::vector<cv::Point2f>> mmarker = { marker };
-
-		target_coords = mmarker;
-		target_id = { 0 };
-	}
-	target(std::vector<std::vector<cv::Point2f>> target_coords_, std::vector<int> target_id_)
-		: target_id(target_id_), target_coords(target_coords_)
-	{
-	}
-
-	void set_target(std::vector<std::vector<cv::Point2f>> target_coords_, std::vector<int> target_id_)
-	{
-		target_coords = target_coords_;
-		target_id = target_id_;
-
-	}
-
-	std::vector<std::vector<cv::Point2f>> get_target_coords()
-	{
-		return target_coords;
-	}
-
-	std::vector<int> get_target_id()
-	{
-		return target_id;
-	}
 };
+
+uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::column_overlay& col_overlay)
+{
+	// 0b0001 :  TURN RIGHT
+	// 0b0010 :  MIDDLE
+	// 0b0100 : TURN LEFT
+	// All other pos :1 STOP
+	uchar pos = col_overlay.marker_position(target_marker);
+	if (pos == 0b0010)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Move Forward\n";
+		return 0b0010;
+	}
+	if (pos == 0b0001 || pos == 0b0011)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Turn Left\n";
+		return 0b0100;
+	}
+	if (pos == 0b0100 | pos == 0b0110)
+	{
+		if (overlay::DEBUG_FLAG) std::cout << "Turn Right\n";
+		return 0b0001;
+	}
+	std::cout << "No Marker Found\n";
+	return 0b0000;
+}
 
 std::vector<int> translate_found_markers(std::unique_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
 {
@@ -406,6 +400,7 @@ int main()
 	bool ids_flag = false;
 	bool location_flag = false;
 	cv::Mat frame;
+	bool drive_flag = false;
 
 	overlay::square_overlay sq_o(200);
 	overlay::column_overlay c_o(200);
@@ -442,6 +437,8 @@ int main()
 	std::cout << "Press any key to terminate\n";
 	for (;;)
 	{
+		uchar direction = 0b0000;
+
 		cap.read(frame);
 		int key_press = cv::waitKey(5);
 		// -- validate frame --
@@ -486,8 +483,8 @@ int main()
 				if (marker_ids[j] == id)
 				{
 					t_coord = { marker_corners[j] };
-//						target_marker->set_target({ marker_corners[j] }, std::vector<int>(marker_ids[j]))
-					std::cout << "Found Target " << id << "\n";
+
+					if (overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
 				}
 			}
 		}
@@ -529,16 +526,29 @@ int main()
 				std::vector<int> t_state = translate_found_markers(md, t_id);
 				if (!t_corner.empty() && !t_id.empty())
 				{
-					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id);
-					else cv::aruco::drawDetectedMarkers(frame, t_corner, t_state);
+					std::vector<cv::Point2f> marker_coord = t_coord[0];
+					std::string state_string = md->enum_string_translation((dictionary::states)t_state[0]);
+
+					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id, cv::Scalar(0, 0, 0xff));
+					else cv::aruco::drawDetectedMarkers(frame, t_corner, t_state, cv::Scalar(0xff, 0, 0));
+
+					cv::putText(frame, //target image
+						state_string, //text
+						marker_coord[3], //top-left position
+						cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0, 255, 0), //font color
+						1);
+
+					direction = steering(t_corner[0], t_id, c_o);
+
 				}
 			}
 		}
 		else
 		{
-			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
+			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids, cv::Scalar(0, 0, 0xff));
 			else cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
 		}
+		if (drive_flag) std::cout << direction_map[direction] << "\n";
 		cv::imshow("Live", frame);
 
 		// --  close window when key pressed --
@@ -546,6 +556,16 @@ int main()
 		{
 			std::cout << "Toggle ID/METHOD\n";
 			ids_flag = !ids_flag;
+		}
+		else if (key_press == (int)'d')
+		{
+			std::cout << "Toggle Debug\n";
+			overlay::DEBUG_FLAG = !overlay::DEBUG_FLAG;
+		}
+		else if (key_press == (int)'c')
+		{
+			std::cout << "Toggle Drive\n";
+			drive_flag = !drive_flag;
 		}
 		else if (key_press == (int)'l')
 		{
@@ -625,134 +645,145 @@ int main()
 #include "../include/marker_dict.hpp"
 // TODO write comments and documentation
 
-namespace dictionary {
-    marker_dict::marker_dict()
-    {
-        /*
-         * Default constructor, initialises the map with a {0, STOP} pair
-         */
-        std::cout << "Marker Dictionary Initialisation Start" << std::endl;
-        std::map<int, states> temp_map({{0, states::STOP}});
-        marker_map = temp_map;
-        std::cout << "Marker Dictionary Initialisation End" << std::endl;
-    }
+namespace dictionary
+{
+	marker_dict::marker_dict()
+	{
+		/*
+		 * Default constructor, initialises the map with a {0, STOP} pair
+		 */
+		std::cout << "Marker Dictionary Initialisation Start" << std::endl;
+		std::map<int, states> temp_map({{ 0, states::STOP }});
+		marker_map = temp_map;
+		std::cout << "Marker Dictionary Initialisation End" << std::endl;
+	}
 
-    marker_dict::marker_dict(std::map<int, states>& dict)
-    {
-        /*
-         * Constructor setting the internal map to the provided arguement map
-         */
-        marker_map = dict;
-    }
+	marker_dict::marker_dict(std::map<int, states>& dict)
+	{
+		/*
+		 * Constructor setting the internal map to the provided arguement map
+		 */
+		marker_map = dict;
+	}
 
-    marker_dict::marker_dict(std::string filename)
-    {
-        /*
-         * Constructor, setting marker map to the map stored in the provided text file
-         */
-        std::map<int, states> t_marker_map;
-        marker_map = load_marker_map(filename);
-    }
+	marker_dict::marker_dict(std::string filename)
+	{
+		/*
+		 * Constructor, setting marker map to the map stored in the provided text file
+		 */
+		std::map<int, states> t_marker_map;
+		marker_map = load_marker_map(filename);
+	}
 
-    marker_dict::~marker_dict()
-    {
-        // Debug atm
-        // Destructor that tells the user when the marker dict object (and thus the shared_ptr to the object) leaves the current scope (or the ptr is deleted)
-        std::cout << "Marker Dictionary Leaves Scope" << std::endl;
-    }
+	marker_dict::~marker_dict()
+	{
+		// Debug atm
+		// Destructor that tells the user when the marker dict object (and thus the shared_ptr to the object) leaves the current scope (or the ptr is deleted)
+		std::cout << "Marker Dictionary Leaves Scope" << std::endl;
+	}
 
-    void marker_dict::add_marker(int id, states marker_state)
-    {
-        /*
-         * Adds a {marker_id, state} Pair to the internal map
-         */
-        marker_map.insert({id, marker_state});
-    }
+	void marker_dict::add_marker(int id, states marker_state)
+	{
+		/*
+		 * Adds a {marker_id, state} Pair to the internal map
+		 */
+		marker_map.insert({ id, marker_state });
+	}
 
-    states marker_dict::marker_translate(int id)
-    {
-        /*
-         * Returns the corresponding enum State from the provided marker id
-         */
-        return marker_map[id];
-    }
+	states marker_dict::marker_translate(int id)
+	{
+		/*
+		 * Returns the corresponding enum State from the provided marker id
+		 */
+		return marker_map[id];
+	}
 
-    std::map<int, states> marker_dict::return_dict() const
-    {
-        /*
-         * Returns the internal marker map object
-         */
-        return marker_map;
-    }
+	std::map<int, states> marker_dict::return_dict() const
+	{
+		/*
+		 * Returns the internal marker map object
+		 */
+		return marker_map;
+	}
 
-    std::string marker_dict::print_dict() const
-    {
-        /*
-         * Debug print
-         * May haps be useless
-         */
-        std::string output;
-        std::string line;
-        output = std::string("ID, State \n")+std::string("{\n");
-        for (auto& t : marker_map) {
-            line = std::to_string(t.first)+std::string(" : ")+std::to_string(states(t.second))+std::string("\n");
-            output.append(line);
-        }
-        output.append("}\n");
-        return output;
-    }
+	std::string marker_dict::print_dict() const
+	{
+		/*
+		 * Debug print
+		 * May haps be useless
+		 */
+		std::string output;
+		std::string line;
+		output = std::string("ID, State \n") + std::string("{\n");
+		for (auto& t : marker_map)
+		{
+			line = std::to_string(t.first) + std::string(" : ") + std::to_string(states(t.second)) + std::string("\n");
+			output.append(line);
+		}
+		output.append("}\n");
+		return output;
+	}
 
-    void marker_dict::save_dict()
-    {
-        std::string filename("marker_dict");
-        std::ofstream outfile(filename);
+	void marker_dict::save_dict()
+	{
+		std::string filename("marker_dict");
+		std::ofstream outfile(filename);
 
-        if (!outfile.is_open()) {
-            std::cerr << "Failed to open file for writing: " << filename << std::endl;
-            return;
-        }
-        for (const auto& pair : marker_map) {
-            outfile << pair.first << " " << pair.second << std::endl;
-        }
+		if (!outfile.is_open())
+		{
+			std::cerr << "Failed to open file for writing: " << filename << std::endl;
+			return;
+		}
+		for (const auto& pair : marker_map)
+		{
+			outfile << pair.first << " " << pair.second << std::endl;
+		}
 
-        outfile.close();
+		outfile.close();
 
-        if (!outfile.good()) {
-            std::cerr << "Error occurred at writing time!" << std::endl;
-        }
-    }
+		if (!outfile.good())
+		{
+			std::cerr << "Error occurred at writing time!" << std::endl;
+		}
+	}
 
-    int marker_dict::size_of_map()
-    {
-        return (int)marker_map.size();
-    }
+	int marker_dict::size_of_map()
+	{
+		return (int)marker_map.size();
+	}
 
-    std::map<int, states> marker_dict::load_marker_map(std::string filename)
-    {
-        std::ifstream input_file(filename);
-        std::map<int, states> marker_map_in;
-        if (!input_file) {
-            std::cerr << "Error : Cannot open file\n";
-            marker_map_in.insert({{0, states::STOP}});
-            return marker_map_in;
-        }
-        std::string key, value;
-        while (input_file >> key >> value) {
-            marker_map_in[std::stoi(key)] = (states) std::stoi(value);
-        }
-        return marker_map_in;
-    }
+	std::map<int, states> marker_dict::load_marker_map(std::string filename)
+	{
+		std::ifstream input_file(filename);
+		std::map<int, states> marker_map_in;
+		if (!input_file)
+		{
+			std::cerr << "Error : Cannot open file\n";
+			marker_map_in.insert({{ 0, states::STOP }});
+			return marker_map_in;
+		}
+		std::string key, value;
+		while (input_file >> key >> value)
+		{
+			marker_map_in[std::stoi(key)] = (states)std::stoi(value);
+		}
+		return marker_map_in;
+	}
 
-    std::string marker_dict::enum_string_translation(states in_state)
-    {
-        return enum_to_string[in_state];
-    }
+	std::string marker_dict::enum_string_translation(states in_state)
+	{
+		if (enum_to_string.find(in_state) == enum_to_string.end())
+		{
+			return "No State";
+		}
+		return enum_to_string[in_state];
+	}
 
-    std::ostream& operator<<(std::ostream& os, marker_dict const& m)
-    {
-        std::string output = m.print_dict();
-        return os << output;
-    }
+	std::ostream& operator<<(std::ostream& os, marker_dict const& m)
+	{
+		std::string output = m.print_dict();
+		return os << output;
+	}
 }
 ```
 ## src/marker_gen.cpp
@@ -775,6 +806,7 @@ namespace dictionary {
 
 std::vector<uchar> id_array()
 {
+
 	std::cout << "-------------------------------------------------------------------------------" << std::endl;
 	bool valid;
 	int total_marker;
@@ -840,9 +872,7 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 /* Needs changing to support a variable enum size
  *
  * */
-
-
-
+	dictionary::states state_enum;
 	int choice;
 	bool valid;
 	do
@@ -852,7 +882,7 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 		// Print Menu
 		for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++)
 		{
-			std::cout << i << "\n";
+			std::cout << i << " : " << dict.enum_string_translation(static_cast<dictionary::states>(i)) << "\n";
 		}
 
 		std::cout << "-------------------------------------------------------------------------------" << std::endl;
@@ -862,9 +892,9 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 			std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
 			valid = false;
 		}
-		else if (choice > 4 || choice < 0)
+		else if (choice >= (int)dictionary::STATES_NR_ITEMS || choice < 0)
 		{
-			std::cout << std::endl << "Please Enter A valid choice (0-4)" << std::endl;
+			std::cout << std::endl << "Please Enter A valid choice (0-" << (int)dictionary::STATES_NR_ITEMS << ")\n";
 			valid = false;
 		}
 		else
@@ -881,16 +911,10 @@ void add_to_dictionary(dictionary::marker_dict& dict, int id)
 		curr_state = dictionary::states::STOP;
 		break;
 	case 1:
-		curr_state = dictionary::states::FORWARD;
+		curr_state = dictionary::states::GO_TOWARDS;
 		break;
 	case 2:
-		curr_state = dictionary::states::BACKWARD;
-		break;
-	case 3:
-		curr_state = dictionary::states::TURN_L;
-		break;
-	case 4:
-		curr_state = dictionary::states::TURN_R;
+		curr_state = dictionary::states::GO_AWAY_FROM;
 		break;
 	default:
 		curr_state = dictionary::states::STOP;
@@ -948,41 +972,47 @@ int main()
 //
 #include "../include/overlay.hpp"
 
-namespace overlay {
-    overlay::overlay()
-    {
-        window_height = WINDOW_HEIGHT;
-        window_width = WINDOW_WIDTH;
-    }
+namespace overlay
+{
+	overlay::overlay()
+	{
+		window_height = WINDOW_HEIGHT;
+		window_width = WINDOW_WIDTH;
+	}
 
-    overlay::~overlay() { }
+	overlay::~overlay()
+	{
+	}
 
 	[[maybe_unused]] bool overlay::within_bounds()
-    {
-        return false;
-    }
+	{
+		return false;
+	}
 
 	std::string overlay::print() const
 	{
 
-		return { quote(overlay)};
+		return { quote(overlay) };
 	};
 
-	[[maybe_unused]] void overlay::draw(){};
+	[[maybe_unused]] void overlay::draw()
+	{
+	};
 
 	[[maybe_unused]] bool overlay::point_in_bounds()
 	{
 		return false;
 	}
-	[[maybe_unused]] uchar overlay::position(){
+	[[maybe_unused]] uchar overlay::position()
+	{
 		return 0b111;
 	}
 
 	std::ostream& operator<<(std::ostream& os, overlay const& o)
-    {
+	{
 		std::string output = o.print();
-        return os << output;
-    }
+		return os << output;
+	}
 }
 ```
 ## src/square_overlay.cpp
@@ -1273,8 +1303,7 @@ MESSAGE( STATUS "=====================================================" )
 ## scripts/appendix.sh 
 ``` bash 
 #!/bin/bash
-rm appendix.txt
-rm appendix.txt
+rm appendix.md
 touch appendix.txt
 # shellcheck disable=SC2129
 
@@ -1319,6 +1348,7 @@ for filename in scripts/*.sh; do
 done
 
 cat appendix.txt > appendix.md
+rm appendix.txt
 echo "Appendix Generated -- Done!"
  ``` 
 ## scripts/clear_binaries.sh 

@@ -143,6 +143,45 @@ appendix/fast:
 .PHONY : appendix/fast
 
 #=============================================================================
+# Target rules for targets named convert
+
+# Build rule for target.
+convert: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 convert
+.PHONY : convert
+
+# fast build rule for target.
+convert/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/build
+.PHONY : convert/fast
+
+#=============================================================================
+# Target rules for targets named clear_markers
+
+# Build rule for target.
+clear_markers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clear_markers
+.PHONY : clear_markers
+
+# fast build rule for target.
+clear_markers/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_markers.dir/build.make CMakeFiles/clear_markers.dir/build
+.PHONY : clear_markers/fast
+
+#=============================================================================
+# Target rules for targets named clear_bin
+
+# Build rule for target.
+clear_bin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clear_bin
+.PHONY : clear_bin
+
+# fast build rule for target.
+clear_bin/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_bin.dir/build.make CMakeFiles/clear_bin.dir/build
+.PHONY : clear_bin/fast
+
+#=============================================================================
 # Target rules for targets named MarkerDetect
 
 # Build rule for target.
@@ -360,6 +399,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... appendix"
 	@echo "... clear"
+	@echo "... clear_bin"
+	@echo "... clear_markers"
+	@echo "... convert"
 	@echo "... ImageDetector"
 	@echo "... MarkerDetect"
 	@echo "... MarkerGen"

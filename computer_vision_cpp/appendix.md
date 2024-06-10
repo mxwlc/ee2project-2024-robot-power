@@ -1263,6 +1263,11 @@ add_custom_target(clear
         COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
         COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
         COMMENT "Clears /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Emptying /markers"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_markers.sh
+        COMMENT "Clears /markers"
         VERBATIM
 
 )
@@ -1276,6 +1281,37 @@ add_custom_target(appendix
         VERBATIM
 
 )
+
+add_custom_target(convert
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Converts Markers from bmp to jpg"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/convert_markers.sh
+        COMMENT "Converts markers from .bmp to .jpg"
+        VERBATIM
+
+)
+
+add_custom_target( clear_markers
+COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+COMMAND ${CMAKE_COMMAND} -E echo "Emptying /markers"
+COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_markers.sh
+COMMENT "Clears /markers"
+VERBATIM
+)
+
+add_custom_target( clear_bin
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Emptying /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
+        COMMENT "Clears /bin"
+        VERBATIM
+)
+
+
+
 MESSAGE( STATUS "Configuring Custom Targets - done" )
 MESSAGE( STATUS "=====================================================" )
 
@@ -1364,7 +1400,49 @@ echo "---------------------------------------------"
 #!/bin/sh
 echo "---------------------------------------------"
 echo "Clearing Marker Directory"
-rm -rf markers/*
+rm markers/*.png
+rm markers/*.bmp
 echo "---------------------------------------------"
+
+ ``` 
+## scripts/convert_markers.sh 
+``` bash 
+#!/bin/bash
+echo "------Converting Images------"
+
+file_with_extension() {
+    local dir="$1"
+    local ext="$2"
+
+    if [[ $ext != .* ]]; then
+        ext=".$ext"
+    fi
+
+    # Iterate through all files in the directory
+    for file in "$dir"/*; do
+        if [[ -f $file && $file == *$ext ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+if file_with_extension "markers/" "bmp"; then
+  for filename in markers/*.bmp; do
+    convert "$filename" "${filename%.bmp}".png
+  done
+  echo "Deleting .bmp files"
+  rm markers/*.bmp
+else
+  echo "No .bmp files"
+fi
+
+echo "------Converting Images - Done------"
+
+ ``` 
+## scripts/marker_conv_test.sh 
+``` bash 
+#!/bin/bash
 
  ``` 

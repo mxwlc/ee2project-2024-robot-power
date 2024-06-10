@@ -51,6 +51,11 @@ add_custom_target(clear
         COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
         COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
         COMMENT "Clears /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Emptying /markers"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_markers.sh
+        COMMENT "Clears /markers"
         VERBATIM
 
 )
@@ -64,6 +69,37 @@ add_custom_target(appendix
         VERBATIM
 
 )
+
+add_custom_target(convert
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Converts Markers from bmp to jpg"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/convert_markers.sh
+        COMMENT "Converts markers from .bmp to .jpg"
+        VERBATIM
+
+)
+
+add_custom_target( clear_markers
+COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+COMMAND ${CMAKE_COMMAND} -E echo "Emptying /markers"
+COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_markers.sh
+COMMENT "Clears /markers"
+VERBATIM
+)
+
+add_custom_target( clear_bin
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E echo "Emptying /bin"
+        COMMAND ${CMAKE_COMMAND} -E echo "-----------------------------------"
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR} ./scripts/clear_binaries.sh
+        COMMENT "Clears /bin"
+        VERBATIM
+)
+
+
+
 MESSAGE( STATUS "Configuring Custom Targets - done" )
 MESSAGE( STATUS "=====================================================" )
 

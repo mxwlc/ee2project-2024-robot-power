@@ -53,6 +53,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/clear.dir/DependInfo.cmake"
   "CMakeFiles/appendix.dir/DependInfo.cmake"
+  "CMakeFiles/convert.dir/DependInfo.cmake"
+  "CMakeFiles/clear_markers.dir/DependInfo.cmake"
+  "CMakeFiles/clear_bin.dir/DependInfo.cmake"
   "CMakeFiles/MarkerDetect.dir/DependInfo.cmake"
   "CMakeFiles/MarkerGen.dir/DependInfo.cmake"
   "CMakeFiles/ImageDetector.dir/DependInfo.cmake"

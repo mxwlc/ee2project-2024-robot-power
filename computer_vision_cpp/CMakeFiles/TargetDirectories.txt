@@ -1,5 +1,8 @@
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/clear.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/appendix.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/convert.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/clear_markers.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/clear_bin.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/MarkerDetect.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/MarkerGen.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles/ImageDetector.dir

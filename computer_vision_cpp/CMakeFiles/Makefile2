@@ -77,6 +77,9 @@ preinstall: src/preinstall
 # The main recursive "clean" target.
 clean: CMakeFiles/clear.dir/clean
 clean: CMakeFiles/appendix.dir/clean
+clean: CMakeFiles/convert.dir/clean
+clean: CMakeFiles/clear_markers.dir/clean
+clean: CMakeFiles/clear_bin.dir/clean
 clean: CMakeFiles/MarkerDetect.dir/clean
 clean: CMakeFiles/MarkerGen.dir/clean
 clean: CMakeFiles/ImageDetector.dir/clean
@@ -150,6 +153,84 @@ appendix: CMakeFiles/appendix.dir/rule
 CMakeFiles/appendix.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/appendix.dir/build.make CMakeFiles/appendix.dir/clean
 .PHONY : CMakeFiles/appendix.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/convert.dir
+
+# All Build rule for target.
+CMakeFiles/convert.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=29 "Built target convert"
+.PHONY : CMakeFiles/convert.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/convert.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/convert.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 0
+.PHONY : CMakeFiles/convert.dir/rule
+
+# Convenience name for target.
+convert: CMakeFiles/convert.dir/rule
+.PHONY : convert
+
+# clean rule for target.
+CMakeFiles/convert.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/clean
+.PHONY : CMakeFiles/convert.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/clear_markers.dir
+
+# All Build rule for target.
+CMakeFiles/clear_markers.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_markers.dir/build.make CMakeFiles/clear_markers.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_markers.dir/build.make CMakeFiles/clear_markers.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=28 "Built target clear_markers"
+.PHONY : CMakeFiles/clear_markers.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/clear_markers.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/clear_markers.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 0
+.PHONY : CMakeFiles/clear_markers.dir/rule
+
+# Convenience name for target.
+clear_markers: CMakeFiles/clear_markers.dir/rule
+.PHONY : clear_markers
+
+# clean rule for target.
+CMakeFiles/clear_markers.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_markers.dir/build.make CMakeFiles/clear_markers.dir/clean
+.PHONY : CMakeFiles/clear_markers.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/clear_bin.dir
+
+# All Build rule for target.
+CMakeFiles/clear_bin.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_bin.dir/build.make CMakeFiles/clear_bin.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_bin.dir/build.make CMakeFiles/clear_bin.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles --progress-num=27 "Built target clear_bin"
+.PHONY : CMakeFiles/clear_bin.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/clear_bin.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/clear_bin.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/CMakeFiles 0
+.PHONY : CMakeFiles/clear_bin.dir/rule
+
+# Convenience name for target.
+clear_bin: CMakeFiles/clear_bin.dir/rule
+.PHONY : clear_bin
+
+# clean rule for target.
+CMakeFiles/clear_bin.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clear_bin.dir/build.make CMakeFiles/clear_bin.dir/clean
+.PHONY : CMakeFiles/clear_bin.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/MarkerDetect.dir

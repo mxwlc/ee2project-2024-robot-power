@@ -1,5 +1,6 @@
 #!/bin/sh
 echo "---------------------------------------------"
 echo "Clearing Marker Directory"
-rm -rf markers/*
+rm markers/*.png
+rm markers/*.bmp
 echo "---------------------------------------------"

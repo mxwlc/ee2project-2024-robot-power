@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rover Control Interface</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #ffffff, #daeeff);
+        }
+
+        h1 {
+            background-color: #111111;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #camera {
+            width: 100%;
+            height: auto;
+            border: 4px solid #3a3a3a;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            margin-bottom: 20px;
+            border: 4px solid #3a3a3a;
+            border-radius: 25px;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .control-buttons button {
+            width: 100px;
+            height: 100px;
+            font-size: 1.5em;
+            transition: background-color 0.1s ease, border-color 0.1s ease;
+            border: 4px solid #5b5b5b;
+        }
+
+        #data-display {
+            font-size: 1.5em;
+            border: 4px solid #3a3a3a;
+            border-radius: 10px;
+            padding: 10px;
+            height: 100%;
+            margin-bottom: 20px;
+        }
+
+        .data-item {
+            margin: 10px 0;
+            border: 4px solid #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rover Control Interface</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="camera" class="mb-4">
+                    <!-- Camera feed goes here <img src="cameraaddress" alt="camera Feed" id="camera-feed" class="img-fluid"> -->
+                    <img src="../static/jpg/hamster.jpg" class="img-fluid">
+                </div>
+                <div class="control-buttons">
+                    <div></div>
+                    <form action="/send_command/forward" method="post">
+                        <button class="btn btn-primary" type="submit" name="command" value="forward"><img src="../static/jpg/up-arrow-icon.webp" class="img-fluid"></button>
+                    </form>
+                    <div></div>
+                    <form action="/send_command/left" method="post">
+                        <button class="btn btn-primary" type="submit" name="command" value="left"><img src="../static/jpg/left.png" class="img-fluid"></button>
+                    </form>
+                    <form action="/send_command/backward" method="post">
+                        <button class="btn btn-primary" type="submit" name="command" value="backward"><img src="../static/jpg/down-arrow-icon.webp" class="img-fluid"></button>
+                    </form>
+                    <form action="/send_command/right" method="post">
+                        <button class="btn btn-primary" type="submit" name="command" value="right"><img src="../static/jpg/Right.png" class="img-fluid"></button>
+                    </form>
+                    <div></div>
+                    <form action="/send_command/stop" method="post">
+                        <button class="btn btn-danger btn-stop" type="submit" name="command" value="stop">STOP</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="data-display">
+                    <div class="data-item my-2">
+                        <strong>Battery Level:</strong> <span id="battery-level">{{ data.batteryLevel }}</span>%
+                    </div>
+                    <div class="data-item my-2">
+                        <strong>Power Consumption:</strong> <span id="power-consumption">{{ data.powerConsumption }}</span> W
+                    </div>
+                    <div class="data-item my-2">
+                        <strong>Speed:</strong> <span id="speed">{{ data.speed }}</span> m/s
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

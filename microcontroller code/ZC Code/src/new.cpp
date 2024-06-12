@@ -20,15 +20,17 @@ const int LOOP_INTERVAL = 10;
 const int SPEED_INTERVAL = 250;
 const int  STEPPER_INTERVAL_US = 20;
 
-const float acceleration = 20;
+//Motor acceleration in rad/s
+const float acceleration = 15;
+const float setSpeed = 20;
 
 //Angle Tuning
-const float C = 0.85;
-const float idle_setpoint = 0.03*PI/2;
+const float C = 0.95;
+float idle_setpoint = 0.032;
 float setpoint_angle = idle_setpoint;//0.032 - Roughly upright
-const float kp = 1250;
+const float kp = 1250.0;
 const float ki = 0;//should be 0 if static setpoint is set correctly
-const float kd = 2000;
+const float kd = 1000;
 
 //Errors
 float error = 0;
@@ -38,7 +40,6 @@ float previous_error;
 float a_angle;
 float g_angle;
 float current_angle = 0;
-float current_angle_rad = 0;
 float previous_angle = 0;
 
 float angle_p_term;
@@ -46,12 +47,12 @@ float angle_i_term;
 float angle_d_term;
 
 //Speed Tuning
-const float speed_kp = 0.0075;
+const float speed_kp = 0.001;
 const float speed_ki = 0;
-const float speed_kd = 0.05;
+const float speed_kd = 10;
 
 //This is how large the error can be for setpoint to change
-const float change_tollerance = 0.01;
+const float speed_tolerance = 0.05;
 
 //Speeds
 float speed1 = 0;
@@ -77,6 +78,12 @@ Adafruit_MPU6050 mpu;         //Default pins for I2C are SCL: IO22/Arduino D3, S
 step step1(STEPPER_INTERVAL_US,STEPPER1_STEP_PIN,STEPPER1_DIR_PIN );
 step step2(STEPPER_INTERVAL_US,STEPPER2_STEP_PIN,STEPPER2_DIR_PIN );
 
+
+int sign(float input){
+  if (input >= 0)
+    return 1;
+  else return -1;
+}
 
 //Interrupt Service Routine for motor update
 //Note: ESP32 doesn't support floating point calculations in an ISR
@@ -120,8 +127,11 @@ void setup()
   Serial.println("Initialised Interrupt for Stepper");
 
   //Set motor acceleration values
-  step1.setAccelerationRad(acceleration);
-  step2.setAccelerationRad(acceleration);
+  // step1.setAccelerationRad(acceleration);
+  // step2.setAccelerationRad(acceleration);
+
+  // step1.setTargetSpeedRad(10);
+  // step2.setTargetSpeedRad(-10);
 
   //Enable the stepper motor drivers
   pinMode(STEPPER_EN,OUTPUT);
@@ -135,28 +145,29 @@ void loop()
   static unsigned long printTimer = 0;  //time of the next print
   static unsigned long loopTimer = 0;   //time of the next control update
   static unsigned long speedTimer = 0;
-  
+
+  //Outer Loop
   if (millis() > speedTimer){
     speedTimer += SPEED_INTERVAL;
-    // Fetch data from MPU6050
+
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
 
     //Calculate setpoint angle
-    float speed_avg = (speed1 + speed1)/2;
-    previous_accel = accel;
-    accel = a.acceleration.z;
-    current_speed = ((-step1.getSpeedRad() - step2.getSpeedRad())/2);
+    float speed_avg = (speed1 - speed2)/2;
+
+    current_speed = -((step1.getSpeedRad() + step2.getSpeedRad())/2);//If they have the same sign, this will be 0
     previous_speed_error = speed_error;
     speed_error = speed_avg - current_speed;
     
     speed_p_term = speed_kp*speed_error;
-    speed_i_term = speed_ki*speed_error*LOOP_INTERVAL*0.01;
-    speed_d_term = speed_kd*((speed_error - previous_speed_error)/LOOP_INTERVAL*0.01);
-    setpoint_angle = (speed_p_term + speed_i_term + speed_d_term)*PI/2 + idle_setpoint;
+    speed_i_term = speed_ki*speed_error*SPEED_INTERVAL*0.01;
+    speed_d_term = speed_kd*((speed_error - previous_speed_error)/SPEED_INTERVAL*0.01);
+    setpoint_angle = speed_p_term + speed_i_term + speed_d_term + idle_setpoint;
+    if (abs(current_speed) < speed_tolerance) idle_setpoint = setpoint_angle;
   }
-
-  //Run the control loop every LOOP_INTERVAL ms
+  
+  //Inner Loop
   if (millis() > loopTimer) {
     loopTimer += LOOP_INTERVAL;
 
@@ -164,44 +175,49 @@ void loop()
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
 
+    previous_accel = accel;
+    accel = a.acceleration.z;
     //Calculate Tilt using accelerometer and sin x = x approximation for a small tilt angle
-    a_angle = a.acceleration.z/9.67;
+    a_angle = a.acceleration.z/9.67;//Assuming that's gravitational constant
     g_angle = g.gyro.pitch;
     previous_angle = current_angle;
     current_angle = ((1-C)*a_angle + C*(g_angle*LOOP_INTERVAL*0.001+previous_angle));
-    current_angle_rad = current_angle*PI/2;
-
+    
     previous_error = error;
-    error = setpoint_angle - current_angle_rad;
+    error = setpoint_angle - current_angle;
   
     angle_p_term = kp*error;
     angle_i_term = ki*(error*LOOP_INTERVAL*0.001); //0.001 for ms
     angle_d_term = kd*((error-previous_error)/LOOP_INTERVAL*0.001);
   
     PIDout = angle_p_term + angle_i_term + angle_d_term;
-    step1.setTargetSpeedRad(PIDout);
-    step2.setTargetSpeedRad(-PIDout);
 
-    // step1.setTargetSpeedRad(PIDout+speed1);
-    // step2.setTargetSpeedRad(-PIDout+speed2);
+    //Assuming max error to be around 0.5
+    float speed_ratio = error/0.5;
+
+    step1.setAccelerationRad(PIDout);
+    step2.setAccelerationRad(PIDout);
+
+    step1.setTargetSpeedRad(setSpeed*sign(PIDout));
+    step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
+
+    // step1.setTargetSpeedRad(PIDout + (1-speed_ratio)*speed1);
+    // step2.setTargetSpeedRad(-PIDout + (1-speed_ratio)*speed2);
   }
   
-  //Print updates every PRINT_INTERVAL ms
+  //Print Loop
   if (millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
-    Serial.print("Current_Angle = ");
-    Serial.print(current_angle_rad);
-    Serial.print(" | Setpoint_Angle = ");
     Serial.print(setpoint_angle);
-    Serial.print(" | Error = ");
-    Serial.print(error);
-    Serial.print(" | Current_Speed = ");
+    Serial.print(" | " );
     Serial.print(current_speed);
     Serial.println();
   }
+  
+  //Speed Changes
   // if (millis() > 5000){
   //   speed1 = 1.5;
-  //   speed2 = 1.5;
+  //   speed2 = -1.5;
   // }
   // if (millis() > 7000){
   //   speed1 = 0;

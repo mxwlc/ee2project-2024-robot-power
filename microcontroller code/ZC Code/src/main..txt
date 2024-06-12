@@ -191,15 +191,15 @@ void loop()
   //Print Loop
   if (millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
-    Serial.print("Current_Angle = ");
-    Serial.print(current_angle);
-    Serial.print(" | Setpoint_Angle = ");
-    Serial.print(setpoint_angle);
-    Serial.print(" | Error = ");
-    Serial.print(error);
-    Serial.print(" | Current_Speed = ");
-    Serial.print(current_speed);
-    Serial.println();
+    // Serial.print("Current_Angle = ");
+    // Serial.print(current_angle);
+    // Serial.print(" | Setpoint_Angle = ");
+    // Serial.print(setpoint_angle);
+    // Serial.print(" | Error = ");
+    // Serial.print(error);
+    // Serial.print(" | Current_Speed = ");
+    // Serial.print(current_speed);
+    // Serial.println();
   }
   
   //Speed Changes

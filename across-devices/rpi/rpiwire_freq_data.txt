@@ -1,0 +1,49 @@
+PRE_SEND = 100,
+SEND_L = 100,
+SEND_H = 100,
+time = 4271us per send/recv pair
+
+PRE_SEND = 0,
+SEND_L = 100,
+SEND_H = 100
+av fail after 27.641
+
+PRE_SEND = 10,
+SEND_L = 100,
+SEND_H = 100,
+time = 4185us per send/recv pair
+
+PRE_SEND = 3,
+SEND_L = 100,
+SEND_H = 100,
+time = 4174us per send/recv pair
+
+PRE_SEND = 1,
+SEND_L = 100,
+SEND_H = 100,
+time = 4171us per send/recv pair
+
+PRE_SEND = 1,
+SEND_L = 100,
+SEND_H = 0,
+always error
+
+PRE_SEND = 1,
+SEND_L = 100,
+SEND_H = 10,
+time = 3415us per send/recv pair
+
+PRE_SEND = 1,
+SEND_L = 100,
+SEND_H = 1,
+time = 3340us per send/recv pair
+
+PRE_SEND = 1,
+SEND_L = 0,
+SEND_H = 1,
+always error
+
+PRE_SEND = 1,
+SEND_L = 1,
+SEND_H = 1,
+time = 2484us per send/recv pair

@@ -5,8 +5,8 @@
 // [2] Add this to the beginning of the main file:
 #include "ardpiwire.hpp"
 
-// [3] Create an array with all variables you are interested in modifying (name is up to you)
-float configurable_params[10];
+// [3] Create an array with all variables you are interested in modifying (name is up to you, as is size given its <256)
+float configurable_params[<SPECIFY-HERE>];
 
 // [4] Create references to these, using the same variable names as originally
 #define VAR1_INDEX 0

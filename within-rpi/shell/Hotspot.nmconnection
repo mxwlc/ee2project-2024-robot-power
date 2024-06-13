@@ -1,6 +1,6 @@
 [connection]
 id=Hotspot
-uuid=87404199-01af-4dd4-82f3-2c2c4747d4f3
+uuid=<USE-EXISTING>
 type=wifi
 autoconnect=false
 interface-name=wlan0

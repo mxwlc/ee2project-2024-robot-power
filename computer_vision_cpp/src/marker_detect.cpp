@@ -146,7 +146,7 @@ int main()
 
 		// Draw Polygon Boundaries
 		sq_o.draw(frame);
-		c_o.draw(frame);
+//		c_o.draw(frame);
 		int t_j;
 
 		std::vector<std::vector<cv::Point2f>> t_coord;

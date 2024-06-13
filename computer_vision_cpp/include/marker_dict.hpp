@@ -20,6 +20,10 @@ This needs changing to add for more "jobs"
 		STOP = 0, GO_TOWARDS = 1, GO_AWAY_FROM = 2, STATES_NR_ITEMS = 3
 	} states;
 
+	static std::map<states, std::string>  enum_to_string  = {{ states::STOP, "STOP" }, { states::GO_TOWARDS, "GO TOWARDS" },
+		{ states::GO_AWAY_FROM, "GO AWAY FROM" },
+		{ states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS)) }} ;
+
 	class marker_dict
 	{
 	 private:
@@ -28,9 +32,7 @@ This needs changing to add for more "jobs"
 		std::map<int, states> marker_map;
 
 		// maps State to the corresponding label
-		std::map<states, std::string> enum_to_string = {{ states::STOP, "STOP" }, { states::GO_TOWARDS, "GO TOWARDS" },
-			{ states::GO_AWAY_FROM, "GO AWAY FROM" },
-			{ states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS)) }};
+
 
 	 public:
 		// Constructors

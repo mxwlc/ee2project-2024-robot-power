@@ -73,3 +73,33 @@ Haven't updated this over the week, but there hasn't been as much progress as I 
 I also realised the angle system I have is very arbitrary and doesn't have any physical basis (not degrees or radians). I attempted to create an entirely new controller with a radians system, however this was a waste of time, as it required me tuning the PID values again, and I didn't see the point in that. I also realised a couple of hours ago, that the angle I have is likely in degreses, but probably a factor of 1000 out as demonstrated in the starter code. Baboon. 
 
 I will attempt to fix the issues above over the next week, and also begin on the report. I will likely require some assistance with this over the week, as it is a lot to do, in such a small amount of time. 
+
+# Wednesday 12th June
+So over the past 3 days I have decided to do a relatively large overhaul on the controller. The main changes are now the PID output of the angle controller controlls the acceleration instead of the target speed. This means a constant force is applied to prevent the bot from falling, instead of a speed, which once reached, will remove the counter-active force. This has meant the PID values needed to be retuned, however the static system is much more stable, and can overcome larger pertubations. 
+
+The outerloop has also been heavily modified. I still have more work to do on it, but in essence, it will work the same as before, but now it can correctly measure current speed. It also has some sort of self correcting in terms of the setpoint, and it will aim to correct the speed properly in static conditions. I have tuned the values to the point where it will oscillate slightly while stationairy.
+
+I have also tested movement, the results of which can be seen below:
+
+With a speed of 35 on both motors:
+| Test No  | Outcome | Description  |
+| ------------- | ------------- | -------- | 
+| Test 1  | Success |            | 
+| Test 2  | Success |            | 
+| Test 3  | Failure | Unstable before speed change | 
+| Test 4  | Success |            | 
+| Test 5  | Success |            | 
+| Test 6  | Success |     Slow       | 
+| Test 7  | Success |     Slow       | 
+| Test 8  | Success |     Slow       | 
+| Test 9  | Success |            | 
+| Test 10  | Success |           | 
+
+With any negative speed on the motors however, the setpoint correction logic appears to cause the motors to accelerate too quickly, and therefore movement in the other direction isn't possible with this current configuration. 
+
+From here, the plan is as follows:
+- Correct logic issue preventing negative direction
+- Test negative direction movement
+- Test turning movement
+- Attempt to smooth out moving (forward to negative tilt)
+- Tune system more accurately to remove oscillations

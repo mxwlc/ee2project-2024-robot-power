@@ -5,7 +5,22 @@ from time import perf_counter_ns
 
 class SendInstructions():
     ARDUINO_SET_VAR = b"\x00"
+
     ARDUINO_GET_VAR = b"\x01"
+    
+    PI_SET_DIR = b"\x02"
+    PI_DIR_F = b"\x00"
+    PI_DIR_FR = b"\x01"
+    PI_DIR_R = b"\x02"
+    PI_DIR_BR = b"\x03"
+    PI_DIR_B = b"\x04"
+    PI_DIR_BL = b"\x05"
+    PI_DIR_L = b"\x06"
+    PI_DIR_FL = b"\x07"
+    
+    PI_SET_DRIVE_MODE = b"\x03"
+    PI_DRIVE_MODE_CAMERA = b"\x00"
+    PI_DRIVE_MODE_REMOTE = b"\x01"
 
 class RecvTypes():
     CV = b"\x00"
@@ -15,7 +30,7 @@ def __float_to_bytes(value: float) -> bytes:
     c_float = ctypes.c_float(value)
     return bytes(c_float)
 
-__IP = "127.0.0.1" #"192.168.0.1"
+__IP = "192.168.0.1"
 __PORT = 9876
 
 def __network_send_proc(socket: s.socket, send_q: mp.Queue, running: mp.Value) -> None:
@@ -30,6 +45,8 @@ def __network_send_proc(socket: s.socket, send_q: mp.Queue, running: mp.Value) -
             final_send += send_data[1]
             final_send += __float_to_bytes(send_data[2])
         elif send_data[0] == SendInstructions.ARDUINO_GET_VAR[0]:
+            final_send += send_data[1]
+        elif send_data[0] == SendInstructions.PI_SET_DIR[0]:
             final_send += send_data[1]
 
         try:
@@ -99,7 +116,11 @@ def send(send_q: mp.Queue, instruction: tuple) -> None:
     [2] `(SendInstructions.ARDUINO_GET_VAR, index: bytes)`,\n
     e.g. `(SendInstructions.ARDUINO_GET_VAR, b"\\x03")` gets variable 3 \
     (Note: this isn't returned, it acts as a request to get an Arduino variable \
-    that isn't already being sent)
+    that isn't already being sent) \n
+    [3] `(SendInstructions.PI_SET_DIR, dir: bytes)`,\n
+    e.g. `(SendInstructions.PI_SET_DIR, SendInstructions.PI_DIR_FR)` sets the desired direction to forwards and right. \n
+    [4] `(SendInstructions.PI_SET_DRIVE_MODE, mode: bytes)`,\n
+    e.g. `(SendInstructions.PI_SET_DRIVE_MODE, SendInstructions.PI_DRIVE_MODE_CAMERA)` sets the desired drive mode to camera-controlled.
     """
     send_q.put(instruction)
 

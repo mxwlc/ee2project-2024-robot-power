@@ -3,6 +3,7 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <step.h>
+#include "ardpiwire.hpp"
 
 // The Stepper pins
 #define STEPPER1_DIR_PIN 16   //Arduino D9
@@ -20,17 +21,46 @@ const int LOOP_INTERVAL = 10;
 const int SPEED_INTERVAL = 250;
 const int  STEPPER_INTERVAL_US = 20;
 
+#define CONF_SET_SPEED 0
+#define CONF_IDLE_SETPOINT 1
+#define CONF_KP 2
+#define CONF_KI 3
+#define CONF_KD 4
+#define CONF_SPEED_KP 5
+#define CONF_SPEED_KI 6
+#define CONF_SPEED_KD 7
+#define CONF_SPEED_TOLERANCE 8
+#define CONF_ANGLE_TOLERANCE 9
+#define CONF_ERROR_TOLERANCE 10
+#define CONF_SPEED1 11
+#define CONF_SPEED2 12
+volatile float configurable_params[] = {
+  /*set_speed*/       20.0f,
+  /*idle_setpoint*/   0.0375f,
+  /*kp*/              1500.0f,
+  /*ki*/              0.0f,
+  /*kd*/              12000.0f,
+  /*speed_kp*/        0.00035f,
+  /*speed_ki*/        0.0f,
+  /*speed_kd*/        0.0f,
+  /*speed_tolerance*/ 2.0f,
+  /*angle_tolerance*/ 0.5f,
+  /*error_tolerance*/ 0.1f,
+  /*speed1*/          0.0f,
+  /*speed2*/          0.0f
+};
+
 //Motor acceleration in rad/s
 const float acceleration = 15;
-const float setSpeed = 20;
+volatile float& setSpeed = configurable_params[CONF_SET_SPEED];
 
 //Angle Tuning
 const float C = 0.95;
-float idle_setpoint = 0.032;
+volatile float& idle_setpoint = configurable_params[CONF_IDLE_SETPOINT];
 float setpoint_angle = idle_setpoint;//0.032 - Roughly upright
-const float kp = 1250.0;
-const float ki = 0;//should be 0 if static setpoint is set correctly
-const float kd = 1000;
+volatile float& kp = configurable_params[CONF_KP];
+volatile float& ki = configurable_params[CONF_KI];//should be 0 if static setpoint is set correctly
+volatile float& kd = configurable_params[CONF_KD];
 
 //Errors
 float error = 0;
@@ -47,16 +77,20 @@ float angle_i_term;
 float angle_d_term;
 
 //Speed Tuning
-const float speed_kp = 0.001;
-const float speed_ki = 0;
-const float speed_kd = 10;
+volatile float& speed_kp = configurable_params[CONF_SPEED_KP];
+volatile float& speed_ki = configurable_params[CONF_SPEED_KI];
+volatile float& speed_kd = configurable_params[CONF_SPEED_KD];
 
 //This is how large the error can be for setpoint to change
-const float speed_tolerance = 0.05;
+volatile float& speed_tolerance = configurable_params[CONF_SPEED_TOLERANCE];
+volatile float& angle_tolerance = configurable_params[CONF_ANGLE_TOLERANCE];
+volatile float& error_tolerance = configurable_params[CONF_ERROR_TOLERANCE];
+float lowest_speed = 100;
+float speed_errors[10];
 
 //Speeds
-float speed1 = 0;
-float speed2 = 0;
+volatile float& speed1 = configurable_params[CONF_SPEED1];
+volatile float& speed2 = configurable_params[CONF_SPEED2];
 float current_speed = 0;
 float accel = 0;
 float previous_accel = 0;
@@ -137,7 +171,33 @@ void setup()
   pinMode(STEPPER_EN,OUTPUT);
   digitalWrite(STEPPER_EN, false);
 
+  // Enable the background listening process
+  Serial.println("Initialising Pi wire");
+  ArdPiWire::init();
+  Serial.println("Initialised Pi wire");
+  //ArdPiWire::values = configurable_params;
+  Serial.println((int) configurable_params);
+  //Serial.println((int) ArdPiWire::values);
+  BaseType_t cur_core = xPortGetCoreID(), targ_core;
+  if (cur_core == 0) targ_core = 1;
+  else targ_core = 0;
+  xTaskCreatePinnedToCore(ArdPiWire::receiverThreadMain, "Recv", 1000, (void*) configurable_params, 1, &ArdPiWire::receiver_thread, targ_core);
 }
+
+/*
+
+TO START RPI STUFF:
+
+TURN ON RPI
+CONNECT TO Robot_Power_Bot WiFi NETWORK
+TURN ON PUTTY
+DOUBLE CLICK "BalanceBot"
+USER NAME: "bal_bot"
+PASSWORD: "RobotPower"
+./var_setter
+
+*/
+
 
 void loop()
 {
@@ -146,6 +206,7 @@ void loop()
   static unsigned long loopTimer = 0;   //time of the next control update
   static unsigned long speedTimer = 0;
 
+  if (millis() > 500 & millis() < 1000) lowest_speed = 100;
   //Outer Loop
   if (millis() > speedTimer){
     speedTimer += SPEED_INTERVAL;
@@ -154,17 +215,37 @@ void loop()
     mpu.getEvent(&a, &g, &temp);
 
     //Calculate setpoint angle
-    float speed_avg = (speed1 - speed2)/2;
+    float speed_avg = (speed1);
 
-    current_speed = -((step1.getSpeedRad() + step2.getSpeedRad())/2);//If they have the same sign, this will be 0
+    current_speed = -step1.getSpeedRad() * 0;//If they have the same sign, this will be 0
     previous_speed_error = speed_error;
     speed_error = speed_avg - current_speed;
+    speed_errors[0] = speed_error;
     
     speed_p_term = speed_kp*speed_error;
     speed_i_term = speed_ki*speed_error*SPEED_INTERVAL*0.01;
     speed_d_term = speed_kd*((speed_error - previous_speed_error)/SPEED_INTERVAL*0.01);
     setpoint_angle = speed_p_term + speed_i_term + speed_d_term + idle_setpoint;
-    if (abs(current_speed) < speed_tolerance) idle_setpoint = setpoint_angle;
+    
+    //Limit the setpoint angle
+    if (setpoint_angle > idle_setpoint+angle_tolerance) setpoint_angle = idle_setpoint+angle_tolerance;
+    else if (setpoint_angle < idle_setpoint-angle_tolerance) setpoint_angle = idle_setpoint-angle_tolerance;
+    
+    //Pick a new idle setpoint if we find a point with very little movement
+    // if (abs(current_speed) < speed_tolerance & abs(current_speed) < lowest_speed){
+    //   idle_setpoint = setpoint_angle;
+    //   lowest_speed = abs(current_speed);
+    // } 
+    // float total = 0;
+    // for (float value : speed_errors){
+    //   total += value;
+    // }
+    // float avg = total/10;
+    // if (avg > error_tolerance) lowest_speed = 100;
+    // //Move down stack
+    // for (int i = 0; i < 9; i++){
+    //   speed_errors[i+1] = speed_errors[i];
+    // }
   }
   
   //Inner Loop
@@ -198,26 +279,28 @@ void loop()
     step1.setAccelerationRad(PIDout);
     step2.setAccelerationRad(PIDout);
 
-    step1.setTargetSpeedRad(setSpeed*sign(PIDout));
-    step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
+    step1.setTargetSpeedRad(setSpeed*sign(PIDout)*sign(speed1));
+    step2.setTargetSpeedRad(-setSpeed*sign(PIDout)*sign(speed2));
 
     // step1.setTargetSpeedRad(PIDout + (1-speed_ratio)*speed1);
     // step2.setTargetSpeedRad(-PIDout + (1-speed_ratio)*speed2);
   }
   
   //Print Loop
-  if (millis() > printTimer) {
+  if (false) {//(millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
-    Serial.print(setpoint_angle);
-    Serial.print(" | " );
-    Serial.print(current_speed);
+    Serial.print(current_angle*100);
+    Serial.print(" | ");
+    Serial.print(setpoint_angle*100);
+    Serial.print(" | ");
+    Serial.print(idle_setpoint*100);
     Serial.println();
   }
   
   //Speed Changes
   // if (millis() > 5000){
-  //   speed1 = 1.5;
-  //   speed2 = -1.5;
+  //   speed1 = 35;
+  //   speed2 = 35;
   // }
   // if (millis() > 7000){
   //   speed1 = 0;

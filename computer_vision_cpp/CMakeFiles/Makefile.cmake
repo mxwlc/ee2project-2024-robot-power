@@ -19,8 +19,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.25/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake"
-  "/usr/share/cmake-3.25/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
-  "/usr/share/cmake-3.25/Modules/CMakeFindCodeBlocks.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake"
@@ -37,7 +35,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/Linux.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/UnixPaths.cmake"
-  "/usr/share/cmake-3.25/Modules/ProcessorCount.cmake"
   )
 
 # The corresponding makefile is:
@@ -63,4 +60,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MarkerGen.dir/DependInfo.cmake"
   "CMakeFiles/ImageDetector.dir/DependInfo.cmake"
   "CMakeFiles/Test.dir/DependInfo.cmake"
+  "CMakeFiles/RPEyes.dir/DependInfo.cmake"
   )

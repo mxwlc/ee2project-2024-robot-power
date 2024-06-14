@@ -233,12 +233,26 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
+#=============================================================================
+# Target rules for targets named RPEyes
+
+# Build rule for target.
+RPEyes: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RPEyes
+.PHONY : RPEyes
+
+# fast build rule for target.
+RPEyes/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/build
+.PHONY : RPEyes/fast
+
 # target to build an object file
 src/column_overlay.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/column_overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/column_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/column_overlay.o
 .PHONY : src/column_overlay.o
 
 # target to preprocess a source file
@@ -247,6 +261,7 @@ src/column_overlay.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/column_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/column_overlay.i
 .PHONY : src/column_overlay.i
 
 # target to generate assembly for a file
@@ -255,6 +270,7 @@ src/column_overlay.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/column_overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/column_overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/column_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/column_overlay.s
 .PHONY : src/column_overlay.s
 
 # target to build an object file
@@ -288,11 +304,39 @@ src/marker_detect_image.s:
 .PHONY : src/marker_detect_image.s
 
 # target to build an object file
+src/marker_detect_rpi.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.o
+.PHONY : src/marker_detect_rpi.o
+
+# target to preprocess a source file
+src/marker_detect_rpi.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.i
+.PHONY : src/marker_detect_rpi.i
+
+# target to generate assembly for a file
+src/marker_detect_rpi.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.s
+.PHONY : src/marker_detect_rpi.s
+
+# target to build an object file
 src/marker_dict.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_dict.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_dict.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_dict.o
 .PHONY : src/marker_dict.o
 
 # target to preprocess a source file
@@ -301,6 +345,7 @@ src/marker_dict.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_dict.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_dict.i
 .PHONY : src/marker_dict.i
 
 # target to generate assembly for a file
@@ -309,6 +354,7 @@ src/marker_dict.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_dict.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_dict.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_dict.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_dict.s
 .PHONY : src/marker_dict.s
 
 # target to build an object file
@@ -332,6 +378,7 @@ src/overlay.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/overlay.o
 .PHONY : src/overlay.o
 
 # target to preprocess a source file
@@ -340,6 +387,7 @@ src/overlay.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/overlay.i
 .PHONY : src/overlay.i
 
 # target to generate assembly for a file
@@ -348,6 +396,7 @@ src/overlay.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/overlay.s
 .PHONY : src/overlay.s
 
 # target to build an object file
@@ -356,6 +405,7 @@ src/square_overlay.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/square_overlay.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/square_overlay.o
 .PHONY : src/square_overlay.o
 
 # target to preprocess a source file
@@ -364,6 +414,7 @@ src/square_overlay.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/square_overlay.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/square_overlay.i
 .PHONY : src/square_overlay.i
 
 # target to generate assembly for a file
@@ -372,6 +423,7 @@ src/square_overlay.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/square_overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/square_overlay.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/square_overlay.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/square_overlay.s
 .PHONY : src/square_overlay.s
 
 # target to build an object file
@@ -405,6 +457,7 @@ help:
 	@echo "... ImageDetector"
 	@echo "... MarkerDetect"
 	@echo "... MarkerGen"
+	@echo "... RPEyes"
 	@echo "... Test"
 	@echo "... src/column_overlay.o"
 	@echo "... src/column_overlay.i"
@@ -415,6 +468,9 @@ help:
 	@echo "... src/marker_detect_image.o"
 	@echo "... src/marker_detect_image.i"
 	@echo "... src/marker_detect_image.s"
+	@echo "... src/marker_detect_rpi.o"
+	@echo "... src/marker_detect_rpi.i"
+	@echo "... src/marker_detect_rpi.s"
 	@echo "... src/marker_dict.o"
 	@echo "... src/marker_dict.i"
 	@echo "... src/marker_dict.s"

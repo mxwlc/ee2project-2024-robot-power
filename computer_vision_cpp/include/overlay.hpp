@@ -46,6 +46,7 @@ namespace overlay
 		[[maybe_unused]] virtual void draw();
 
 		[[maybe_unused]] virtual uchar position();
+
 	};
 
 	std::ostream& operator<<(std::ostream& os, overlay const& o);

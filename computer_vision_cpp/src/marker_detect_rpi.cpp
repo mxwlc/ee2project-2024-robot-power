@@ -1,4 +1,7 @@
 //
+// Created by maxwe on 14/06/24.
+//
+//
 // Created by maxwe on 25/05/24.
 //
 
@@ -12,6 +15,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 #include <sstream>
+#include <unistd.h>
 
 #define MARKER_EDGE_SIZE = 200
 #define BORDER_SIZE = 1
@@ -49,6 +53,19 @@ uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, ove
 	return 0b0000;
 }
 
+void
+target_finder(std::vector<std::vector<cv::Point2f>>& marker_array, std::vector<std::vector<cv::Point2f>>& target_coord, std::vector<
+	int> id_array, int id)
+{
+	for (int i = 0; i < id_array.size(); i++)
+	{
+		if (id_array[i] == id)
+		{
+			target_coord = { marker_array[i] };
+		}
+	}
+}
+
 std::vector<int> translate_found_markers(std::unique_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
 {
 	std::vector<int> marker_states;
@@ -68,19 +85,35 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 	return "output/" + key + datestream.str() + "." + file_type;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
 	overlay::DEBUG_FLAG = false;
-	bool target_flag = false;
-	bool ids_flag = false;
-	bool location_flag = false;
-	cv::Mat frame;
-	bool drive_flag = false;
+//	bool target_flag =
+	bool all_markers = false;
+	bool visual_flag = false;
+//	bool location_flag = true;
 
-	overlay::square_overlay sq_o(200);
+//	bool drive_flag = false;
+
+	std::shared_ptr<cv::Mat> frame = std::make_shared<cv::Mat>(cv::Mat::zeros(cv::Size(overlay::WINDOW_WIDTH, overlay::WINDOW_HEIGHT), CV_8UC3));
+
+	for (int i = 1; i < argc; i++)
+	{
+		if (std::strcmp(argv[i], "--debug") == 0 || std::strcmp(argv[i], "-d") == 0)
+		{
+			overlay::DEBUG_FLAG = true;
+		}
+		if (std::strcmp(argv[i], "--all") == 0 || std::strcmp(argv[i], "-a") == 0)
+		{
+			all_markers = true;
+		}
+		if (std::strcmp(argv[i], "--visual") == 0 || std::strcmp(argv[i], "-v") == 0)
+		{
+			visual_flag = true;
+		}
+	}
 	overlay::column_overlay c_o(200);
 
-	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
 	std::unique_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
 
 	int id;
@@ -106,18 +139,18 @@ int main()
 	cv::aruco::Dictionary dict = cv::aruco::getPredefinedDictionary(ARUCO_DICTIONARY);
 	cv::aruco::ArucoDetector detector(dict, detector_params);
 
-	std::cout << "Press any Key to Start\n";
+//	std::cout << "Press any Key to Start\n";
 
 	// -- Main Loop --
 	std::cout << "Press any key to terminate\n";
 	for (;;)
 	{
-		uchar direction = 0b0000;
-
-		cap.read(frame);
 		int key_press = cv::waitKey(5);
+		uchar direction = 0b0000;
+//		std::shared_ptr<cv::Mat> frame;
+		cap.read(*frame);
 		// -- validate frame --
-		if (frame.empty())
+		if (frame->empty())
 		{
 			std::cerr << "Error : Blank Frame Grabbed\n";
 			break;
@@ -126,9 +159,10 @@ int main()
 		std::vector<int> marker_ids;
 		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
 
-		detector.detectMarkers(frame, marker_corners, marker_ids, rejected_candidates);
+		detector.detectMarkers(*frame, marker_corners, marker_ids, rejected_candidates);
 
-		if (!marker_ids.empty() && overlay::DEBUG_FLAG)
+		// -- KEEP THIS PART FOR CORNERS DEBUG -
+		if (!marker_ids.empty() && all_markers)
 		{
 			for (int i = 0; i < marker_ids.size(); ++i)
 			{
@@ -141,125 +175,64 @@ int main()
 				}
 			}
 		}
+		// -------------------------------------
 
 		std::vector<int> marker_states = translate_found_markers(md, marker_ids);
 
-		// Draw Polygon Boundaries
-//		sq_o.draw(frame);
-		c_o.draw(frame);
-		int t_j;
-
-		std::vector<std::vector<cv::Point2f>> t_coord;
-
+		// -- TARGET COORD -- FUNCTION?
 		if (!marker_ids.empty())
 		{
-			for (int j = 0; j < marker_ids.size(); j++)
+			std::vector<std::vector<cv::Point2f>> t_coord;
+			target_finder(marker_corners, t_coord, marker_ids, id);
+			if (!t_coord.empty() && overlay::DEBUG_FLAG)
 			{
-				if (marker_ids[j] == id)
+				std::cout << "Marker id=" << id << "{\n";
+				for (auto entry : t_coord[0])
 				{
-					t_coord = { marker_corners[j] };
-
-					if (overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
+					std::cout << entry << "\n";
 				}
+				std::cout << "\n}\n";
 			}
+			else if (overlay::DEBUG_FLAG)
+			{
+				std::cout << "Field Empty\n";
+
+			}
+
+			if (!t_coord.empty())
+			{
+				direction = steering(t_coord[0], { id }, c_o);
+				std::cout << id << " :" << (int)direction << "=" << direction_map[direction] << "\n";
+			}
+
 		}
 
-		if (overlay::DEBUG_FLAG)
+		// -- KEEP --
+		if (all_markers)
 		{
 			for (int i = 0; i < marker_ids.size(); i++)
 			{
-				std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i])
-						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]) << "\nPos : "
-						  << overlay::position_translation[c_o.marker_position(marker_corners[i])];
+				std::cout << "\nid = " << marker_ids[i] << "\nColumn : " << c_o.within_bounds(marker_corners[i])
+						  << "\nPos : " << overlay::position_translation[c_o.marker_position(marker_corners[i])];
 			}
 		}
+		// -- Send Frame At this point --
+		// #######################
+		// Send Directions -- direciton variable
+		// Send Frame frame::data()
+		uchar* point = frame->data;
+//		std::cout << (int)*point << "\n";
 
-		if (location_flag)
-		{
-			if (target_flag)
-			{
-				marker_corners = t_coord;
-				marker_ids = { id };
-
-			}
-			if (!marker_corners.empty())
-			{
-				for (int i = 0; i < marker_ids.size(); i++)
-				{
-					std::cout << i << ") ";
-					std::cout << "id=" << marker_ids[i] << " pos : "
-							  << overlay::position_translation[c_o.marker_position(marker_corners[i])] << "\n";
-				}
-			}
-		}
-		if (target_flag)
+		if (visual_flag)
 		{
 			if (!marker_ids.empty())
 			{
-				std::vector<std::vector<cv::Point2f>> t_corner = t_coord;
-				std::vector<int> t_id = { id };
-				std::vector<int> t_state = translate_found_markers(md, t_id);
-				if (!t_corner.empty() && !t_id.empty())
-				{
-					std::vector<cv::Point2f> marker_coord = t_coord[0];
-					std::string state_string = md->enum_string_translation((dictionary::states)t_state[0]);
-
-					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id, cv::Scalar(0, 0, 0xff));
-					else cv::aruco::drawDetectedMarkers(frame, t_corner, t_state, cv::Scalar(0xff, 0, 0));
-
-					cv::putText(frame, //target image
-						state_string, //text
-						marker_coord[3], //top-left position
-						cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0, 255, 0), //font color
-						1);
-
-					direction = steering(t_corner[0], t_id, c_o);
-
-				}
+				cv::aruco::drawDetectedMarkers(*frame, marker_corners, marker_ids);
 			}
+			cv::imshow("Live", *frame);
 		}
-		else
+		if (key_press >= 0)
 		{
-			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids, cv::Scalar(0, 0, 0xff));
-			else cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
-		}
-		if (drive_flag) std::cout << direction_map[direction] << "\n";
-		cv::imshow("Live", frame);
-
-		// --  close window when key pressed --
-		if (key_press == (int)'i')
-		{
-			std::cout << "Toggle ID/METHOD\n";
-			ids_flag = !ids_flag;
-		}
-		else if (key_press == (int)'d')
-		{
-			std::cout << "Toggle Debug\n";
-			overlay::DEBUG_FLAG = !overlay::DEBUG_FLAG;
-		}
-		else if (key_press == (int)'c')
-		{
-			std::cout << "Toggle Drive\n";
-			drive_flag = !drive_flag;
-		}
-		else if (key_press == (int)'l')
-		{
-			std::cout << "Toggle Locations (l/r/m)\n";
-			location_flag = !location_flag;
-		}
-		else if (key_press == (int)'t')
-		{
-			std::cout << "Toggle Target\n";
-			target_flag = !target_flag;
-		}
-		else if (key_press >= 0)
-		{
-			if (key_press == int('s'))
-			{
-				std::string format_str = gen_file_name_formatted("webcam", "bmp");
-				std::cout << "Saving to " << format_str << "\n";
-				cv::imwrite(format_str, frame);
-			}
 			break;
 		}
 	}

@@ -72,6 +72,12 @@ For instructions on sending from the Pi to the laptop, see the `example_cv_write
 
 Note: the objects being sent are in `network_bg_proc_obj.hpp`. Let me know if you need something sent from the Pi, I'll help with adding it and updating the other files appropriately.
 
+#### Instructions for using the laptop code:
+
+- Include the `network_proc.py` file and import it in your code;
+- Follow the instructions in `network_proc.py`'s main body (after `if __name__ == "__main__"`).
+
+
 ## /across-devices/rpi/ardpiwire.\*, /across-devices/arduino/\*
 
 This contains functions in an `ArdPiWire` namespace, with an `init()` function which needs calling at the start of either devices' code, then `sendByte()`, `sendFloat()`, `recvByte()` and `recvFloat()` for both devices. Some data can be seen on the speeds observed with different delays, and any diagrams in the writeup will also be provided.

@@ -63,4 +63,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MarkerGen.dir/DependInfo.cmake"
   "CMakeFiles/ImageDetector.dir/DependInfo.cmake"
   "CMakeFiles/Test.dir/DependInfo.cmake"
+  "CMakeFiles/Colour.dir/DependInfo.cmake"
   )

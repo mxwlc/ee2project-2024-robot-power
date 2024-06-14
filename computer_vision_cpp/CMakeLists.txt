@@ -31,7 +31,8 @@ list(APPEND EXCLUDE_FILES
         "${PROJECT_SOURCE_DIR}/src/marker_gen.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/marker_detect_image.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/test_writing.cpp" ,
-        "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp"
+        "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp",
+        "${PROJECT_SOURCE_DIR}/src/colour_test.cpp"
 )
 MESSAGE( STATUS "Setting Filepaths - done" )
 MESSAGE( STATUS "=====================================================" )
@@ -109,15 +110,18 @@ add_executable(MarkerDetect ${PROJECT_SOURCE_DIR}/src/marker_detect.cpp ${ALL_FI
 add_executable(MarkerGen ${PROJECT_SOURCE_DIR}/src/marker_gen.cpp ${ALL_FILES})
 add_executable(ImageDetector ${PROJECT_SOURCE_DIR}/src/marker_detect_image.cpp ${ALL_FILES})
 add_executable(Test ${PROJECT_SOURCE_DIR}/src/test_writing.cpp ${ALL_FILES})
+add_executable(Colour ${PROJECT_SOURCE_DIR}/src/colour_test.cpp ${ALL_FILES})
 
 target_link_libraries(MarkerDetect ${OpenCV_LIBS})
 target_link_libraries(MarkerGen ${OpenCV_LIBS})
 target_link_libraries(ImageDetector ${OpenCV_LIBS})
 target_link_libraries(Test ${OpenCV_LIBS})
+target_link_libraries(Colour ${OpenCV_LIBS})
 
 target_include_directories(MarkerDetect PRIVATE ${INCLUDE}/include)
 target_include_directories(MarkerGen PRIVATE ${INCLUDE}/include)
 target_include_directories(ImageDetector PRIVATE ${INCLUDE}/include)
 target_include_directories(Test PRIVATE ${INCLUDE/}include)
+target_include_directories(Colour PRIVATE ${INCLUDE/}include)
 MESSAGE( STATUS "Configuring Executables - done" )
 MESSAGE( STATUS "=====================================================" )

@@ -10,7 +10,7 @@
 
 namespace overlay
 {
-	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)
+	SquareOverlay::SquareOverlay(std::vector<cv::Point2f>& corners_in)
 	{
 		cv::Point2f p1 = corners_in[0];
 		cv::Point2f p2 = corners_in[1];
@@ -21,7 +21,7 @@ namespace overlay
 		window_width = WINDOW_WIDTH;
 	}
 
-	square_overlay::square_overlay(int side_length_in)
+	SquareOverlay::SquareOverlay(int side_length_in)
 	{
 		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
 		auto window_width_f = (float)window_width;
@@ -41,7 +41,7 @@ namespace overlay
 		side_length = side_length_in;
 	}
 
-	bool square_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	bool SquareOverlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
 		bool inside = true;
 		for (auto corner : marker)
@@ -55,7 +55,7 @@ namespace overlay
 		return inside;
 	}
 
-	bool square_overlay::point_in_bounds(cv::Point2f v)
+	bool SquareOverlay::point_in_bounds(cv::Point2f v)
 	{
 		cv::Point2f p1 = corners[1];
 		cv::Point2f p2 = corners[3];
@@ -74,12 +74,12 @@ namespace overlay
 		return false;
 	}
 
-	std::vector<cv::Point2f> square_overlay::getCorners() const
+	std::vector<cv::Point2f> SquareOverlay::getCorners() const
 	{
 		return corners;
 	}
 
-	void square_overlay::draw(cv::Mat& m)
+	void SquareOverlay::draw(cv::Mat& m)
 	{
 		// God knows why this is an issue :3
 
@@ -99,10 +99,10 @@ namespace overlay
 			}
 		}
 	}
-	std::string square_overlay::print() const
+	std::string SquareOverlay::print() const
 	{
 		std::string output;
-		output = std::string(quote(square_overlay)) + "\n";
+		output = std::string(quote(SquareOverlay)) + "\n";
 		std::vector<cv::Point2f> vertices = getCorners();
 		for (auto vertex : vertices)
 		{
@@ -111,7 +111,7 @@ namespace overlay
 		return output;
 	}
 
-	std::ostream& operator<<(std::ostream& os, const square_overlay& so)
+	std::ostream& operator<<(std::ostream& os, const SquareOverlay& so)
 	{
 		std::string output = so.print();
 		return os << output;

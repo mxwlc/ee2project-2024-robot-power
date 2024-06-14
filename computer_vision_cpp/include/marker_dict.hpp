@@ -24,7 +24,7 @@ This needs changing to add for more "jobs"
 		{ states::GO_AWAY_FROM, "GO AWAY FROM" },
 		{ states::STATES_NR_ITEMS, std::to_string(int(states::STATES_NR_ITEMS)) }} ;
 
-	class marker_dict
+	class MarkerDict
 	{
 	 private:
 
@@ -36,14 +36,14 @@ This needs changing to add for more "jobs"
 
 	 public:
 		// Constructors
-		marker_dict();
+		MarkerDict();
 
-		explicit marker_dict(std::map<int, states>& dict);
+		explicit MarkerDict(std::map<int, states>& dict);
 
-		explicit marker_dict(std::string filename);
+		explicit MarkerDict(std::string filename);
 
 		// Destructor
-		~marker_dict();
+		~MarkerDict();
 
 		// Add {marker_id, state} pair to the internal marker map
 		void add_marker(int id, states marker_state);
@@ -71,7 +71,7 @@ This needs changing to add for more "jobs"
 	};
 
 // Cout class#
-	std::ostream& operator<<(std::ostream& os, marker_dict const& m);
+	std::ostream& operator<<(std::ostream& os, MarkerDict const& m);
 }
 
 #endif //EE2_COMPUTER_VISION_MARKER_DICT_HPP

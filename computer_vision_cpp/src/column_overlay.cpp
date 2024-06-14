@@ -5,21 +5,21 @@
 #include "column_overlay.hpp"
 namespace overlay
 {
-	column_overlay::column_overlay()
+	ColumnOverlay::ColumnOverlay()
 	{
 		padding = 0;
 	}
 
-	column_overlay::column_overlay(int padding_) : padding(padding_)
+	ColumnOverlay::ColumnOverlay(int padding_) : padding(padding_)
 	{
 	}
 
-	int column_overlay::GetPadding() const
+	int ColumnOverlay::GetPadding() const
 	{
 		return padding;
 	}
 
-	bool column_overlay::point_in_bounds(cv::Point2f point) const
+	bool ColumnOverlay::point_in_bounds(cv::Point2f point) const
 	{
 		if (point.x < (float)padding)
 		{
@@ -32,7 +32,7 @@ namespace overlay
 		return true;
 	}
 
-	bool column_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	bool ColumnOverlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
 		bool inside = false;
 		for (cv::Point2f vertex : marker)
@@ -43,7 +43,7 @@ namespace overlay
 		return inside;
 	}
 
-	void column_overlay::draw(cv::Mat& m)
+	void ColumnOverlay::draw(cv::Mat& m)
 	{
 		auto padding_f = (float)padding;
 		auto window_width = (float)WINDOW_WIDTH;
@@ -54,14 +54,14 @@ namespace overlay
 			window_width - padding_f, window_height), cv::Scalar(0, 255, 0), 2);
 	}
 
-	std::string column_overlay::print() const
+	std::string ColumnOverlay::print() const
 	{
 		std::string output;
-		output = std::string(quote(column_overlay)) + std::string("\n") + std::string("Padding : ")
+		output = std::string(quote(ColumnOverlay)) + std::string("\n") + std::string("Padding : ")
 				 + std::to_string(GetPadding()) + "\n";
 		return output;
 	}
-	uchar column_overlay::position(cv::Point2f& pt)
+	uchar ColumnOverlay::position(cv::Point2f& pt)
 	{
 		if (pt.x < (float)padding)
 		{
@@ -73,7 +73,7 @@ namespace overlay
 		}
 		return 0b0010;
 	}
-	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
+	uchar ColumnOverlay::marker_position(std::vector<cv::Point2f>& m)
 	{
 		uchar valid = 0b0000;
 		for (auto& vertex : m)
@@ -83,7 +83,7 @@ namespace overlay
 		return valid;
 	}
 
-	std::ostream& operator<<(std::ostream& os, const column_overlay& o)
+	std::ostream& operator<<(std::ostream& os, const ColumnOverlay& o)
 	{
 		std::string output;
 		output = o.print();

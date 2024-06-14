@@ -13,14 +13,14 @@
 
 namespace overlay
 {
-	class square_overlay : public overlay
+	class SquareOverlay : public Overlay
 	{
 	 public:
-		square_overlay() = default;
+		SquareOverlay() = default;
 
-		explicit square_overlay(std::vector<cv::Point2f>&);
+		explicit SquareOverlay(std::vector<cv::Point2f>&);
 
-		explicit square_overlay(int side_length);
+		explicit SquareOverlay(int side_length);
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 
@@ -35,6 +35,6 @@ namespace overlay
 		std::vector<cv::Point2f> corners;
 		int side_length;
 	};
-	std::ostream& operator<<(std::ostream& os, square_overlay const& so);
+	std::ostream& operator<<(std::ostream& os, SquareOverlay const& so);
 }
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP

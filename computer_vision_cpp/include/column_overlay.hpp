@@ -12,15 +12,15 @@
 
 namespace overlay
 {
-	class column_overlay : public overlay
+	class ColumnOverlay : public Overlay
 	{
 	 private:
 		int padding;
 
 	 public:
-		column_overlay();
+		ColumnOverlay();
 
-		explicit column_overlay(int padding);
+		explicit ColumnOverlay(int padding);
 
 		[[nodiscard]] int GetPadding() const;
 
@@ -37,6 +37,6 @@ namespace overlay
 		void draw(cv::Mat& m);
 	};
 
-	std::ostream& operator<<(std::ostream& os, column_overlay const& o);
+	std::ostream& operator<<(std::ostream& os, ColumnOverlay const& o);
 }
 #endif //EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP

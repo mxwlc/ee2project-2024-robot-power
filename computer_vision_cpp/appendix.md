@@ -1,5 +1,5 @@
 # Header Files
-## include/column_overlay.hpp
+## include/ColumnOverlay.hpp
 ```cpp
 //
 // Created by maxwe on 08/06/24.
@@ -8,22 +8,22 @@
 #ifndef EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
 #define EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
 
-#include "overlay.hpp"
+#include "Overlay.hpp"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
-namespace overlay
+namespace Overlay
 {
-	class column_overlay : public overlay
+	class ColumnOverlay : public Overlay
 	{
 	 private:
 		int padding;
 
 	 public:
-		column_overlay();
+		ColumnOverlay();
 
-		explicit column_overlay(int padding);
+		explicit ColumnOverlay(int padding);
 
 		[[nodiscard]] int GetPadding() const;
 
@@ -40,12 +40,12 @@ namespace overlay
 		void draw(cv::Mat& m);
 	};
 
-	std::ostream& operator<<(std::ostream& os, column_overlay const& o);
+	std::ostream& operator<<(std::ostream& os, ColumnOverlay const& o);
 }
 #endif //EE2_COMPUTER_VISION_COLUMN_OVERLAY_HPP
 
 ```
-## include/marker_dict.hpp
+## include/MarkerDict.hpp
 ```cpp
 
 
@@ -69,7 +69,7 @@ This needs changing to add for more "jobs"
 		STOP = 0, GO_TOWARDS = 1, GO_AWAY_FROM = 2, STATES_NR_ITEMS = 3
 	} states;
 
-	class marker_dict
+	class MarkerDict
 	{
 	 private:
 
@@ -83,14 +83,14 @@ This needs changing to add for more "jobs"
 
 	 public:
 		// Constructors
-		marker_dict();
+		MarkerDict();
 
-		explicit marker_dict(std::map<int, states>& dict);
+		explicit MarkerDict(std::map<int, states>& dict);
 
-		explicit marker_dict(std::string filename);
+		explicit MarkerDict(std::string filename);
 
 		// Destructor
-		~marker_dict();
+		MarkerDict);
 
 		// Add {marker_id, state} pair to the internal marker map
 		void add_marker(int id, states marker_state);
@@ -118,12 +118,12 @@ This needs changing to add for more "jobs"
 	};
 
 // Cout class#
-	std::ostream& operator<<(std::ostream& os, marker_dict const& m);
+	std::ostream& operator<<(std::ostream& os, MarkerDict const& m);
 }
 
 #endif //EE2_COMPUTER_VISION_MARKER_DICT_HPP
 ```
-## include/overlay.hpp
+## include/Overlay.hpp
 ```cpp
 //
 // Created by maxwe on 08/06/24.
@@ -138,7 +138,7 @@ This needs changing to add for more "jobs"
 
 #define quote(x) #x
 
-namespace overlay
+namespace Overlay
 {
 
 	static int WINDOW_HEIGHT = 480;
@@ -154,15 +154,15 @@ namespace overlay
 		std::pair<uchar, std::string>(0b0001, std::string("Right")),
 		std::pair<uchar, std::string>(0b0111, std::string("Invalid")), };
 
-	class overlay
+	class Overlay
 	{
 	 protected:
 		int window_height;
 		int window_width;
 	 public:
-		overlay();
+		Overlay();
 
-		virtual ~overlay();
+		virtual Overlay();
 
 		[[maybe_unused]] virtual bool within_bounds();
 
@@ -175,13 +175,13 @@ namespace overlay
 		[[maybe_unused]] virtual uchar position();
 	};
 
-	std::ostream& operator<<(std::ostream& os, overlay const& o);
+	std::ostream& operator<<(std::ostream& os, Overlay const& o);
 
 }
 #endif //EE2_COMPUTER_VISION_OVERLAY_HPP
 
 ```
-## include/square_overlay.hpp
+## include/SquareOverlay.hpp
 ```cpp
 //
 // Created by maxwe on 07/06/24.
@@ -194,18 +194,18 @@ namespace overlay
 #include<opencv2/core.hpp>
 #include<map>
 #include<iostream>
-#include "overlay.hpp"
+#include "Overlay.hpp"
 
-namespace overlay
+namespace Overlay
 {
-	class square_overlay : public overlay
+	class SquareOverlay : public Overlay
 	{
 	 public:
-		square_overlay() = default;
+		SquareOverlay() = default;
 
-		explicit square_overlay(std::vector<cv::Point2f>&);
+		explicit SquareOverlay(std::vector<cv::Point2f>&);
 
-		explicit square_overlay(int side_length);
+		explicit SquareOverlay(int side_length);
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 
@@ -220,36 +220,36 @@ namespace overlay
 		std::vector<cv::Point2f> corners;
 		int side_length;
 	};
-	std::ostream& operator<<(std::ostream& os, square_overlay const& so);
+	std::ostream& operator<<(std::ostream& os, SquareOverlay const& so);
 }
 #endif //EE2_COMPUTER_VISION_SQUARE_OVERLAY_HPP
 
 ```
 # Source Files
-## src/column_overlay.cpp
+## src/ColumnOverlay.cpp
 ```cpp
 //
 // Created by maxwe on 08/06/24.
 //
 
-#include "column_overlay.hpp"
-namespace overlay
+#include "ColumnOverlay.hpp"
+namespace Overlay
 {
-	column_overlay::column_overlay()
+	ColumnOverlay::ColumnOverlay()
 	{
 		padding = 0;
 	}
 
-	column_overlay::column_overlay(int padding_) : padding(padding_)
+	ColumnOverlay::ColumnOverlay(int padding_) : padding(padding_)
 	{
 	}
 
-	int column_overlay::GetPadding() const
+	int ColumnOverlay::GetPadding() const
 	{
 		return padding;
 	}
 
-	bool column_overlay::point_in_bounds(cv::Point2f point) const
+	bool ColumnOverlay::point_in_bounds(cv::Point2f point) const
 	{
 		if (point.x < (float)padding)
 		{
@@ -262,7 +262,7 @@ namespace overlay
 		return true;
 	}
 
-	bool column_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	bool ColumnOverlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
 		bool inside = false;
 		for (cv::Point2f vertex : marker)
@@ -273,7 +273,7 @@ namespace overlay
 		return inside;
 	}
 
-	void column_overlay::draw(cv::Mat& m)
+	void ColumnOverlay::draw(cv::Mat& m)
 	{
 		auto padding_f = (float)padding;
 		auto window_width = (float)WINDOW_WIDTH;
@@ -284,14 +284,14 @@ namespace overlay
 			window_width - padding_f, window_height), cv::Scalar(0, 255, 0), 2);
 	}
 
-	std::string column_overlay::print() const
+	std::string ColumnOverlay::print() const
 	{
 		std::string output;
-		output = std::string(quote(column_overlay)) + std::string("\n") + std::string("Padding : ")
+		output = std::string(quote(ColumnOverlay)) + std::string("\n") + std::string("Padding : ")
 				 + std::to_string(GetPadding()) + "\n";
 		return output;
 	}
-	uchar column_overlay::position(cv::Point2f& pt)
+	uchar ColumnOverlay::position(cv::Point2f& pt)
 	{
 		if (pt.x < (float)padding)
 		{
@@ -303,7 +303,7 @@ namespace overlay
 		}
 		return 0b0010;
 	}
-	uchar column_overlay::marker_position(std::vector<cv::Point2f>& m)
+	uchar ColumnOverlay::marker_position(std::vector<cv::Point2f>& m)
 	{
 		uchar valid = 0b0000;
 		for (auto& vertex : m)
@@ -313,7 +313,7 @@ namespace overlay
 		return valid;
 	}
 
-	std::ostream& operator<<(std::ostream& os, const column_overlay& o)
+	std::ostream& operator<<(std::ostream& os, const ColumnOverlay& o)
 	{
 		std::string output;
 		output = o.print();
@@ -327,9 +327,9 @@ namespace overlay
 // Created by maxwe on 25/05/24.
 //
 
-#include "../include/column_overlay.hpp"
-#include "../include/marker_dict.hpp"
-#include "../include/square_overlay.hpp"
+#include "../include/ColumnOverlay.hpp"
+#include "../include/MarkerDict.hpp"
+#include "../include/SquareOverlay.hpp"
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -348,7 +348,7 @@ std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0
 
 };
 
-uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::column_overlay& col_overlay)
+uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, Overlay::ColumnOverlay& col_overlay)
 {
 	// 0b0001 :  TURN RIGHT
 	// 0b0010 :  MIDDLE
@@ -357,24 +357,24 @@ uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, ove
 	uchar pos = col_overlay.marker_position(target_marker);
 	if (pos == 0b0010)
 	{
-		if (overlay::DEBUG_FLAG) std::cout << "Move Forward\n";
+		if (Overlay::DEBUG_FLAG) std::cout << "Move Forward\n";
 		return 0b0010;
 	}
 	if (pos == 0b0001 || pos == 0b0011)
 	{
-		if (overlay::DEBUG_FLAG) std::cout << "Turn Left\n";
+		if (Overlay::DEBUG_FLAG) std::cout << "Turn Left\n";
 		return 0b0100;
 	}
 	if (pos == 0b0100 | pos == 0b0110)
 	{
-		if (overlay::DEBUG_FLAG) std::cout << "Turn Right\n";
+		if (Overlay::DEBUG_FLAG) std::cout << "Turn Right\n";
 		return 0b0001;
 	}
 	std::cout << "No Marker Found\n";
 	return 0b0000;
 }
 
-std::vector<int> translate_found_markers(std::unique_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
+std::vector<int> translate_found_markers(std::unique_ptr<dictionary::MarkerDict>& md, std::vector<int>& input_ids)
 {
 	std::vector<int> marker_states;
 	for (int input_id : input_ids)
@@ -395,18 +395,18 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 
 int main()
 {
-	overlay::DEBUG_FLAG = false;
+	Overlay::DEBUG_FLAG = false;
 	bool target_flag = false;
 	bool ids_flag = false;
 	bool location_flag = false;
 	cv::Mat frame;
 	bool drive_flag = false;
 
-	overlay::square_overlay sq_o(200);
-	overlay::column_overlay c_o(200);
+	Overlay::SquareOverlay sq_o(200);
+	Overlay::ColumnOverlay c_o(200);
 
-	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
-	std::unique_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
+	if (Overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
+	std::unique_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict("MarkerDict"));
 
 	int id;
 	std::cout << "Target id = ";
@@ -415,7 +415,7 @@ int main()
 	// -- verify marker dict has been loaded properly --
 	if (md->size_of_map() <= 1)
 	{
-		std::cerr << "Error : marker_dict no initialised properly\n";
+		std::cerr << "Error : MarkerDict no initialised properly\n";
 		return 1;
 	}
 
@@ -453,7 +453,7 @@ int main()
 
 		detector.detectMarkers(frame, marker_corners, marker_ids, rejected_candidates);
 
-		if (!marker_ids.empty() && overlay::DEBUG_FLAG)
+		if (!marker_ids.empty() && Overlay::DEBUG_FLAG)
 		{
 			for (int i = 0; i < marker_ids.size(); ++i)
 			{
@@ -484,18 +484,18 @@ int main()
 				{
 					t_coord = { marker_corners[j] };
 
-					if (overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
+					if (Overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
 				}
 			}
 		}
 
-		if (overlay::DEBUG_FLAG)
+		if (Overlay::DEBUG_FLAG)
 		{
 			for (int i = 0; i < marker_ids.size(); i++)
 			{
 				std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i])
 						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]) << "\nPos : "
-						  << overlay::position_translation[c_o.marker_position(marker_corners[i])];
+						  << Overlay::position_translation[c_o.marker_position(marker_corners[i])];
 			}
 		}
 
@@ -513,7 +513,7 @@ int main()
 				{
 					std::cout << i << ") ";
 					std::cout << "id=" << marker_ids[i] << " pos : "
-							  << overlay::position_translation[c_o.marker_position(marker_corners[i])] << "\n";
+							  << Overlay::position_translation[c_o.marker_position(marker_corners[i])] << "\n";
 				}
 			}
 		}
@@ -560,7 +560,7 @@ int main()
 		else if (key_press == (int)'d')
 		{
 			std::cout << "Toggle Debug\n";
-			overlay::DEBUG_FLAG = !overlay::DEBUG_FLAG;
+			Overlay::DEBUG_FLAG = !Overlay::DEBUG_FLAG;
 		}
 		else if (key_press == (int)'c')
 		{
@@ -604,7 +604,7 @@ int main()
 #include <opencv2/objdetect/aruco_board.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
-#include "../include/marker_dict.hpp"
+#include "../include/MarkerDict.hpp"
 
 #define MARKER_EDGE_SIZE = 200
 #define BORDER_SIZE = 1
@@ -640,14 +640,14 @@ int main()
 }
 
 ```
-## src/marker_dict.cpp
+## src/MarkerDict.cpp
 ```cpp
-#include "../include/marker_dict.hpp"
+#include "../include/MarkerDict.hpp"
 // TODO write comments and documentation
 
 namespace dictionary
 {
-	marker_dict::marker_dict()
+	MarkerDict::MarkerDict()
 	{
 		/*
 		 * Default constructor, initialises the map with a {0, STOP} pair
@@ -658,7 +658,7 @@ namespace dictionary
 		std::cout << "Marker Dictionary Initialisation End" << std::endl;
 	}
 
-	marker_dict::marker_dict(std::map<int, states>& dict)
+	MarkerDict::MarkerDict(std::map<int, states>& dict)
 	{
 		/*
 		 * Constructor setting the internal map to the provided arguement map
@@ -666,7 +666,7 @@ namespace dictionary
 		marker_map = dict;
 	}
 
-	marker_dict::marker_dict(std::string filename)
+	MarkerDict::MarkerDict(std::string filename)
 	{
 		/*
 		 * Constructor, setting marker map to the map stored in the provided text file
@@ -675,14 +675,14 @@ namespace dictionary
 		marker_map = load_marker_map(filename);
 	}
 
-	marker_dict::~marker_dict()
+	MarkerDict::MarkerDict)
 	{
 		// Debug atm
 		// Destructor that tells the user when the marker dict object (and thus the shared_ptr to the object) leaves the current scope (or the ptr is deleted)
 		std::cout << "Marker Dictionary Leaves Scope" << std::endl;
 	}
 
-	void marker_dict::add_marker(int id, states marker_state)
+	void MarkerDict::add_marker(int id, states marker_state)
 	{
 		/*
 		 * Adds a {marker_id, state} Pair to the internal map
@@ -690,7 +690,7 @@ namespace dictionary
 		marker_map.insert({ id, marker_state });
 	}
 
-	states marker_dict::marker_translate(int id)
+	states MarkerDict::marker_translate(int id)
 	{
 		/*
 		 * Returns the corresponding enum State from the provided marker id
@@ -698,7 +698,7 @@ namespace dictionary
 		return marker_map[id];
 	}
 
-	std::map<int, states> marker_dict::return_dict() const
+	std::map<int, states> MarkerDict::return_dict() const
 	{
 		/*
 		 * Returns the internal marker map object
@@ -706,7 +706,7 @@ namespace dictionary
 		return marker_map;
 	}
 
-	std::string marker_dict::print_dict() const
+	std::string MarkerDict::print_dict() const
 	{
 		/*
 		 * Debug print
@@ -724,9 +724,9 @@ namespace dictionary
 		return output;
 	}
 
-	void marker_dict::save_dict()
+	void MarkerDict::save_dict()
 	{
-		std::string filename("marker_dict");
+		std::string filename("MarkerDict");
 		std::ofstream outfile(filename);
 
 		if (!outfile.is_open())
@@ -747,12 +747,12 @@ namespace dictionary
 		}
 	}
 
-	int marker_dict::size_of_map()
+	int MarkerDict::size_of_map()
 	{
 		return (int)marker_map.size();
 	}
 
-	std::map<int, states> marker_dict::load_marker_map(std::string filename)
+	std::map<int, states> MarkerDict::load_marker_map(std::string filename)
 	{
 		std::ifstream input_file(filename);
 		std::map<int, states> marker_map_in;
@@ -770,7 +770,7 @@ namespace dictionary
 		return marker_map_in;
 	}
 
-	std::string marker_dict::enum_string_translation(states in_state)
+	std::string MarkerDict::enum_string_translation(states in_state)
 	{
 		if (enum_to_string.find(in_state) == enum_to_string.end())
 		{
@@ -779,7 +779,7 @@ namespace dictionary
 		return enum_to_string[in_state];
 	}
 
-	std::ostream& operator<<(std::ostream& os, marker_dict const& m)
+	std::ostream& operator<<(std::ostream& os, MarkerDict const& m)
 	{
 		std::string output = m.print_dict();
 		return os << output;
@@ -797,7 +797,7 @@ namespace dictionary
 #include <opencv2/objdetect/aruco_board.hpp>
 #include <opencv2/objdetect/aruco_detector.hpp>
 #include <opencv2/opencv.hpp>
-#include "../include/marker_dict.hpp"
+#include "../include/MarkerDict.hpp"
 
 #define MARKER_EDGE_SIZE  200
 #define BORDER_SIZE  1
@@ -867,7 +867,7 @@ std::vector<uchar> id_array()
 	return marker_ids;
 }
 
-void add_to_dictionary(dictionary::marker_dict& dict, int id)
+void add_to_dictionary(dictionary::MarkerDict& dict, int id)
 {
 /* Needs changing to support a variable enum size
  *
@@ -928,7 +928,7 @@ int main()
 	std::cout << "-------------------------------------------------------------------------------" << std::endl
 			  << "Marker Generator" << std::endl
 			  << "-------------------------------------------------------------------------------" << std::endl;
-	std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict());
+	std::shared_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict());
 
 	std::cout << "-------------------------------------------------------------------------------" << std::endl
 			  << "Loading Predefined Dictionary" << std::endl
@@ -965,57 +965,57 @@ int main()
 }
 
 ```
-## src/overlay.cpp
+## src/Overlay.cpp
 ```cpp
 //
 // Created by maxwe on 08/06/24.
 //
-#include "../include/overlay.hpp"
+#include "../include/Overlay.hpp"
 
-namespace overlay
+namespace Overlay
 {
-	overlay::overlay()
+	Overlay::Overlay()
 	{
 		window_height = WINDOW_HEIGHT;
 		window_width = WINDOW_WIDTH;
 	}
 
-	overlay::~overlay()
+	Overlay::Overlay()
 	{
 	}
 
-	[[maybe_unused]] bool overlay::within_bounds()
+	[[maybe_unused]] bool Overlay::within_bounds()
 	{
 		return false;
 	}
 
-	std::string overlay::print() const
+	std::string Overlay::print() const
 	{
 
-		return { quote(overlay) };
+		return { quote(Overlay) };
 	};
 
-	[[maybe_unused]] void overlay::draw()
+	[[maybe_unused]] void Overlay::draw()
 	{
 	};
 
-	[[maybe_unused]] bool overlay::point_in_bounds()
+	[[maybe_unused]] bool Overlay::point_in_bounds()
 	{
 		return false;
 	}
-	[[maybe_unused]] uchar overlay::position()
+	[[maybe_unused]] uchar Overlay::position()
 	{
 		return 0b111;
 	}
 
-	std::ostream& operator<<(std::ostream& os, overlay const& o)
+	std::ostream& operator<<(std::ostream& os, Overlay const& o)
 	{
 		std::string output = o.print();
 		return os << output;
 	}
 }
 ```
-## src/square_overlay.cpp
+## src/SquareOverlay.cpp
 ```cpp
 //
 // Created by maxwe on 07/06/24.
@@ -1025,11 +1025,11 @@ namespace overlay
 #include <opencv2/imgproc.hpp>
 #include <iostream>
 
-#include "../include/square_overlay.hpp"
+#include "../include/SquareOverlay.hpp"
 
-namespace overlay
+namespace Overlay
 {
-	square_overlay::square_overlay(std::vector<cv::Point2f>& corners_in)
+	SquareOverlay::SquareOverlay(std::vector<cv::Point2f>& corners_in)
 	{
 		cv::Point2f p1 = corners_in[0];
 		cv::Point2f p2 = corners_in[1];
@@ -1040,9 +1040,9 @@ namespace overlay
 		window_width = WINDOW_WIDTH;
 	}
 
-	square_overlay::square_overlay(int side_length_in)
+	SquareOverlay::SquareOverlay(int side_length_in)
 	{
-		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
+		if (DEBUG_FLAG) std::cout << "SquareOverlay(int side_length)\n";
 		auto window_width_f = (float)window_width;
 		auto window_height_f = (float)window_height;
 		auto x_0 = (float)(window_width_f / 2);
@@ -1060,7 +1060,7 @@ namespace overlay
 		side_length = side_length_in;
 	}
 
-	bool square_overlay::within_bounds(std::vector<cv::Point2f>& marker)
+	bool SquareOverlay::within_bounds(std::vector<cv::Point2f>& marker)
 	{
 		bool inside = true;
 		for (auto corner : marker)
@@ -1074,7 +1074,7 @@ namespace overlay
 		return inside;
 	}
 
-	bool square_overlay::point_in_bounds(cv::Point2f v)
+	bool SquareOverlay::point_in_bounds(cv::Point2f v)
 	{
 		cv::Point2f p1 = corners[1];
 		cv::Point2f p2 = corners[3];
@@ -1093,12 +1093,12 @@ namespace overlay
 		return false;
 	}
 
-	std::vector<cv::Point2f> square_overlay::getCorners() const
+	std::vector<cv::Point2f> SquareOverlay::getCorners() const
 	{
 		return corners;
 	}
 
-	void square_overlay::draw(cv::Mat& m)
+	void SquareOverlay::draw(cv::Mat& m)
 	{
 		// God knows why this is an issue :3
 
@@ -1118,10 +1118,10 @@ namespace overlay
 			}
 		}
 	}
-	std::string square_overlay::print() const
+	std::string SquareOverlay::print() const
 	{
 		std::string output;
-		output = std::string(quote(square_overlay)) + "\n";
+		output = std::string(quote(SquareOverlay)) + "\n";
 		std::vector<cv::Point2f> vertices = getCorners();
 		for (auto vertex : vertices)
 		{
@@ -1130,7 +1130,7 @@ namespace overlay
 		return output;
 	}
 
-	std::ostream& operator<<(std::ostream& os, const square_overlay& so)
+	std::ostream& operator<<(std::ostream& os, const SquareOverlay& so)
 	{
 		std::string output = so.print();
 		return os << output;
@@ -1144,19 +1144,19 @@ namespace overlay
 //
 #include <iostream>
 #include <opencv2/core.hpp>
-#include "../include/square_overlay.hpp"
-#include "../include/overlay.hpp"
-#include "../include/column_overlay.hpp"
+#include "../include/SquareOverlay.hpp"
+#include "../include/Overlay.hpp"
+#include "../include/ColumnOverlay.hpp"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
 int main()
 {
-	overlay::DEBUG_FLAG = true;
+	Overlay::DEBUG_FLAG = true;
 
-	cv::Mat m = cv::Mat::zeros(overlay::WINDOW_HEIGHT, overlay::WINDOW_WIDTH, CV_8UC3);
-	overlay::square_overlay sq_o(200);
-	overlay::column_overlay c_o(250);
+	cv::Mat m = cv::Mat::zeros(Overlay::WINDOW_HEIGHT, Overlay::WINDOW_WIDTH, CV_8UC3);
+	Overlay::SquareOverlay sq_o(200);
+	Overlay::ColumnOverlay c_o(250);
 	std::vector<cv::Point2f> v({cv::Point2f(300, 300), cv::Point2f(310, 300), cv::Point2f(300, 310), cv::Point2f(310, 310)});
 	sq_o.draw(m);
 	c_o.draw(m);
@@ -1186,7 +1186,7 @@ int main()
 
 
 	std::cout << "------------------------\n";
-	overlay::overlay o = overlay::overlay();
+	Overlay::Overlay o = Overlay::Overlay();
 	std::cout << "\nOverlay : " << o << "\n";
 
 	std::cout << std::boolalpha;

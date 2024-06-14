@@ -5,41 +5,41 @@
 
 namespace overlay
 {
-	overlay::overlay()
+	Overlay::Overlay()
 	{
 		window_height = WINDOW_HEIGHT;
 		window_width = WINDOW_WIDTH;
 	}
 
-	overlay::~overlay()
+	Overlay::~Overlay()
 	{
 	}
 
-	[[maybe_unused]] bool overlay::within_bounds()
+	[[maybe_unused]] bool Overlay::within_bounds()
 	{
 		return false;
 	}
 
-	std::string overlay::print() const
+	std::string Overlay::print() const
 	{
 
-		return { quote(overlay) };
+		return { quote(Overlay) };
 	};
 
-	[[maybe_unused]] void overlay::draw()
+	[[maybe_unused]] void Overlay::draw()
 	{
 	};
 
-	[[maybe_unused]] bool overlay::point_in_bounds()
+	[[maybe_unused]] bool Overlay::point_in_bounds()
 	{
 		return false;
 	}
-	[[maybe_unused]] uchar overlay::position()
+	[[maybe_unused]] uchar Overlay::position()
 	{
 		return 0b111;
 	}
 
-	std::ostream& operator<<(std::ostream& os, overlay const& o)
+	std::ostream& operator<<(std::ostream& os, Overlay const& o)
 	{
 		std::string output = o.print();
 		return os << output;

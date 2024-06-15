@@ -103,3 +103,14 @@ From here, the plan is as follows:
 - Test turning movement
 - Attempt to smooth out moving (forward to negative tilt)
 - Tune system more accurately to remove oscillations
+
+# Saturday 15th June
+Not much progress has been made since the last update, due to other subsystems requiring the bot, and a lot of annoying issues preventing me form mvoing forward. We can now tune the bot wirelessly, and my plan was to finish all the tasks above over this weekend, however the batteries died when I came in today, which means I have only Monday now to finish it all.
+
+I have tuned the bot slightly better, and added an alternative method of setpoint correction (untested), as well as potentially fixed the issue with negative directions (again, untested). The smoothing of movement with a backwards tilt at the end of moving can be done relatively easily via chaning the speeds. The plan on Monday as it stands is as follows:
+- Test new setpoint correction
+- Tune better
+- Test movement
+- Test turning
+- Try smoothing of movement
+Knowing how these things usually go, there will likely be a small issue that takes a long time to fix, and as a result, I may not finish the points above, in which case the tasks will be handed on to another member of my team to complete. I have also included instrucitons on approximate setpoint tuning for whoever requires it, at the top of the code. 

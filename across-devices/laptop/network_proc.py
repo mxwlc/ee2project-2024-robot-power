@@ -9,14 +9,15 @@ class SendInstructions():
     ARDUINO_GET_VAR = b"\x01"
     
     PI_SET_DIR = b"\x02"
-    PI_DIR_F = b"\x00"
-    PI_DIR_FR = b"\x01"
-    PI_DIR_R = b"\x02"
-    PI_DIR_BR = b"\x03"
-    PI_DIR_B = b"\x04"
-    PI_DIR_BL = b"\x05"
-    PI_DIR_L = b"\x06"
-    PI_DIR_FL = b"\x07"
+    PI_DIR_N = b"\x00"
+    PI_DIR_F = b"\x01"
+    PI_DIR_FR = b"\x02"
+    PI_DIR_R = b"\x03"
+    PI_DIR_BR = b"\x04"
+    PI_DIR_B = b"\x05"
+    PI_DIR_BL = b"\x06"
+    PI_DIR_L = b"\x07"
+    PI_DIR_FL = b"\x08"
     
     PI_SET_DRIVE_MODE = b"\x03"
     PI_DRIVE_MODE_CAMERA = b"\x00"
@@ -25,6 +26,8 @@ class SendInstructions():
 class RecvTypes():
     CV = b"\x00"
     CV_SIZE = 640 * 480 * 3
+
+    VAR = b"\x01"
 
 def __float_to_bytes(value: float) -> bytes:
     c_float = ctypes.c_float(value)
@@ -41,12 +44,14 @@ def __network_send_proc(socket: s.socket, send_q: mp.Queue, running: mp.Value) -
         except: continue
         # No type checking, assuming main process sends correct instructions
         final_send = send_data[0]
-        if send_data[0] == SendInstructions.ARDUINO_SET_VAR[0]:
+        if send_data[0] == SendInstructions.ARDUINO_SET_VAR:
             final_send += send_data[1]
             final_send += __float_to_bytes(send_data[2])
-        elif send_data[0] == SendInstructions.ARDUINO_GET_VAR[0]:
+        elif send_data[0] == SendInstructions.ARDUINO_GET_VAR:
             final_send += send_data[1]
-        elif send_data[0] == SendInstructions.PI_SET_DIR[0]:
+        elif send_data[0] == SendInstructions.PI_SET_DIR:
+            final_send += send_data[1]
+        elif send_data[0] == SendInstructions.PI_SET_DRIVE_MODE:
             final_send += send_data[1]
 
         try:
@@ -81,6 +86,12 @@ def __network_recv_proc(socket: s.socket, recv_q: mp.Queue, running: mp.Value) -
             check_for_timeout = False
             recv_q.put((RecvTypes.CV, recv_buffer[1 : 1+RecvTypes.CV_SIZE]))
             recv_buffer = recv_buffer[1+RecvTypes.CV_SIZE:]
+        elif recv_buffer[0] == RecvTypes.VAR[0]:
+            if len(recv_buffer) < 6:
+                check_for_timeout = True
+                continue
+            recv_q.put((RecvTypes.VAR, recv_buffer[1], float(ctypes.c_float.from_buffer_copy(recv_buffer[2:6]).value)))
+            recv_buffer = recv_buffer[6:]
         else:
             recv_buffer = b""
 

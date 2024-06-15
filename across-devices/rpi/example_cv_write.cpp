@@ -6,10 +6,10 @@
 
 int main() {
 
-    // Connect to shared memory. Must be defined for duration of usage
-    SharedMemory* shared_mem_obj = new SharedMemory(sizeof(NetworkSharedObj));
+    // Connect to shared memory. Must be defined for duration of usage (here for the duration of main)
+    SharedMemory shared_mem_obj = SharedMemory(sizeof(NetworkSharedObj));
     // Get pointer to shared memory
-    NetworkSharedObj* shared_mem = (NetworkSharedObj*) shared_mem_obj->ptr;
+    NetworkSharedObj* volatile shared_mem = (NetworkSharedObj*) shared_mem_obj->ptr;
 
     // START MAIN LOOP
 

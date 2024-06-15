@@ -13,8 +13,9 @@ struct NetworkSharedObj {
     char data_cv[BUFFER_SIZE_CV];
     char dir;
 
-    bool send_flag_battery;
-    bool get_battery;
+    bool send_flag_var;
+    char index_var;
+    float data_var;
 
 };
 

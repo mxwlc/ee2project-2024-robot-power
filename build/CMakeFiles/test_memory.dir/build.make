@@ -83,30 +83,30 @@ CMakeFiles/test_memory.dir/src/test_writing.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_memory.dir/src/test_writing.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp -o CMakeFiles/test_memory.dir/src/test_writing.s
 
-CMakeFiles/test_memory.dir/src/marker_dict.o: CMakeFiles/test_memory.dir/flags.make
-CMakeFiles/test_memory.dir/src/marker_dict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
-CMakeFiles/test_memory.dir/src/marker_dict.o: CMakeFiles/test_memory.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_memory.dir/src/marker_dict.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_memory.dir/src/marker_dict.o -MF CMakeFiles/test_memory.dir/src/marker_dict.o.d -o CMakeFiles/test_memory.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
+CMakeFiles/test_memory.dir/src/MarkerDict.o: CMakeFiles/test_memory.dir/flags.make
+CMakeFiles/test_memory.dir/src/MarkerDict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
+CMakeFiles/test_memory.dir/src/MarkerDict.o: CMakeFiles/test_memory.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_memory.dir/src/MarkerDict.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_memory.dir/src/MarkerDict.o -MF CMakeFiles/test_memory.dir/src/MarkerDict.o.d -o CMakeFiles/test_memory.dir/src/MarkerDict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
 
-CMakeFiles/test_memory.dir/src/marker_dict.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_memory.dir/src/marker_dict.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp > CMakeFiles/test_memory.dir/src/marker_dict.i
+CMakeFiles/test_memory.dir/src/MarkerDict.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_memory.dir/src/MarkerDict.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp > CMakeFiles/test_memory.dir/src/MarkerDict.i
 
-CMakeFiles/test_memory.dir/src/marker_dict.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_memory.dir/src/marker_dict.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp -o CMakeFiles/test_memory.dir/src/marker_dict.s
+CMakeFiles/test_memory.dir/src/MarkerDict.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_memory.dir/src/MarkerDict.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp -o CMakeFiles/test_memory.dir/src/MarkerDict.s
 
 # Object files for target test_memory
 test_memory_OBJECTS = \
 "CMakeFiles/test_memory.dir/src/test_writing.o" \
-"CMakeFiles/test_memory.dir/src/marker_dict.o"
+"CMakeFiles/test_memory.dir/src/MarkerDict.o"
 
 # External object files for target test_memory
 test_memory_EXTERNAL_OBJECTS =
 
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: CMakeFiles/test_memory.dir/src/test_writing.o
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: CMakeFiles/test_memory.dir/src/marker_dict.o
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: CMakeFiles/test_memory.dir/src/MarkerDict.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: CMakeFiles/test_memory.dir/build.make
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: /usr/local/lib/libopencv_gapi.so.4.10.0
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/test_memory: /usr/local/lib/libopencv_stitching.so.4.10.0

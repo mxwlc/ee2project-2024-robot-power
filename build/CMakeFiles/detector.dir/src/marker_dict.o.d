@@ -1,7 +1,7 @@
-CMakeFiles/detector.dir/src/marker_dict.o: \
- /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp \
+CMakeFiles/detector.dir/src/MarkerDict.o: \
+ /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp \
  /usr/include/stdc-predef.h \
- /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/../include/marker_dict.hpp \
+ /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/../include/MarkerDict.hpp \
  /usr/include/c++/12/fstream /usr/include/c++/12/istream \
  /usr/include/c++/12/ios /usr/include/c++/12/iosfwd \
  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \

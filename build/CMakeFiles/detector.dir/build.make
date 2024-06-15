@@ -83,30 +83,30 @@ CMakeFiles/detector.dir/src/marker_detection.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/marker_detection.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp -o CMakeFiles/detector.dir/src/marker_detection.s
 
-CMakeFiles/detector.dir/src/marker_dict.o: CMakeFiles/detector.dir/flags.make
-CMakeFiles/detector.dir/src/marker_dict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
-CMakeFiles/detector.dir/src/marker_dict.o: CMakeFiles/detector.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/detector.dir/src/marker_dict.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/marker_dict.o -MF CMakeFiles/detector.dir/src/marker_dict.o.d -o CMakeFiles/detector.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
+CMakeFiles/detector.dir/src/MarkerDict.o: CMakeFiles/detector.dir/flags.make
+CMakeFiles/detector.dir/src/MarkerDict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
+CMakeFiles/detector.dir/src/MarkerDict.o: CMakeFiles/detector.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/detector.dir/src/MarkerDict.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/detector.dir/src/MarkerDict.o -MF CMakeFiles/detector.dir/src/MarkerDict.o.d -o CMakeFiles/detector.dir/src/MarkerDict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
 
-CMakeFiles/detector.dir/src/marker_dict.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/detector.dir/src/marker_dict.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp > CMakeFiles/detector.dir/src/marker_dict.i
+CMakeFiles/detector.dir/src/MarkerDict.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/detector.dir/src/MarkerDict.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp > CMakeFiles/detector.dir/src/MarkerDict.i
 
-CMakeFiles/detector.dir/src/marker_dict.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/marker_dict.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp -o CMakeFiles/detector.dir/src/marker_dict.s
+CMakeFiles/detector.dir/src/MarkerDict.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/detector.dir/src/MarkerDict.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp -o CMakeFiles/detector.dir/src/MarkerDict.s
 
 # Object files for target detector
 detector_OBJECTS = \
 "CMakeFiles/detector.dir/src/marker_detection.o" \
-"CMakeFiles/detector.dir/src/marker_dict.o"
+"CMakeFiles/detector.dir/src/MarkerDict.o"
 
 # External object files for target detector
 detector_EXTERNAL_OBJECTS =
 
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: CMakeFiles/detector.dir/src/marker_detection.o
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: CMakeFiles/detector.dir/src/marker_dict.o
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: CMakeFiles/detector.dir/src/MarkerDict.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: CMakeFiles/detector.dir/build.make
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: /usr/local/lib/libopencv_gapi.so.4.10.0
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/detector: /usr/local/lib/libopencv_stitching.so.4.10.0

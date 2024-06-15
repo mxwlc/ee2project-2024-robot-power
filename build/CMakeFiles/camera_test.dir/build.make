@@ -83,30 +83,30 @@ CMakeFiles/camera_test.dir/src/webcam_test.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera_test.dir/src/webcam_test.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp -o CMakeFiles/camera_test.dir/src/webcam_test.s
 
-CMakeFiles/camera_test.dir/src/marker_dict.o: CMakeFiles/camera_test.dir/flags.make
-CMakeFiles/camera_test.dir/src/marker_dict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
-CMakeFiles/camera_test.dir/src/marker_dict.o: CMakeFiles/camera_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/camera_test.dir/src/marker_dict.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/camera_test.dir/src/marker_dict.o -MF CMakeFiles/camera_test.dir/src/marker_dict.o.d -o CMakeFiles/camera_test.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
+CMakeFiles/camera_test.dir/src/MarkerDict.o: CMakeFiles/camera_test.dir/flags.make
+CMakeFiles/camera_test.dir/src/MarkerDict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
+CMakeFiles/camera_test.dir/src/MarkerDict.o: CMakeFiles/camera_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/camera_test.dir/src/MarkerDict.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/camera_test.dir/src/MarkerDict.o -MF CMakeFiles/camera_test.dir/src/MarkerDict.o.d -o CMakeFiles/camera_test.dir/src/MarkerDict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp
 
-CMakeFiles/camera_test.dir/src/marker_dict.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera_test.dir/src/marker_dict.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp > CMakeFiles/camera_test.dir/src/marker_dict.i
+CMakeFiles/camera_test.dir/src/MarkerDict.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/camera_test.dir/src/MarkerDict.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp > CMakeFiles/camera_test.dir/src/MarkerDict.i
 
-CMakeFiles/camera_test.dir/src/marker_dict.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera_test.dir/src/marker_dict.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp -o CMakeFiles/camera_test.dir/src/marker_dict.s
+CMakeFiles/camera_test.dir/src/MarkerDict.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/camera_test.dir/src/MarkerDict.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/MarkerDict.cpp -o CMakeFiles/camera_test.dir/src/MarkerDict.s
 
 # Object files for target camera_test
 camera_test_OBJECTS = \
 "CMakeFiles/camera_test.dir/src/webcam_test.o" \
-"CMakeFiles/camera_test.dir/src/marker_dict.o"
+"CMakeFiles/camera_test.dir/src/MarkerDict.o"
 
 # External object files for target camera_test
 camera_test_EXTERNAL_OBJECTS =
 
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: CMakeFiles/camera_test.dir/src/webcam_test.o
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: CMakeFiles/camera_test.dir/src/marker_dict.o
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: CMakeFiles/camera_test.dir/src/MarkerDict.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: CMakeFiles/camera_test.dir/build.make
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: /usr/local/lib/libopencv_gapi.so.4.10.0
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/camera_test: /usr/local/lib/libopencv_stitching.so.4.10.0

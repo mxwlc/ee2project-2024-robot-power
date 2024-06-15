@@ -3,7 +3,6 @@
 ## MarkerDetect
 
 First prototype webcam ArUco Marker Detection tool.\
-Functionality
 
 - Identifies the location and id of markers in an image.
 - Translates the location of the marker into a corresponding robot movement instruciton.

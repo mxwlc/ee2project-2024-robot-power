@@ -49,7 +49,7 @@ uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, ove
 	return 0b0000;
 }
 
-std::vector<int> translate_found_markers(std::unique_ptr<dictionary::marker_dict>& md, std::vector<int>& input_ids)
+std::vector<int> translate_found_markers(std::unique_ptr<dictionary::MarkerDict>& md, std::vector<int>& input_ids)
 {
 	std::vector<int> marker_states;
 	for (int input_id : input_ids)
@@ -81,7 +81,7 @@ int main()
 	overlay::ColumnOverlay c_o(200);
 
 	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
-	std::unique_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
+	std::unique_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict("marker_dict"));
 
 	int id;
 	std::cout << "Target id = ";

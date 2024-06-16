@@ -77,7 +77,7 @@ std::vector<uchar> id_array()
 	return marker_ids;
 }
 
-void add_to_dictionary(dictionary::marker_dict& dict, int id)
+void add_to_dictionary(dictionary::MarkerDict& dict, int id)
 {
 /* Needs changing to support a variable enum size
  *
@@ -138,7 +138,7 @@ int main()
 	std::cout << "-------------------------------------------------------------------------------" << std::endl
 			  << "Marker Generator" << std::endl
 			  << "-------------------------------------------------------------------------------" << std::endl;
-	std::shared_ptr<dictionary::marker_dict> md(new dictionary::marker_dict());
+	std::shared_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict());
 
 	std::cout << "-------------------------------------------------------------------------------" << std::endl
 			  << "Loading Predefined Dictionary" << std::endl

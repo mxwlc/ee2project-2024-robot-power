@@ -24,7 +24,7 @@ namespace overlay
 	SquareOverlay::SquareOverlay(int side_length_)
 	{
 		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
-		side_length = side_length_
+		side_length = side_length_;
 		auto window_width_f = (float)window_width;
 		auto window_height_f = (float)window_height;
 		auto x_0 = (float)(window_width_f / 2);

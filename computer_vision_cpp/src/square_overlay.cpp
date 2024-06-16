@@ -10,25 +10,26 @@
 
 namespace overlay
 {
-	SquareOverlay::SquareOverlay(std::vector<cv::Point2f>& corners_in)
+	SquareOverlay::SquareOverlay(std::vector<cv::Point2f>& corners_)
 	{
-		cv::Point2f p1 = corners_in[0];
-		cv::Point2f p2 = corners_in[1];
+		cv::Point2f p1 = corners_[0];
+		cv::Point2f p2 = corners_[1];
 
 		side_length = (int)cv::norm(p1 - p2);
-		corners = corners_in;
+		corners = corners_;
 		window_height = WINDOW_HEIGHT;
 		window_width = WINDOW_WIDTH;
 	}
 
-	SquareOverlay::SquareOverlay(int side_length_in)
+	SquareOverlay::SquareOverlay(int side_length_)
 	{
 		if (DEBUG_FLAG) std::cout << "square_overlay(int side_length)\n";
+		side_length = side_length_
 		auto window_width_f = (float)window_width;
 		auto window_height_f = (float)window_height;
 		auto x_0 = (float)(window_width_f / 2);
 		auto y_0 = (float)(window_height_f / 2);
-		auto half_len = (float)((float)side_length_in / (float)2);
+		auto half_len = (float)((float)side_length_ / (float)2);
 		cv::Point2f origin = cv::Point2f(x_0, y_0);
 
 		std::vector<cv::Point2f> box_vertices = { cv::Point2f(half_len, half_len), cv::Point2f(half_len, -half_len),
@@ -38,7 +39,7 @@ namespace overlay
 			vertex += origin;
 		}
 		corners = box_vertices;
-		side_length = side_length_in;
+		side_length = side_length_;
 	}
 
 	bool SquareOverlay::within_bounds(std::vector<cv::Point2f>& marker)
@@ -82,10 +83,6 @@ namespace overlay
 	void SquareOverlay::draw(cv::Mat& m)
 	{
 		// God knows why this is an issue :3
-
-		if (DEBUG_FLAG) std::cout << "Draw Square Overlay\n";
-
-		// Poly lines only accepts integer points
 		std::vector<cv::Point2i> IntCornersVec;
 		cv::Mat FloatCorners(corners);
 		cv::Mat IntCorners;

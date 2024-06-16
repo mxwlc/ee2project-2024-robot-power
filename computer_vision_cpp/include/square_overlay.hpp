@@ -20,7 +20,7 @@ namespace overlay
 
 		explicit SquareOverlay(std::vector<cv::Point2f>&);
 
-		explicit SquareOverlay(int side_length);
+		explicit SquareOverlay(int side_length_);
 
 		bool within_bounds(std::vector<cv::Point2f>& marker);
 
@@ -28,11 +28,12 @@ namespace overlay
 
 		void draw(cv::Mat& m);
 
-		[[nodiscard]] std::vector<cv::Point2f> getCorners() const;
+		std::vector<cv::Point2f> getCorners() const;
 
-		[[nodiscard]] std::string print() const;
+		std::string print() const;
 	 private:
 		std::vector<cv::Point2f> corners;
+
 		int side_length;
 	};
 	std::ostream& operator<<(std::ostream& os, SquareOverlay const& so);

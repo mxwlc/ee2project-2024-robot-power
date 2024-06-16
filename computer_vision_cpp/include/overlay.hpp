@@ -27,29 +27,29 @@ namespace overlay
 		std::pair<uchar, std::string>(0b0001, std::string("Right")),
 		std::pair<uchar, std::string>(0b0111, std::string("Invalid")), };
 
-	class overlay
+	class Overlay
 	{
 	 protected:
 		int window_height;
 		int window_width;
 	 public:
-		overlay();
+		Overlay();
 
-		virtual ~overlay();
+		virtual ~Overlay();
 
-		[[maybe_unused]] virtual bool within_bounds();
+		virtual bool within_bounds();
 
-		[[maybe_unused]] virtual bool point_in_bounds();
+		virtual bool point_in_bounds();
 
-		[[nodiscard]] virtual std::string print() const;
+		virtual std::string print() const;
 
-		[[maybe_unused]] virtual void draw();
+		virtual void draw();
 
-		[[maybe_unused]] virtual uchar position();
+		virtual uchar position();
 
 	};
 
-	std::ostream& operator<<(std::ostream& os, overlay const& o);
+	std::ostream& operator<<(std::ostream& os, Overlay const& o);
 
 }
 #endif //EE2_COMPUTER_VISION_OVERLAY_HPP

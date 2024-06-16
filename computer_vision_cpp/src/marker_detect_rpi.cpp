@@ -27,7 +27,7 @@ std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0
 
 };
 
-uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::column_overlay& col_overlay)
+uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::ColumnOverlay& col_overlay)
 {
 	// 0b0001 :  TURN RIGHT
 	// 0b0010 :  MIDDLE
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
 			visual_flag = true;
 		}
 	}
-	overlay::column_overlay c_o(200);
+	overlay::ColumnOverlay c_o(200);
 
 	std::unique_ptr<dictionary::marker_dict> md(new dictionary::marker_dict("marker_dict"));
 
@@ -203,6 +203,7 @@ int main(int argc, char* argv[])
 			{
 				direction = steering(t_coord[0], { id }, c_o);
 				std::cout << id << " :" << (int)direction << "=" << direction_map[direction] << "\n";
+				cv::aruco::drawDetectedMarkers(*frame, marker_corners, t_coord);
 			}
 
 		}
@@ -216,6 +217,7 @@ int main(int argc, char* argv[])
 						  << "\nPos : " << overlay::position_translation[c_o.marker_position(marker_corners[i])];
 			}
 		}
+
 		// -- Send Frame At this point --
 		// #######################
 		// Send Directions -- direciton variable

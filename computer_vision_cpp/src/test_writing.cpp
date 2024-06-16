@@ -14,8 +14,8 @@ int main()
 	overlay::DEBUG_FLAG = true;
 
 	cv::Mat m = cv::Mat::zeros(overlay::WINDOW_HEIGHT, overlay::WINDOW_WIDTH, CV_8UC3);
-	overlay::square_overlay sq_o(200);
-	overlay::column_overlay c_o(250);
+	overlay::SquareOverlay sq_o(200);
+	overlay::ColumnOverlay c_o(250);
 	std::vector<cv::Point2f> v({cv::Point2f(300, 300), cv::Point2f(310, 300), cv::Point2f(300, 310), cv::Point2f(310, 310)});
 	sq_o.draw(m);
 	c_o.draw(m);
@@ -45,7 +45,7 @@ int main()
 
 
 	std::cout << "------------------------\n";
-	overlay::overlay o = overlay::overlay();
+	overlay::Overlay o = overlay::Overlay();
 	std::cout << "\nOverlay : " << o << "\n";
 
 	std::cout << std::boolalpha;

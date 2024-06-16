@@ -70,6 +70,7 @@ def __network_recv_proc(socket: s.socket, recv_q: mp.Queue, running: mp.Value) -
     while running.value:
         try: recv_data = socket.recv(8192)
         except: continue
+        print("RECVED")
         # Clears buffer after timeout. Intended for if erroneous first byte is that of instruction.
         recv_time = perf_counter_ns()
         if check_for_timeout:

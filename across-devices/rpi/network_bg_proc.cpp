@@ -1,6 +1,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <strings.h>
+#include <poll.h>
 #include <iostream>
 #include <unistd.h>
 #include <mutex>
@@ -13,9 +15,11 @@
 
 class WirelessConnection {
 
-    int listener_fd, client_fd;
+    int listener_fd;
+    volatile int client_fd;
     sockaddr_in client;
-    std::mutex mutex;
+    volatile bool is_connected;
+    // pollfd send_poll, recv_poll; // Should this be volatile? It does cause an error
 
     void connectUser();
 
@@ -41,11 +45,28 @@ void WirelessConnection::connectUser() {
     timeval timeout;
     timeout.tv_sec = 1;
     timeout.tv_usec = 0;
+    if (setsockopt(client_fd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) == -1) {
+        perror("setsockopt(... SO_RCV_TIMEO...)");
+        exit(1);
+    }
+    if (setsockopt(client_fd, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout)) == -1) {
+        perror("setsockopt(... SO_SND_TIMEO...)");
+        exit(1);
+    }
+    int timeout2 = 1000;
+    if (setsockopt(client_fd, SOL_TCP, TCP_USER_TIMEOUT, &timeout2, sizeof(timeout2)) == -1) {
+        perror("setsockopt(... TCP_USER_TIMEOUT...)");
+        exit(1);
+    }
+
+    is_connected = true;
+    // send_poll.fd = client_fd;
+    // recv_poll.fd = client_fd;
 
     std::cout << "[NETWORK BG] Connected new client" << std::endl;
 }
 
-WirelessConnection::WirelessConnection() {
+WirelessConnection::WirelessConnection() : is_connected(false) {
     // Only hosting - join occurs in Python
 
     // Create socket
@@ -59,7 +80,10 @@ WirelessConnection::WirelessConnection() {
     addr.sin_port = htons(PORT);
 
     // Bind socket to address and port
-    bind(listener_fd, (sockaddr *) &addr, sizeof(addr));
+    bind(listener_fd, (sockaddr*) &addr, sizeof(addr));
+
+    // send_poll.events = POLLOUT;
+    // recv_poll.events = POLLIN;
 
     connectUser();
 }
@@ -75,10 +99,25 @@ void WirelessConnection::sendData(const char* data, int len) {
         if (len > MAX_SEND_BUFFER_SIZE) cur_send_len = MAX_SEND_BUFFER_SIZE;
         else cur_send_len = len;
 
-        while (send(client_fd, data, cur_send_len, 0) == -1) {
+        // Note: this function completely freezes if a client disconnects during the execution
+        // of send(...). A timeout does not occur, and occasionally this causes the receiving
+        // thread to also freeze and wait. Using poll() before calling send() didn't help. It also
+        // prevents the receiving thread from listening for a new client, potentially due to
+        // blocking the socket from being closed. While Linux does forcibly close the program
+        // due to a broken pipe, it still requires a restart of the Pi when it happens.
+
+        if (!is_connected) return;
+        // poll(&send_poll, 1, 1000);
+        // if (!(send_poll.revents & POLLOUT)) return;
+        int send_size = send(client_fd, data, cur_send_len, 0);
+        while (send_size == -1) {
             std::cout << "[NETWORK BG] Error while sending:" << std::endl;
             perror("send");
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            if (!is_connected) return;
+            // poll(&send_poll, 1, 1000);
+            // if (!(send_poll.revents & POLLOUT)) return;
+            send_size = send(client_fd, data, cur_send_len, 0);
         }
         data += cur_send_len;
         len -= cur_send_len;
@@ -96,9 +135,18 @@ int WirelessConnection::recvData(char* buffer, int expected_len) {
         if ((expected_len - recv_len) > MAX_RECV_BUFFER_SIZE) cur_max_recv = MAX_RECV_BUFFER_SIZE;
         else cur_max_recv = expected_len - recv_len;
 
+        /*poll(&recv_poll, 1, 1000);
+        std::cout << "Pre recv " << (int) recv_poll.revents << std::endl;
+        if (!(recv_poll.revents & POLLIN)) {
+            is_connected = false;
+            std::cout << "[NETWORK BG] Cannot receive from socket" << std::endl;
+            close(client_fd);
+            connectUser();
+        } Unnecessary - this causes an error when waiting for a recv for over a second */
         int cur_recv_len = recv(client_fd, tmp_buffer, cur_max_recv, 0);
         if (cur_recv_len == -1) {
             if (errno != EAGAIN) {
+                is_connected = false;
                 std::cout << "[NETWORK BG] Error while receiving:" << std::endl;
                 perror("recv");
                 close(client_fd);
@@ -107,10 +155,11 @@ int WirelessConnection::recvData(char* buffer, int expected_len) {
             return -1;
         }
         else if (cur_recv_len == 0) {
-            std::cout << "[NETWORK BG] Socket closed:" << std::endl;
-            perror("recv");
+            is_connected = false;
+            std::cout << "[NETWORK BG] Socket closed" << std::endl;
             close(client_fd);
             connectUser();
+            return -1;
         }
         // Update the received data counter
         recv_len += cur_recv_len;
@@ -135,9 +184,11 @@ void senderThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
         }
 
         if (shared_obj->send_flag_cv) {
+            std::cout << "Sending CV" << std::endl;
             conn->sendData(&CV, 1);
             conn->sendData(shared_obj->data_cv, BUFFER_SIZE_CV);
             shared_obj->send_flag_cv = false;
+            std::cout << "Sent CV" << std::endl;
         }
 
         if (shared_obj->send_flag_var) {
@@ -196,7 +247,6 @@ void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
             shared_obj->data_var = recv;
             shared_obj->send_flag_var = true;
             shared_obj->mutex.unlock();
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
         else if (ins == PI_SET_DIR) {
             char dir;
@@ -244,6 +294,7 @@ void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
         }
         prev_dir = cur_dir;
 
+        shared_obj->mutex.unlock();
     }
 }
 

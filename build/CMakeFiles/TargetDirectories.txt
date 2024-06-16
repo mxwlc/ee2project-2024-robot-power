@@ -1,7 +1,13 @@
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/camera_test.dir
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/marker.dir
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/detector.dir
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/test_memory.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/clear.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/appendix.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/convert.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/clear_markers.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/clear_bin.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/MarkerDetect.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/MarkerGen.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/ImageDetector.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/Test.dir
+/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/Colour.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/edit_cache.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles/rebuild_cache.dir
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/src/CMakeFiles/edit_cache.dir

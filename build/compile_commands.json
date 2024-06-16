@@ -1,42 +1,127 @@
 [
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/camera_test.dir/src/webcam_test.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp",
-  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/webcam_test.cpp"
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerDetect.dir/src/marker_detect.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/camera_test.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerDetect.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerDetect.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/marker.dir/src/marker_gen.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_gen.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerDetect.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerDetect.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerGen.dir/src/marker_gen.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_gen.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_gen.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/marker.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerGen.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerGen.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/detector.dir/src/marker_detection.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp",
-  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detection.cpp"
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerGen.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/detector.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/MarkerGen.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/ImageDetector.dir/src/marker_detect_image.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_image.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_image.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/ImageDetector.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/ImageDetector.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/test_memory.dir/src/test_writing.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/ImageDetector.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/ImageDetector.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Test.dir/src/test_writing.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/test_writing.cpp"
 },
 {
   "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
-  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/test_memory.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Test.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Test.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
   "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Test.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Test.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Colour.dir/src/colour_test.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/colour_test.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/colour_test.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Colour.dir/src/column_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Colour.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Colour.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp"
+},
+{
+  "directory": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build",
+  "command": "/usr/bin/g++  -I/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/include -isystem /usr/local/include/opencv4 -g -o CMakeFiles/Colour.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp",
+  "file": "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp"
 }
 ]

@@ -2,11 +2,11 @@
 | Name       | Task                   |
 | ---------- | ---------------------- |
 | Zakariyyaa | Control Algorithm      |
-| Meshwish    | Power and Sensors      |
+| Mehwish    | Power and Sensors      |
 | Rayyan     | Power and Sensors      |
 | Corey      | Computer vision        |
 | Mateusz    | Network, Backend and UI |
-| Raymon     | UI |
+| Raymond     | UI |
 
 # Key Dates
 
@@ -31,7 +31,7 @@
 | 28/05         | Concept Selection                     |
 | 06/06 - 07/06 | Report Writing                        |
 | 11/06 - 12/06 | DFMEA                                 |
-| 12/06 - 14/06 | Centre for academic English drop ins] |
+| 12/06 - 14/06 | Centre for academic English drop ins  |
 
 ## Links
 

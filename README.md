@@ -5,8 +5,8 @@
 | Meshwish    | Power and Sensors      |
 | Rayyan     | Power and Sensors      |
 | Corey      | Computer vision        |
-| Mateusz    | Network Backend and UI |
-| Raymon     | Network Backend and UI |
+| Mateusz    | Network, Backend and UI |
+| Raymon     | UI |
 
 # Key Dates
 

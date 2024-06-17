@@ -4,9 +4,9 @@
 
 namespace ArdPiWire {
 
-    const char CLK_PIN = 35;
-    const char ACK_PIN = 27;
-    const char DATA_PIN = 33;
+    const char CLK_PIN = 35;//red
+    const char ACK_PIN = 27;//orange
+    const char DATA_PIN = 33;//yellow
     const char SEND_PIN = ACK_PIN;
 
     //static float* values;

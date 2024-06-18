@@ -31,7 +31,8 @@ list(APPEND EXCLUDE_FILES
         "${PROJECT_SOURCE_DIR}/src/marker_gen.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/marker_detect_image.cpp" ,
         "${PROJECT_SOURCE_DIR}/src/test_writing.cpp" ,
-        "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp"
+        "${PROJECT_SOURCE_DIR}/src/marker_detect.cpp",
+        "${PROJECT_SOURCE_DIR}/src/marker_detect_rpi.cpp"
 )
 MESSAGE( STATUS "Setting Filepaths - done" )
 MESSAGE( STATUS "=====================================================" )

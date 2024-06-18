@@ -9,12 +9,13 @@ namespace dictionary
 		 * Default constructor, initialises the map with a {0, STOP} pair
 		 */
 		std::cout << "Marker Dictionary Initialisation Start" << std::endl;
-		std::map<int, states> temp_map({{ 0, states::STOP }});
+		std::map<int, std::string> temp_map({{ 0, std::string("STOP") }});
+		possible_ids = {0};
 		marker_map = temp_map;
 		std::cout << "Marker Dictionary Initialisation End" << std::endl;
 	}
 
-	MarkerDict::MarkerDict(std::map<int, states>& dict)
+	MarkerDict::MarkerDict(std::map<int, std::string >& dict)
 	{
 		/*
 		 * Constructor setting the internal map to the provided arguement map
@@ -27,7 +28,7 @@ namespace dictionary
 		/*
 		 * Constructor, setting marker map to the map stored in the provided text file
 		 */
-		std::map<int, states> t_marker_map;
+		std::map<int, std::string> t_marker_map;
 		marker_map = load_marker_map(filename);
 	}
 
@@ -38,7 +39,7 @@ namespace dictionary
 		std::cout << "Marker Dictionary Leaves Scope" << std::endl;
 	}
 
-	void MarkerDict::add_marker(int id, states marker_state)
+	void MarkerDict::add_marker(int id, std::string marker_state)
 	{
 		/*
 		 * Adds a {marker_id, state} Pair to the internal map
@@ -46,7 +47,7 @@ namespace dictionary
 		marker_map.insert({ id, marker_state });
 	}
 
-	states MarkerDict::marker_translate(int id)
+	std::string MarkerDict::marker_translate(int id)
 	{
 		/*
 		 * Returns the corresponding enum State from the provided marker id
@@ -54,7 +55,7 @@ namespace dictionary
 		return marker_map[id];
 	}
 
-	std::map<int, states> MarkerDict::return_dict() const
+	std::map<int, std::string> MarkerDict::return_dict() const
 	{
 		/*
 		 * Returns the internal marker map object
@@ -73,7 +74,7 @@ namespace dictionary
 		output = std::string("ID, State \n") + std::string("{\n");
 		for (auto& t : marker_map)
 		{
-			line = std::to_string(t.first) + std::string(" : ") + std::to_string(states(t.second)) + std::string("\n");
+			line = std::to_string(t.first) + std::string(" : ") + t.second + std::string("\n");
 			output.append(line);
 		}
 		output.append("}\n");
@@ -108,32 +109,36 @@ namespace dictionary
 		return (int)marker_map.size();
 	}
 
-	std::map<int, states> MarkerDict::load_marker_map(std::string filename)
+	std::map<int, std::string> MarkerDict::load_marker_map(std::string filename)
 	{
 		std::ifstream input_file(filename);
-		std::map<int, states> marker_map_;
+		std::vector<int> possibleIds;
+		std::map<int, std::string > marker_map_;
 		if (!input_file)
 		{
 			std::cerr << "Error : Cannot open file\n";
-			marker_map_.insert({{ 0, states::STOP }});
+			marker_map_.insert({{ 0, std::string("No Object")}});
 			return marker_map_;
 		}
 		std::string key, value;
 		while (input_file >> key >> value)
 		{
-			marker_map_[std::stoi(key)] = (states)std::stoi(value);
+			possibleIds.push_back(std::stoi(key));
+			marker_map_[std::stoi(key)] = value;
 		}
+		possible_ids = possibleIds;
 		return marker_map_;
 	}
-
-	std::string MarkerDict::enum_string_translation(states in_state)
+	const std::vector<int>& MarkerDict::GetPossibleIds() const
 	{
-		if (enum_to_string.find(in_state) == enum_to_string.end())
-		{
-			return "No State";
-		}
-		return enum_to_string[in_state];
+		return possible_ids;
 	}
+	void MarkerDict::SetPossibleIds(const std::vector<int>& possibleIds)
+	{
+		possible_ids = possibleIds;
+	}
+
+
 
 	std::ostream& operator<<(std::ostream& os, MarkerDict const& m)
 	{

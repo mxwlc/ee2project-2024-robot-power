@@ -82,31 +82,30 @@ void add_to_dictionary(dictionary::MarkerDict& dict, int id)
 /* Needs changing to support a variable enum size
  *
  * */
-	dictionary::states state_enum;
-	int choice;
+	std::string choice;
 	bool valid;
 	do
 	{
 		std::cout << "What Should Marker (id =" << id << ") Do" << std::endl;
 		std::cout << "-------------------------------------------------------------------------------" << std::endl;
 		// Print Menu
-		for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++)
-		{
-			std::cout << i << " : " << dict.enum_string_translation(static_cast<dictionary::states>(i)) << "\n";
-		}
+//		for (int i = 0; i < (int)dictionary::states::STATES_NR_ITEMS; i++)
+//		{
+//			std::cout << i << " : " << dict.enum_string_translation(static_cast<dictionary::states>(i)) << "\n";
+//		}
 
-		std::cout << "-------------------------------------------------------------------------------" << std::endl;
+//		std::cout << "-------------------------------------------------------------------------------" << std::endl;
 		std::cin >> choice;
 		if (std::cin.fail())
 		{
 			std::cout << std::endl << "Please Enter a Valid Number" << std::endl;
 			valid = false;
 		}
-		else if (choice >= (int)dictionary::STATES_NR_ITEMS || choice < 0)
-		{
-			std::cout << std::endl << "Please Enter A valid choice (0-" << (int)dictionary::STATES_NR_ITEMS << ")\n";
-			valid = false;
-		}
+//		else if (choice >= (int)dictionary::STATES_NR_ITEMS || choice < 0)
+//		{
+//			std::cout << std::endl << "Please Enter A valid choice (0-" << (int)dictionary::STATES_NR_ITEMS << ")\n";
+//			valid = false;
+//		}
 		else
 		{
 			valid = true;
@@ -114,23 +113,23 @@ void add_to_dictionary(dictionary::MarkerDict& dict, int id)
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	} while (!valid);
-	dictionary::states curr_state;
-	switch (choice)
-	{
-	case 0:
-		curr_state = dictionary::states::STOP;
-		break;
-	case 1:
-		curr_state = dictionary::states::GO_TOWARDS;
-		break;
-	case 2:
-		curr_state = dictionary::states::GO_AWAY_FROM;
-		break;
-	default:
-		curr_state = dictionary::states::STOP;
-		break;
-	}
-	dict.add_marker(id, curr_state);
+//	dictionary::states curr_state;
+//	switch (choice)
+//	{
+//	case 0:
+//		curr_state = dictionary::states::STOP;
+//		break;
+//	case 1:
+//		curr_state = dictionary::states::GO_TOWARDS;
+//		break;
+//	case 2:
+//		curr_state = dictionary::states::GO_AWAY_FROM;
+//		break;
+//	default:
+//		curr_state = dictionary::states::STOP;
+//		break;
+//	}
+	dict.add_marker(id, choice);
 }
 
 int main()

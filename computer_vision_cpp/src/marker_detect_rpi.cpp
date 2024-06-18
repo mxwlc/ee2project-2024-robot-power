@@ -15,7 +15,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 #include <sstream>
-#include <unistd.h>
+#include <chrono>
 
 #define MARKER_EDGE_SIZE = 200
 #define BORDER_SIZE = 1
@@ -26,6 +26,15 @@ std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0
 	std::pair<uchar, std::string>(0b0100, "T_Left"), std::pair<uchar, std::string>(0b1111, "Invalid"),
 
 };
+
+double mean(std::vector<double>& in){
+	double total = 0;
+	auto inlen = (double)in.size();
+	for(auto i : in){
+		total += i;
+	}
+	return total / (double)in.size();
+}
 
 uchar steering(std::vector<cv::Point2f>& target_marker, std::vector<int> id, overlay::ColumnOverlay& col_overlay)
 {
@@ -66,15 +75,15 @@ target_finder(std::vector<std::vector<cv::Point2f>>& marker_array, std::vector<s
 	}
 }
 
-std::vector<int> translate_found_markers(std::unique_ptr<dictionary::MarkerDict>& md, std::vector<int>& input_ids)
-{
-	std::vector<int> marker_states;
-	for (int input_id : input_ids)
-	{
-		marker_states.push_back(int(md->marker_translate(input_id)));
-	}
-	return marker_states;
-}
+//std::vector<int> translate_found_markers(std::unique_ptr<dictionary::MarkerDict>& md, std::vector<int>& input_ids)
+//{
+//	std::vector<int> marker_states;
+//	for (int input_id : input_ids)
+//	{
+//		marker_states.push_back(int(md->marker_translate(input_id)));
+//	}
+//	return marker_states;
+//}
 
 std::string gen_file_name_formatted(const std::string& key, const std::string& file_type)
 {
@@ -92,9 +101,7 @@ int main(int argc, char* argv[])
 	bool all_markers = false;
 	bool visual_flag = false;
 //	bool location_flag = true;
-
 //	bool drive_flag = false;
-
 	std::shared_ptr<cv::Mat> frame = std::make_shared<cv::Mat>(cv::Mat::zeros(cv::Size(overlay::WINDOW_WIDTH, overlay::WINDOW_HEIGHT), CV_8UC3));
 
 	for (int i = 1; i < argc; i++)
@@ -116,9 +123,9 @@ int main(int argc, char* argv[])
 
 	std::unique_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict("marker_dict"));
 
-	int id;
+	int id = 50;
 	std::cout << "Target id = ";
-	std::cin >> id;
+//	std::cin >> id;
 
 	// -- verify marker dict has been loaded properly --
 	if (md->size_of_map() <= 1)
@@ -140,11 +147,18 @@ int main(int argc, char* argv[])
 	cv::aruco::ArucoDetector detector(dict, detector_params);
 
 //	std::cout << "Press any Key to Start\n";
+	std::vector<double> hundred_it;
+	std::vector<double> ten_it;
+	int ten_cycles = 0;
+	int hundred_cycles = 0;
 
 	// -- Main Loop --
 	std::cout << "Press any key to terminate\n";
 	for (;;)
 	{
+
+		auto tick = std::chrono::high_resolution_clock::now();
+
 		int key_press = cv::waitKey(5);
 		uchar direction = 0b0000;
 //		std::shared_ptr<cv::Mat> frame;
@@ -158,9 +172,11 @@ int main(int argc, char* argv[])
 
 		std::vector<int> marker_ids;
 		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
-
 		detector.detectMarkers(*frame, marker_corners, marker_ids, rejected_candidates);
-
+		if(!marker_ids.empty() || marker_corners.size() != marker_ids.size())
+		{
+			cv::aruco::drawDetectedMarkers(*frame, marker_corners, marker_ids);
+		}
 		// -- KEEP THIS PART FOR CORNERS DEBUG -
 		if (!marker_ids.empty() && all_markers)
 		{
@@ -177,7 +193,7 @@ int main(int argc, char* argv[])
 		}
 		// -------------------------------------
 
-		std::vector<int> marker_states = translate_found_markers(md, marker_ids);
+//		std::vector<int> marker_states = translate_found_markers(md, marker_ids);
 
 		// -- TARGET COORD -- FUNCTION?
 		if (!marker_ids.empty())
@@ -202,8 +218,8 @@ int main(int argc, char* argv[])
 			if (!t_coord.empty())
 			{
 				direction = steering(t_coord[0], { id }, c_o);
-				std::cout << id << " :" << (int)direction << "=" << direction_map[direction] << "\n";
-				cv::aruco::drawDetectedMarkers(*frame, marker_corners, t_coord);
+//				std::cout << id << " :" << (int)direction << "=" << direction_map[direction] << "\n";
+//				cv::aruco::drawDetectedMarkers(*frame, marker_corners, t_coord);
 			}
 
 		}
@@ -224,12 +240,30 @@ int main(int argc, char* argv[])
 		// Send Frame frame::data()
 		uchar* point = frame->data;
 //		std::cout << (int)*point << "\n";
+		/*
+		 * Timer sec
+		 */
 
+		auto tock = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::milli> iteration_duration = tock - tick;
+		ten_it.push_back(iteration_duration.count());
+		std::cout << iteration_duration.count() << "\n";
+		ten_cycles++;
+
+		if(ten_cycles==10){
+			ten_cycles=0;
+//			std::cout << mean(ten_it) << "\n";
+			hundred_it.push_back(mean(ten_it));
+			ten_it.clear();
+		}
+		if(hundred_it.size()==100){
+			break;
+		}
 		if (visual_flag)
 		{
-			if (!marker_ids.empty())
+			if (!marker_ids.empty() && !marker_corners.empty())
 			{
-				cv::aruco::drawDetectedMarkers(*frame, marker_corners, marker_ids);
+
 			}
 			cv::imshow("Live", *frame);
 		}
@@ -237,7 +271,9 @@ int main(int argc, char* argv[])
 		{
 			break;
 		}
-	}
 
+	}
+	std::cout << *argv << " " << argc << "\n";
+	std::cout <<"1000 Cycles Mean : " << mean(hundred_it) << "\n";
 	return 0;
 }

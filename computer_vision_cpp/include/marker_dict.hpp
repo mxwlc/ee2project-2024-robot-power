@@ -29,16 +29,16 @@ This needs changing to add for more "jobs"
 	 private:
 
 		// internal MarkID -> State mapping
-		std::map<int, states> marker_map;
+		std::map<int, std::string> marker_map;
 
+		std::vector<int> possible_ids;
 		// maps State to the corresponding label
-
 
 	 public:
 		// Constructors
 		MarkerDict();
 
-		explicit MarkerDict(std::map<int, states>& dict);
+		explicit MarkerDict(std::map<int, std::string>& dict);
 
 		explicit MarkerDict(std::string filename);
 
@@ -46,13 +46,13 @@ This needs changing to add for more "jobs"
 		~MarkerDict();
 
 		// Add {marker_id, state} pair to the internal marker map
-		void add_marker(int id, states marker_state);
+		void add_marker(int id, std::string marker_state);
 
 		// returns the state for a given id
-		states marker_translate(int id);
+		std::string marker_translate(int id);
 
 		// debug : output entire map
-		[[nodiscard]] std::map<int, states> return_dict() const;
+		[[nodiscard]] std::map<int, std::string > return_dict() const;
 
 		// debug : prints the marker map hash
 		[[nodiscard]] std::string print_dict() const;
@@ -60,14 +60,16 @@ This needs changing to add for more "jobs"
 		// Stores the internal marker_map locally
 		void save_dict();
 
-		// debug : translates state enums to a corresponding string
-		std::string enum_string_translation(states in_state);
-
 		// returns the size of the internal marker map
 		int size_of_map();
 
 		// Read marker_map from a file
-		std::map<int, states> load_marker_map(std::string filename);
+		std::map<int, std::string> load_marker_map(std::string filename);
+
+		const std::vector<int>& GetPossibleIds() const;
+
+		void SetPossibleIds(const std::vector<int>& possibleIds);
+
 	};
 
 // Cout class#

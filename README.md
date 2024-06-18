@@ -116,3 +116,14 @@ I have tuned the bot slightly better, and added an alternative method of setpoin
 - Try smoothing of movement
 
 Knowing how these things usually go, there will likely be a small issue that takes a long time to fix, and as a result, I may not finish the points above, in which case the tasks will be handed on to another member of my team to complete. I have also included instrucitons on approximate setpoint tuning for whoever requires it, at the top of the code. 
+
+
+# Monday 17th June
+Progress today was good, it now balances and moves forwards and backwards as it should, speeds for movement work best between 30-60 on each motor (same for negative direction)
+
+There is also an outstanding issue of turning, the bot can turn, but may fall, or do so infinitely. The inner loop PID sets acceleration, so it may also speed up and fall. 
+I tried using a constant offset between both the speed amd acceleration of the motors, but this also didnt work. From talking to other groups, I then implemented another PID for the rotation angle, which is yet to be tuned correctly. 
+The rotation PID takes the differential rotation from the roll of the gyroscope, and integrates it to find an angle (arbitrary angle system, may wish to convert) (integral is also probably implemented wrong so check). 
+A desired rotation is given, and the bot can rotate along with this, the issue is once the rotation is set again to 0, it continues to rotate, and it can also not rotate in the opposite direction. 
+Also, the output to current rotation, is more of a rotational speed than it is an angle, so bear that in mind. 
+Apologies for the messy code and poor instructions, I'm writing this while on the train, good luck and I'll be in later on hopefully to help out. Thanks again to whoever attempts this :). 

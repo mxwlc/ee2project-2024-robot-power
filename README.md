@@ -1,3 +1,13 @@
+# Task Allocation
+| Name       | Task                   |
+| ---------- | ---------------------- |
+| Zakariyyaa | Control Algorithm      |
+| Mehwish    | Power and Sensors      |
+| Rayyan     | Power and Sensors      |
+| Corey      | Computer vision        |
+| Mateusz    | Network, Backend and UI |
+| Raymond     | UI |
+
 # Key Dates
 
 ## Assessments and Deadlines
@@ -21,7 +31,7 @@
 | 28/05         | Concept Selection                     |
 | 06/06 - 07/06 | Report Writing                        |
 | 11/06 - 12/06 | DFMEA                                 |
-| 12/06 - 14/06 | Centre for academic English drop ins] |
+| 12/06 - 14/06 | Centre for academic English drop ins  |
 
 ## Links
 
@@ -34,6 +44,8 @@
 - [Latex reference sheet](https://wch.github.io/latexsheet/)
 
 - [Overleaf - online collaborative LaTex editor](https://www.overleaf.com/)
+
+- [IEEE Citing Style Guide](https://www.bath.ac.uk/publications/library-guides-to-citing-referencing/attachments/ieee-style-guide.pdf)
 
 - [Latex Equation Editor](https://latexeditor.lagrida.com/)
 

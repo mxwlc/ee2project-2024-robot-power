@@ -6,7 +6,7 @@
 
 /computer_vision_cpp/bin/*
 /computer_vision_cpp/Testing/*
-/computer_vision_cpp/CMakeFiles/
+/computer_vision_cpp/CMakeFiles/*
 /computer_vision_cpp/cmake-build-debug/
 /computer_vision_cpp/CMakeCache.txt
 /computer_vision_cpp/cmake-build-debug/*

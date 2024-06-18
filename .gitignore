@@ -1,2 +1,15 @@
-meetings/sendtovault.sh
-.idea/
+/Makefile
+/computer_vision_cpp/markers/*.bmp
+/computer_vision_py/venv/
+.*
+!.gitignore
+
+/computer_vision_cpp/bin/*
+/computer_vision_cpp/Testing/*
+/computer_vision_cpp/CMakeFiles/
+/computer_vision_cpp/cmake-build-debug/
+/computer_vision_cpp/CMakeCache.txt
+
+/computer_vision_cpp/output/webcam-070624-1954.bmp
+/computer_vision_cpp/output/webcam-070624-2006.bmp
+/computer_vision_cpp/output/webcam-070624-2022.bmp

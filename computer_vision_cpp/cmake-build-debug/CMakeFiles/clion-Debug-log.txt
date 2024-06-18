@@ -1,0 +1,26 @@
+/home/maxwe/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp -B /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp
+-- =====================================================
+-- Setting Directories
+-- Setting Directories - done
+-- =====================================================
+-- =====================================================
+-- Configuring Libraries
+-- OpenCV_INCLUDE_DIRS :  /usr/local/include/opencv4
+-- OpenCV_LIBS :  opencv_calib3d;opencv_core;opencv_dnn;opencv_features2d;opencv_flann;opencv_gapi;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_stitching;opencv_video;opencv_videoio;opencv_aruco;opencv_bgsegm;opencv_bioinspired;opencv_ccalib;opencv_datasets;opencv_dnn_objdetect;opencv_dnn_superres;opencv_dpm;opencv_face;opencv_freetype;opencv_fuzzy;opencv_hfs;opencv_img_hash;opencv_intensity_transform;opencv_line_descriptor;opencv_mcc;opencv_optflow;opencv_phase_unwrapping;opencv_plot;opencv_quality;opencv_rapid;opencv_reg;opencv_rgbd;opencv_saliency;opencv_shape;opencv_signal;opencv_stereo;opencv_structured_light;opencv_superres;opencv_surface_matching;opencv_text;opencv_tracking;opencv_videostab;opencv_wechat_qrcode;opencv_xfeatures2d;opencv_ximgproc;opencv_xobjdetect;opencv_xphoto
+-- Configuring Libraries - done
+-- =====================================================
+-- =====================================================
+-- Setting filepaths
+-- Setting Filepaths - done
+-- =====================================================
+-- =====================================================
+-- Configuring Custom Targets
+-- Configuring Custom Targets - done
+-- =====================================================
+-- =====================================================
+-- Configuring Executables
+-- Configuring Executables - done
+-- =====================================================
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp

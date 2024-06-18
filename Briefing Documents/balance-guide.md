@@ -49,7 +49,7 @@ This section contains advice on the following sections:
 2. [Robot Function](#robot-function)
 3. [Balancing](#balancing)
 4. [Onboard Computing](#onboard-computing)
-5. [Chassis (including motor drive and power electronics)](#chassis)
+5. [Chassis (including motor steering and power electronics)](#chassis)
 
 ### Batteries
 
@@ -193,7 +193,7 @@ The PCB contains:
 - Battery terminals and a main fuse to prevent excessive current
 - Power switches, one main switch to connect/isolate the batteries and one motor switch to power the motors. The second switch allows you to maintain power to your logic and sensors when the motors are isolated.
 - A 5V, 3A power converter so you can run a Raspberry Pi and other logic from the batteries via 2 USB power outputs
-- Two stepper motor drivers, which drive the motors in one angular increment for every input pulse. A 3-way configuration switch sets the angular resolution (microstepping).
+- Two stepper motor drivers, which steering the motors in one angular increment for every input pulse. A 3-way configuration switch sets the angular resolution (microstepping).
 - Two current sense resistors, which provide a voltage difference that you can measure to find the current used by the motors and logic
 
 The PCB has two connectors for you to interface with.
@@ -253,7 +253,7 @@ When designing an amplifier for this purpose, make sure the opamp has a power su
 
 The chassis uses stepper motors, which are brushless motors that require a sequence of input currents to cycle the magnetic field and make them turn.
 Each step in the sequence advances the motor by a precise angle, determined by the spacing of teeth on the internal rotor.
-Stepper motors are not very efficient but they provide a high torque without gearing and the associated inertia, so they can drive wheels directly and change direction quickly.
+Stepper motors are not very efficient but they provide a high torque without gearing and the associated inertia, so they can steering wheels directly and change direction quickly.
 The fixed angular increments also allow you to count the number of revolutions of the motor without needing a separate sensor.
 That means you can easily find the distance travelled by the robot.
 
@@ -261,8 +261,8 @@ The power PCB contains driver modules for the motors, which take logic inputs (s
 
 Stepper motors use a lot of current and you will notice that both the motors and the driver modules become warm when they are running.
 The motor driver modules on the PCB have adjustment points to control the motor current, but do not attempt to adjust these because they are fragile and difficult to set.
-The motor drive currents have all been set to a value that will balance the robot without overheating.
-Please ask for help if you suspect a problem with the motor drivers or drive current.
+The motor steering currents have all been set to a value that will balance the robot without overheating.
+Please ask for help if you suspect a problem with the motor drivers or steering current.
 A good first step is always to revert to the base code.
 
 

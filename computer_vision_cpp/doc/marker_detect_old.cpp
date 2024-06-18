@@ -2,8 +2,9 @@
 // Created by maxwe on 25/05/24.
 //
 
-#include "../include/column_overlay.hpp"
-#include "../include/marker_dict.hpp"
+#include "column_overlay.hpp"
+#include "marker_dict.hpp"
+#include "square_overlay.hpp"
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -22,7 +23,7 @@ std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0
 
 };
 
-uchar steering(std::vector<cv::Point2f> target_marker, overlay::ColumnOverlay col_overlay)
+uchar steering(std::vector<cv::Point2f> target_marker, std::vector<int>* id, overlay::ColumnOverlay col_overlay)
 {
 	// 0b0001 :  TURN RIGHT
 	// 0b0010 :  MIDDLE
@@ -70,7 +71,7 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 }
 
 void
-draw_objects(cv::Mat& frame, const std::shared_ptr<dictionary::MarkerDict>& md, std::vector<int> marker_ids, std::vector<std::vector<
+draw_objects(cv::Mat& frame, std::shared_ptr<dictionary::MarkerDict> md, std::vector<int> marker_ids, std::vector<std::vector<
 	cv::Point2f>> marker_vertices)
 {
 	std::map<int, std::string> md_local = std::map<int, std::string>(md->return_dict());
@@ -93,6 +94,9 @@ int main(int argc, char* argv[])
 
 	overlay::DEBUG_FLAG = false;
 	bool target_flag = false;
+	bool ids_flag = false;
+	bool location_flag = false;
+	bool drive_flag = false;
 	bool no_visual = false;
 	for (int i = 1; i < argc; i++)
 	{
@@ -108,7 +112,7 @@ int main(int argc, char* argv[])
 	}
 	cv::Mat frame;
 
-//	overlay::SquareOverlay sq_o(200);
+	overlay::SquareOverlay sq_o(200);
 
 	overlay::ColumnOverlay c_o =  overlay::ColumnOverlay(200);
 
@@ -124,6 +128,7 @@ int main(int argc, char* argv[])
 		std::cerr << "Error : marker_dict no initialised properly\n";
 		return 1;
 	}
+	;
 	// -- Video Capture Init --
 	cv::VideoCapture cap;
 	cap.open(-1);
@@ -137,7 +142,7 @@ int main(int argc, char* argv[])
 	cv::aruco::ArucoDetector detector(dict, detector_params);
 
 	std::cout << "Press any Key to Start\n";
-	int id;
+	int id = possible_ids[0];
 	int id_ = 1;
 	// -- Main Loop --
 	std::cout << "Press any key to terminate\n";
@@ -146,7 +151,7 @@ int main(int argc, char* argv[])
 		id = possible_ids[id_];
 		std::vector<int> t_id = std::vector<int>({ id });
 
-		auto* direction = new uchar(0b0000);
+		uchar* direction = new uchar(0b0000);
 
 		cap.read(frame);
 		int key_press = cv::waitKey(5);
@@ -199,6 +204,68 @@ int main(int argc, char* argv[])
 			}
 		}
 
+//		if (overlay::DEBUG_FLAG)
+//		{
+//			for (int i = 0; i < marker_ids.size(); i++)
+//			{
+//				std::cout << "\nid = " << marker_ids[i] << "\nSquare : " << sq_o.within_bounds(marker_corners[i])
+//						  << "\nColumn : " << c_o.within_bounds(marker_corners[i]) << "\nPos : "
+//						  << overlay::position_translation[c_o.marker_position(marker_corners[i])];
+//			}
+//		}
+//
+//		if (location_flag)
+//		{
+//			if (target_flag)
+//			{
+//				marker_corners = t_coord;
+//				marker_ids = { id };
+//
+//			}
+//			if (!marker_corners.empty())
+//			{
+//				for (int i = 0; i < marker_ids.size(); i++)
+//				{
+//					std::cout << i << ") ";
+//					std::cout << "id=" << marker_ids[i] << " pos : "
+//							  << overlay::position_translation[c_o.marker_position(marker_corners[i])] << "\n";
+//				}
+//			}
+//		}
+//		if (target_flag)
+//		{
+//			if (!marker_ids.empty())
+//			{
+//				std::vector<std::vector<cv::Point2f>> t_corner = t_coord;
+//				std::vector<int> t_id = { id };
+////				std::vector<int> t_state = translate_found_markers(md, t_id);
+//				if (!t_corner.empty() && !t_id.empty())
+//				{
+//					std::vector<cv::Point2f> marker_coord = t_coord[0];
+//					std::string state_string = md->marker_translate(t_id[0]);
+//
+//					if (ids_flag) cv::aruco::drawDetectedMarkers(frame, t_corner, t_id, cv::Scalar(0, 0, 0xff));
+//					else {
+//						draw_objects(frame, md, marker_ids, marker_corners);
+//					}
+//					direction = steering(t_corner[0], t_id, c_o);
+//
+////					cv::putText(frame, //target image
+////						direction_map[direction], //text
+////						marker_coord[3], //top-left position
+////						cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0, 255, 0), //font color
+////						1);
+//
+//
+//
+//				}
+//			}
+//		}
+//		else
+//		{
+//			if (ids_flag) cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids, cv::Scalar(0, 0, 0xff));
+//			else cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_states);
+//		}
 		// ------- draw methods --------
 		if (!target_flag && (!marker_ids.empty() || marker_ids.size() != marker_corners.size()))
 		{
@@ -213,29 +280,39 @@ int main(int argc, char* argv[])
 				cv::aruco::drawDetectedMarkers(frame, *t_coord, t_id, cv::Scalar(0xFF, 0x00, 0x7F));
 
 				draw_objects(frame, md, t_id, *t_coord);
-				*direction = steering((*t_coord)[0], c_o);
-
+				*direction = steering((*t_coord)[0], &t_id, c_o);
+//				delete t_id_;
 				std::cout << t_id[0] << " : " << direction_map[(int)(*direction)] << "\n";
 			}
 		}
 
+		if (drive_flag) std::cout << direction_map[*direction] << "\n";
 		if(!no_visual)
 		{
 			cv::imshow("Live", frame);
 		}
-		// shm part
-		// image
-		frame;
-		// for the id needed
-		id;
-		// toggle target
-		target_flag;
 
-
+//		delete t_coord;
 		delete direction;
-
+//		delete t_id;
+//		delete c_o;
 		// --  close window when key pressed --
-		if (key_press == (int)'l')
+		if (key_press == (int)'i')
+		{
+			std::cout << "Toggle ID/METHOD\n";
+			ids_flag = !ids_flag;
+		}
+		else if (key_press == (int)'d')
+		{
+			std::cout << "Toggle Debug\n";
+			overlay::DEBUG_FLAG = !overlay::DEBUG_FLAG;
+		}
+		else if (key_press == (int)'c')
+		{
+			std::cout << "Toggle Drive\n";
+			drive_flag = !drive_flag;
+		}
+		else if (key_press == (int)'l')
 		{
 			std::cout << "Toggle Locations (l/r/m)\n";
 			if (id_ == possible_ids.size()-1)
@@ -260,7 +337,7 @@ int main(int argc, char* argv[])
 			}
 			break;
 		}
-	}
+	};
 
 	return 0;
 }

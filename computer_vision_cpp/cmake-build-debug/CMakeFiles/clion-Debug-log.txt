@@ -1,4 +1,25 @@
 /home/maxwe/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp -B /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp
+CMake Deprecation Warning:
+  Support for "Extra Generators" like
+
+    CodeBlocks
+
+  is deprecated and will be removed from a future version of CMake.  IDEs may
+  use the cmake-file-api(7) to view CMake-generated project build trees.
+
+
+CMake Warning (dev) at CMakeLists.txt:34:
+  Syntax Warning in cmake code at column 54
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:1 (project):
+  cmake_minimum_required() should be called prior to this top-level project()
+  call.  Please see the cmake-commands(7) manual for usage documentation of
+  both commands.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
 -- =====================================================
 -- Setting Directories
 -- Setting Directories - done
@@ -13,6 +34,18 @@
 -- Setting filepaths
 -- Setting Filepaths - done
 -- =====================================================
+CMake Warning (dev) at CMakeLists.txt:43 (link_directories):
+  This command specifies the relative path
+
+    include
+
+  as a link directory.
+
+  Policy CMP0015 is not set: link_directories() treats paths relative to the
+  source dir.  Run "cmake --help-policy CMP0015" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
 -- =====================================================
 -- Configuring Custom Targets
 -- Configuring Custom Targets - done
@@ -21,6 +54,71 @@
 -- Configuring Executables
 -- Configuring Executables - done
 -- =====================================================
+CMake Warning (dev) in CMakeLists.txt:
+  No cmake_minimum_required command is present.  A line of code such as
+
+    cmake_minimum_required(VERSION 3.28)
+
+  should be added at the top of the file.  The version specified may be lower
+  if you wish to support older CMake versions for this project.  For more
+  information run "cmake --help-policy CMP0000".
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
 -- Configuring done (0.0s)
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0081 is not set: Relative paths not allowed in LINK_DIRECTORIES
+  target property.  Run "cmake --help-policy CMP0081" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  Found relative path while evaluating link directories of "MarkerDetect":
+
+    "include"
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0081 is not set: Relative paths not allowed in LINK_DIRECTORIES
+  target property.  Run "cmake --help-policy CMP0081" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  Found relative path while evaluating link directories of "MarkerGen":
+
+    "include"
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0081 is not set: Relative paths not allowed in LINK_DIRECTORIES
+  target property.  Run "cmake --help-policy CMP0081" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  Found relative path while evaluating link directories of "ImageDetector":
+
+    "include"
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0081 is not set: Relative paths not allowed in LINK_DIRECTORIES
+  target property.  Run "cmake --help-policy CMP0081" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  Found relative path while evaluating link directories of "Test":
+
+    "include"
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0081 is not set: Relative paths not allowed in LINK_DIRECTORIES
+  target property.  Run "cmake --help-policy CMP0081" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  Found relative path while evaluating link directories of "RPEyes":
+
+    "include"
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
 -- Generating done (0.0s)
 -- Build files have been written to: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp

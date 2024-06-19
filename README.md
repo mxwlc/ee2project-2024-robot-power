@@ -199,6 +199,7 @@ void loop() {
   
 }
 
+
 The code is written with duration in terms of microseconds and speed (0.034) in terms of cm/microsecond.
 It uses the sensor to find the time between transmission and reflection and halves it.
 Then mulitplies by speed to find distance to the object.

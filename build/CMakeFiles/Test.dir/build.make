@@ -97,24 +97,10 @@ CMakeFiles/Test.dir/src/column_overlay.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/column_overlay.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp -o CMakeFiles/Test.dir/src/column_overlay.s
 
-CMakeFiles/Test.dir/src/marker_detect_rpi.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/src/marker_detect_rpi.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_rpi.cpp
-CMakeFiles/Test.dir/src/marker_detect_rpi.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test.dir/src/marker_detect_rpi.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/marker_detect_rpi.o -MF CMakeFiles/Test.dir/src/marker_detect_rpi.o.d -o CMakeFiles/Test.dir/src/marker_detect_rpi.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_rpi.cpp
-
-CMakeFiles/Test.dir/src/marker_detect_rpi.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/marker_detect_rpi.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_rpi.cpp > CMakeFiles/Test.dir/src/marker_detect_rpi.i
-
-CMakeFiles/Test.dir/src/marker_detect_rpi.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/marker_detect_rpi.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_rpi.cpp -o CMakeFiles/Test.dir/src/marker_detect_rpi.s
-
 CMakeFiles/Test.dir/src/marker_dict.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/src/marker_dict.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
 CMakeFiles/Test.dir/src/marker_dict.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test.dir/src/marker_dict.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test.dir/src/marker_dict.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/marker_dict.o -MF CMakeFiles/Test.dir/src/marker_dict.o.d -o CMakeFiles/Test.dir/src/marker_dict.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp
 
 CMakeFiles/Test.dir/src/marker_dict.i: cmake_force
@@ -128,7 +114,7 @@ CMakeFiles/Test.dir/src/marker_dict.s: cmake_force
 CMakeFiles/Test.dir/src/overlay.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/src/overlay.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp
 CMakeFiles/Test.dir/src/overlay.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test.dir/src/overlay.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test.dir/src/overlay.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/overlay.o -MF CMakeFiles/Test.dir/src/overlay.o.d -o CMakeFiles/Test.dir/src/overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp
 
 CMakeFiles/Test.dir/src/overlay.i: cmake_force
@@ -142,7 +128,7 @@ CMakeFiles/Test.dir/src/overlay.s: cmake_force
 CMakeFiles/Test.dir/src/square_overlay.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/src/square_overlay.o: /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp
 CMakeFiles/Test.dir/src/square_overlay.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Test.dir/src/square_overlay.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test.dir/src/square_overlay.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/square_overlay.o -MF CMakeFiles/Test.dir/src/square_overlay.o.d -o CMakeFiles/Test.dir/src/square_overlay.o -c /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp
 
 CMakeFiles/Test.dir/src/square_overlay.i: cmake_force
@@ -157,7 +143,6 @@ CMakeFiles/Test.dir/src/square_overlay.s: cmake_force
 Test_OBJECTS = \
 "CMakeFiles/Test.dir/src/test_writing.o" \
 "CMakeFiles/Test.dir/src/column_overlay.o" \
-"CMakeFiles/Test.dir/src/marker_detect_rpi.o" \
 "CMakeFiles/Test.dir/src/marker_dict.o" \
 "CMakeFiles/Test.dir/src/overlay.o" \
 "CMakeFiles/Test.dir/src/square_overlay.o"
@@ -167,7 +152,6 @@ Test_EXTERNAL_OBJECTS =
 
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/test_writing.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/column_overlay.o
-/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/marker_detect_rpi.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/marker_dict.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/overlay.o
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/src/square_overlay.o
@@ -226,7 +210,7 @@ Test_EXTERNAL_OBJECTS =
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: /usr/local/lib/libopencv_imgproc.so.4.10.0
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: /usr/local/lib/libopencv_core.so.4.10.0
 /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test: CMakeFiles/Test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable /home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

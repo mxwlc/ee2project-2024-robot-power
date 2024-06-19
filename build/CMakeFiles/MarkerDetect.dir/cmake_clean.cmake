@@ -5,8 +5,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/MarkerDetect.dir/src/column_overlay.o.d"
   "CMakeFiles/MarkerDetect.dir/src/marker_detect.o"
   "CMakeFiles/MarkerDetect.dir/src/marker_detect.o.d"
-  "CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.o"
-  "CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.o.d"
   "CMakeFiles/MarkerDetect.dir/src/marker_dict.o"
   "CMakeFiles/MarkerDetect.dir/src/marker_dict.o.d"
   "CMakeFiles/MarkerDetect.dir/src/overlay.o"

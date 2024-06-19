@@ -4,6 +4,7 @@
 
 #include "../include/column_overlay.hpp"
 #include "../include/marker_dict.hpp"
+#include "../include/shared_mem.hpp"
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -90,6 +91,13 @@ draw_objects(cv::Mat& frame, const std::shared_ptr<dictionary::MarkerDict>& md, 
 
 int main(int argc, char* argv[])
 {
+//	SharedMemory shared_mem_obj = SharedMemory(sizeof(NetworkSharedObj));
+//	// Get pointer to shared memory
+//	NetworkSharedObj* volatile shared_mem = (NetworkSharedObj*) shared_mem_obj.ptr;
+
+
+
+
 
 	overlay::DEBUG_FLAG = false;
 	bool target_flag = false;
@@ -230,7 +238,20 @@ int main(int argc, char* argv[])
 		id;
 		// toggle target
 		target_flag;
-
+// MEM TECH
+//		while (!shared_mem->mutex.try_lock()) { std::this_thread::sleep_for(std::chrono::milliseconds(10)); }
+//
+//		shared_mem->dir = direction;
+//		for (int i = 0; i < BUFFER_SIZE_CV; i += 3) {
+//			// Must convert BGR to RGB
+//			shared_mem->data_cv[i] = frame->data[i + 2];
+//			shared_mem->data_cv[i + 1] = frame->data[i + 1];
+//			shared_mem->data_cv[i + 2] = frame->data[i];
+//		}
+//
+//		shared_mem->send_flag_cv = true;
+//
+//		shared_mem->mutex.unlock()
 
 		delete direction;
 

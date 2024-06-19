@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/bin/Test.pdb"
   "CMakeFiles/Test.dir/src/column_overlay.o"
   "CMakeFiles/Test.dir/src/column_overlay.o.d"
-  "CMakeFiles/Test.dir/src/marker_detect_rpi.o"
-  "CMakeFiles/Test.dir/src/marker_detect_rpi.o.d"
   "CMakeFiles/Test.dir/src/marker_dict.o"
   "CMakeFiles/Test.dir/src/marker_dict.o.d"
   "CMakeFiles/Test.dir/src/overlay.o"

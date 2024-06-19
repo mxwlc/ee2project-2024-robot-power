@@ -10,7 +10,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/column_overlay.cpp" "CMakeFiles/ImageDetector.dir/src/column_overlay.o" "gcc" "CMakeFiles/ImageDetector.dir/src/column_overlay.o.d"
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_image.cpp" "CMakeFiles/ImageDetector.dir/src/marker_detect_image.o" "gcc" "CMakeFiles/ImageDetector.dir/src/marker_detect_image.o.d"
-  "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_detect_rpi.cpp" "CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.o" "gcc" "CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.o.d"
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/marker_dict.cpp" "CMakeFiles/ImageDetector.dir/src/marker_dict.o" "gcc" "CMakeFiles/ImageDetector.dir/src/marker_dict.o.d"
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/overlay.cpp" "CMakeFiles/ImageDetector.dir/src/overlay.o" "gcc" "CMakeFiles/ImageDetector.dir/src/overlay.o.d"
   "/home/maxwe/Documents/ee2project24/ee2project-2024-robot-power/computer_vision_cpp/src/square_overlay.cpp" "CMakeFiles/ImageDetector.dir/src/square_overlay.o" "gcc" "CMakeFiles/ImageDetector.dir/src/square_overlay.o.d"

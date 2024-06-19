@@ -305,28 +305,16 @@ src/marker_detect_image.s:
 
 # target to build an object file
 src/marker_detect_rpi.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.o
 .PHONY : src/marker_detect_rpi.o
 
 # target to preprocess a source file
 src/marker_detect_rpi.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.i
 .PHONY : src/marker_detect_rpi.i
 
 # target to generate assembly for a file
 src/marker_detect_rpi.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerDetect.dir/build.make CMakeFiles/MarkerDetect.dir/src/marker_detect_rpi.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MarkerGen.dir/build.make CMakeFiles/MarkerGen.dir/src/marker_detect_rpi.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ImageDetector.dir/build.make CMakeFiles/ImageDetector.dir/src/marker_detect_rpi.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/marker_detect_rpi.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPEyes.dir/build.make CMakeFiles/RPEyes.dir/src/marker_detect_rpi.s
 .PHONY : src/marker_detect_rpi.s
 

@@ -33,8 +33,9 @@ Ultrasonic sensors tend to be more accurate compared to Infrared sensors.
 Code will need to be written to calculate the distance to nearby objects.
 This will be done by multiplying the speed of a soundwave by the time the wave takes to travel from the emitter to the object.
 
+## Power consumption
 
-## Differential amplifier Prototype 1
+### Differential amplifier Prototype 1
 
 ![image](https://github.com/mxwlc/ee2project-2024-robot-power/assets/54540123/3457c768-0957-4cc9-a32b-755d2e7c83f7)
 
@@ -50,7 +51,7 @@ So, we choose 2.2nF
 We chose the LT1677 as it is a rail-to-rail, precision amplifier.
 This is necessary as the 5V and I5 inputs are very close to the supply rail (5V).
 
-## Power consumption code
+### Power consumption code
 
 % #include <Arduino.h>
 % //const
@@ -126,7 +127,7 @@ Shunt resistor is measured and found as 0.033 Ohms.
 
 
 
-## Differential amplifier Prototype 2
+### Differential amplifier Prototype 2
 
 After testing the code with the 1st amplifier circuit, we saw that the digital value is not accurate.
 This is likely because the amplified differential voltage is very close to the 0V supply rail.

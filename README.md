@@ -145,4 +145,63 @@ Testing with the new circuit, the digital value is much better.
 
 ## Sensor
 
-### snena
+### Sensor choice
+
+Although an active infrared sensor would have been better suited to our purpose, they were difficult to find.
+So, we chose an ultrasonic sensor.
+
+### Sensor code
+
+#include <Arduino.h>
+//#include <TimerInterrupt_Generic.h>
+
+const int print_interval = 500;
+
+const int trigPin = 6;
+const int echoPin = 7;
+// defines variables
+long duration;
+//Extended size variables for number storage
+int distance;
+
+void setup() {
+  Serial.begin(115200); // Starts the serial communication, data rate in bits per second
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  Serial.println("Setup complete");
+}
+
+void loop() {
+  static unsigned long print_timer = 0;
+  
+  if (millis() > print_timer){
+    print_timer += print_interval;
+    // Clears the trigPin
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    // Sets the trigPin on HIGH state for 10 micro seconds
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10); //ACCORDING TO DATASHEET TO RELIABLY TRIGGER ULTRASONIC BURST
+    digitalWrite(trigPin, LOW);
+    // Reads the echoPin, returns the sound wave travel time in microseconds
+    duration = pulseIn(echoPin, HIGH);
+      // If duration is zero, there might be an issue with reading the pulse
+    if (duration == 0) {
+      Serial.println("No pulse detected");
+      return;
+    }
+    // Calculating the distance, 0.034=SPEED OF SOUND
+    distance = duration * 0.034 / 2;
+    // Prints the distance on the Serial Monitor
+    Serial.print("Distance: ");
+    Serial.println(distance);
+  }
+  
+}
+
+The code is written with duration in terms of microseconds and speed (0.034) in terms of cm/microsecond.
+It uses the sensor to find the time between transmission and reflection and halves it.
+Then mulitplies by speed to find distance to the object.
+
+Testing showed that the sensor and code worked perfectly fine.
+

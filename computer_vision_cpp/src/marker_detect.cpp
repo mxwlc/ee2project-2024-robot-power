@@ -12,18 +12,19 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 #include <sstream>
+#include <algorithm>
 
 #define MARKER_EDGE_SIZE = 200
 #define BORDER_SIZE = 1
 #define ARUCO_DICTIONARY cv::aruco::DICT_5X5_1000
 
-std::map<uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0000, "Stop"),
+std::map <uchar, std::string> direction_map = { std::pair<uchar, std::string>(0b0000, "Stop"),
 	std::pair<uchar, std::string>(0b0001, "T_Right"), std::pair<uchar, std::string>(0b0010, "MV_Forward"),
 	std::pair<uchar, std::string>(0b0100, "T_Left"), std::pair<uchar, std::string>(0b1111, "Invalid"),
 
 };
 
-uchar steering(std::vector<cv::Point2f> target_marker, overlay::ColumnOverlay col_overlay)
+uchar steering(std::vector <cv::Point2f> target_marker, overlay::ColumnOverlay col_overlay)
 {
 	// 0b0001 :  TURN RIGHT
 	// 0b0010 :  MIDDLE
@@ -46,14 +47,13 @@ uchar steering(std::vector<cv::Point2f> target_marker, overlay::ColumnOverlay co
 		if (overlay::DEBUG_FLAG) std::cout << "Turn Right\n";
 		return 0b0001;
 	}
-	std::cout << "No Marker Found\n";
-	return 0b0000;
+	return 0b1111;
 }
 
-std::vector<std::string>
-translate_found_markers(std::shared_ptr<dictionary::MarkerDict>& md, std::vector<int>& input_ids)
+std::vector <std::string>
+translate_found_markers(std::shared_ptr <dictionary::MarkerDict>& md, std::vector<int>& input_ids)
 {
-	std::vector<std::string> marker_states;
+	std::vector <std::string> marker_states;
 	for (int input_id : input_ids)
 	{
 		marker_states.push_back(md->marker_translate(input_id));
@@ -71,19 +71,16 @@ std::string gen_file_name_formatted(const std::string& key, const std::string& f
 }
 
 void
-draw_objects(cv::Mat& frame, const std::shared_ptr<dictionary::MarkerDict>& md, std::vector<int> marker_ids, std::vector<std::vector<
+draw_objects(cv::Mat& frame, const std::shared_ptr <dictionary::MarkerDict>& md, std::vector<int> marker_ids, std::vector <std::vector<
 	cv::Point2f>> marker_vertices)
 {
 	std::map<int, std::string> md_local = std::map<int, std::string>(md->return_dict());
 	for (int i = 0; i < marker_ids.size(); i++)
 	{
 		int id = marker_ids[i];
-		std::vector<cv::Point2f> marker = std::vector<cv::Point2f>(marker_vertices[i]);
+		std::vector <cv::Point2f> marker = std::vector<cv::Point2f>(marker_vertices[i]);
 		std::string obj = md_local[id];
-		cv::putText(frame,
-			obj,
-			marker[3],
-			cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0xfe, 0x70, 0xc6), //font color
+		cv::putText(frame, obj, marker[3], cv::FONT_HERSHEY_DUPLEX, 0.5, CV_RGB(0xfe, 0x70, 0xc6), //font color
 			1);
 
 	}
@@ -100,7 +97,7 @@ int main(int argc, char* argv[])
 
 
 	overlay::DEBUG_FLAG = false;
-	bool target_flag = false;
+	bool target_flag;
 	bool no_visual = false;
 	for (int i = 1; i < argc; i++)
 	{
@@ -118,10 +115,10 @@ int main(int argc, char* argv[])
 
 //	overlay::SquareOverlay sq_o(200);
 
-	overlay::ColumnOverlay c_o =  overlay::ColumnOverlay(200);
+	overlay::ColumnOverlay c_o = overlay::ColumnOverlay(200);
 
 	if (overlay::DEBUG_FLAG) std::cout << "Square Overlay Initialised\n";
-	std::shared_ptr<dictionary::MarkerDict> md(new dictionary::MarkerDict("marker_dict"));
+	std::shared_ptr <dictionary::MarkerDict> md(new dictionary::MarkerDict("marker_dict"));
 
 	std::vector<int> possible_ids = md->GetPossibleIds();
 
@@ -146,15 +143,30 @@ int main(int argc, char* argv[])
 
 	std::cout << "Press any Key to Start\n";
 	int id;
+	std::cin >> id;
+
 	int id_ = 1;
 	// -- Main Loop --
 	std::cout << "Press any key to terminate\n";
 	for (;;)
 	{
-		id = possible_ids[id_];
+
+		// --------Change ID Here----------
+
+		if (std::find(possible_ids.begin(), possible_ids.end(), id) != possible_ids.end())
+		{
+			target_flag = true;
+		}
+		else{
+			std::cout << "No Target\n";
+			target_flag = false;
+		}
+		// --------------------------------
+
+
 		std::vector<int> t_id = std::vector<int>({ id });
 
-		auto* direction = new uchar(0b0000);
+		uchar direction = 0b0000;
 
 		cap.read(frame);
 		int key_press = cv::waitKey(5);
@@ -166,7 +178,7 @@ int main(int argc, char* argv[])
 		}
 
 		std::vector<int> marker_ids;
-		std::vector<std::vector<cv::Point2f>> marker_corners, rejected_candidates;
+		std::vector <std::vector<cv::Point2f>> marker_corners, rejected_candidates;
 
 		detector.detectMarkers(frame, marker_corners, marker_ids, rejected_candidates);
 
@@ -184,13 +196,13 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		std::vector<std::string> marker_states = translate_found_markers(md, marker_ids);
+		std::vector <std::string> marker_states = translate_found_markers(md, marker_ids);
 
 		// Draw Polygon Boundaries
 //		sq_o.draw(frame);
-		c_o.draw(frame);
+//		c_o.draw(frame);
 
-		std::vector<std::vector<cv::Point2f>>* t_coord = nullptr;
+		std::vector <std::vector<cv::Point2f>>* t_coord = nullptr;
 
 		if (!marker_ids.empty())
 		{
@@ -198,9 +210,8 @@ int main(int argc, char* argv[])
 			{
 				if (marker_ids[j] == id)
 				{
-					std::vector<cv::Point2f> t_corners_ = std::vector<cv::Point2f>(marker_corners[j]);
-					t_coord = new std::vector<std::vector<cv::Point2f>>({ t_corners_ });
-
+					std::vector <cv::Point2f> t_corners_ = std::vector<cv::Point2f>(marker_corners[j]);
+					t_coord = new std::vector <std::vector<cv::Point2f>>({ t_corners_ });
 
 					if (overlay::DEBUG_FLAG) std::cout << "Found Target " << id << "\n";
 				}
@@ -221,13 +232,13 @@ int main(int argc, char* argv[])
 				cv::aruco::drawDetectedMarkers(frame, *t_coord, t_id, cv::Scalar(0xFF, 0x00, 0x7F));
 
 				draw_objects(frame, md, t_id, *t_coord);
-				*direction = steering((*t_coord)[0], c_o);
+				direction = steering((*t_coord)[0], c_o);
 
-				std::cout << t_id[0] << " : " << direction_map[(int)(*direction)] << "\n";
+				std::cout << t_id[0] << " : " << direction_map[direction] << "\n";
 			}
 		}
 
-		if(!no_visual)
+		if (!no_visual)
 		{
 			cv::imshow("Live", frame);
 		}
@@ -238,6 +249,8 @@ int main(int argc, char* argv[])
 		id;
 		// toggle target
 		target_flag;
+		// Direction needed to go to target
+		direction;
 // MEM TECH
 //		while (!shared_mem->mutex.try_lock()) { std::this_thread::sleep_for(std::chrono::milliseconds(10)); }
 //
@@ -253,15 +266,15 @@ int main(int argc, char* argv[])
 //
 //		shared_mem->mutex.unlock()
 
-		delete direction;
+
 
 		// --  close window when key pressed --
 		if (key_press == (int)'l')
 		{
 			std::cout << "Toggle Locations (l/r/m)\n";
-			if (id_ == possible_ids.size()-1)
+			if (id_ == possible_ids.size() - 1)
 			{
-				id_=0;
+				id_ = 0;
 			}
 			id_++;
 

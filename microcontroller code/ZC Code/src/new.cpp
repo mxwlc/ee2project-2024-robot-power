@@ -91,7 +91,7 @@ volatile float configurable_params[] = {
   /*accel_tolerance*/ 0.01f,
   /*speed1*/          0.0f,
   /*speed2*/          0.0f,
-  /*accel_kp*/        0.01f,//Look more closely at this, could solve setpoint issue
+  /*accel_kp*/        0.01f, //Look more closely at this, could solve setpoint issue
   /*turn*/            0.0f,
   /*accel_atten*/     0.2f,
   /*turn_time*/       500.0f,
@@ -108,7 +108,7 @@ const float C = 0.95;
 volatile float& idle_setpoint = configurable_params[CONF_IDLE_SETPOINT];
 float setpoint_angle = idle_setpoint;
 volatile float& kp = configurable_params[CONF_KP];
-volatile float& ki = configurable_params[CONF_KI];//should be 0 if static setpoint is set correctly
+volatile float& ki = configurable_params[CONF_KI]; //should be 0 if static setpoint is set correctly
 volatile float& kd = configurable_params[CONF_KD];
 
 //Errors

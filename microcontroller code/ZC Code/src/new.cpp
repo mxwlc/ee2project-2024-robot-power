@@ -79,7 +79,7 @@ const int  STEPPER_INTERVAL_US = 20;
 
 volatile float configurable_params[] = {
   /*set_speed*/       20.0f,
-  /*idle_setpoint*/   0.015f,
+  /*idle_setpoint*/   0.02f,
   /*kp*/              2250.0f,
   /*ki*/              0.0f,
   /*kd*/              18000.0f,
@@ -97,7 +97,7 @@ volatile float configurable_params[] = {
   /*turn_time*/       500.0f,
   /*speed_offset*/    0.5f,
   /*rotation_angle*/  0.0f,
-  /*rotation_kp*/     0.0f,
+  /*rotation_kp*/     1.0f,
   /*rotation_ki*/     0.0f,
   /*rotation_kd*/     0.0f
 };
@@ -168,6 +168,7 @@ volatile float& rotation_kp = configurable_params[CONF_ROTATION_KP];
 volatile float& rotation_ki = configurable_params[CONF_ROTATION_KI];
 volatile float& rotation_kd = configurable_params[CONF_ROTATION_KD];
 float current_rotation = 0;
+float prev_rotation = 0;
 
 float previous_rotation_error;
 float rotation_error = 0;
@@ -245,7 +246,7 @@ void setup()
 
   // Enable the background listening process
   Serial.println("Initialising Pi wire");
-  ArdPiWire::init();
+  //ArdPiWire::init();
   Serial.println("Initialised Pi wire");
   //ArdPiWire::values = configurable_params;
   Serial.println((int) configurable_params);
@@ -253,7 +254,7 @@ void setup()
   BaseType_t cur_core = xPortGetCoreID(), targ_core;
   if (cur_core == 0) targ_core = 1;
   else targ_core = 0;
-  xTaskCreatePinnedToCore(ArdPiWire::receiverThreadMain, "Recv", 1000, (void*) configurable_params, 1, &ArdPiWire::receiver_thread, targ_core);
+  //xTaskCreatePinnedToCore(ArdPiWire::receiverThreadMain, "Recv", 1000, (void*) configurable_params, 1, &ArdPiWire::receiver_thread, targ_core);
   speedTimer = millis();
   printTimer = millis();
   loopTimer = millis();
@@ -325,7 +326,7 @@ void loop()
       lowest_speed = abs(current_speed);
     } 
     
-    //Setpoint correction (angular acceleration version)
+    //Setpoint correction (angular acceleration version)(DOES NOT WORK CORRECTLY)
     // if (speed1 == 0 && speed2 == 0 && error < speed_tolerance){//If you are close to the desired speed
     //   if (PIDout < accel_tolerance){//If you are not accelerating much (e.g not in the middle of a large oscillation)
     //     idle_setpoint -= PIDout*accel_kp;//adjust setpoint accordingly
@@ -358,13 +359,15 @@ void loop()
     PIDout = angle_p_term + angle_i_term + angle_d_term;
 
     //Rotation
-    current_rotation = g.gyro.roll*LOOP_INTERVAL*0.001;
+    prev_rotation = current_rotation;
+    if (abs(g.gyro.roll) >= ) current_rotation = (-g.gyro.roll - 1.005) *LOOP_INTERVAL*0.001 + prev_rotation;
+    //g.gyro.roll*LOOP_INTERVAL*0.001;
 
     previous_rotation_error = rotation_error;
     rotation_error = rotation_angle - current_rotation;
     
     rotation_p_term = rotation_kp*rotation_error;
-    rotation_i_term = rotation_ki*(rotation_error*LOOP_INTERVAL*0.001);
+    rotation_i_term = rotation_ki*(rotation_error+previous_rotation_error*LOOP_INTERVAL*0.001);
     rotation_d_term = rotation_kd*(rotation_error-previous_rotation_error)/(LOOP_INTERVAL*0.001);
     
     if (rotation_error > 0.0009) rotation_offset = rotation_p_term + rotation_i_term + rotation_d_term;
@@ -375,8 +378,8 @@ void loop()
 
     step1.setAccelerationRad(PIDout+rotation_offset);
     step2.setAccelerationRad(PIDout-rotation_offset);
-    step1.setTargetSpeedRad(setSpeed*sign(PIDout+rotation_offset));
-    step2.setTargetSpeedRad(-setSpeed*sign(PIDout-rotation_offset));
+    step1.setTargetSpeedRad(setSpeed*sign(PIDout));
+    step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
 
     // if(sign(speed1) == sign(speed2)){
     //   step1.setAccelerationRad(PIDout);
@@ -406,18 +409,21 @@ void loop()
   //Print Loop
   if (millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
-    Serial.print(current_rotation*1000);
+    sensors_event_t a, g, temp;
+    if (!mpu.getEvent(&a, &g, &temp)) return;
+    Serial.print(current_rotation);
+    Serial.print(" | ");
+    Serial.print(g.gyro.roll);
     Serial.println();
   }
   
   //Speed Changes
   // if (millis() > 5000){
-  //   speed1 = 60;
-  //   speed2 = -60;
+  //   rotation_angle = 0.25;
   // }
   // if (millis() > 7000){
-  //   speed1 = 0;
-  //   speed2 = 0;
+  //   rotation_angle = 0;
   // }
+
   vTaskDelay(1);
 }

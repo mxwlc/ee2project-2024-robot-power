@@ -113,3 +113,35 @@ This is necessary as the 5V and I5 inputs are very close to the supply rail (5V)
 
 %   delay(1000);
 % }
+
+The output of the amplifier circuit is fed into the ADC pin of the ESP32.
+This converts the analogue voltage into a digital value.
+Energy is calculated using E = P*T
+The opamp transmits the measured voltage over a shunt resistor with a value of 0.01 Ohms.
+Current is calculated, which can be used to find power consumed: P = I*V.
+Multiplying this value with elapsed time will update the consumed energy in every iteration of the loop. Then, after subtracting from the total capacity, we are left with the remaining capacity.
+
+***
+Shunt resistor is measured and found as 0.033 Ohms.
+
+
+
+## Differential amplifier Prototype 2
+
+After testing the code with the 1st amplifier circuit, we saw that the digital value is not accurate.
+This is likely because the amplified differential voltage is very close to the 0V supply rail.
+Although we are using a rail-to-rail, precision amplifier, it is not perfect and has a 110 mV output swing.
+
+We then use a 2.5V DC offset to counter this.
+The gain is also changed to 100x to have a larger signal.
+
+![image](https://github.com/mxwlc/ee2project-2024-robot-power/assets/54540123/8ccbfa18-2f42-481c-90bb-c247a58dbc6f)
+
+With new resistor values, the capacitor values have been updated accordingly to continue following Nyquist's formula.
+
+Testing with the new circuit, the digital value is much better.
+
+
+## Sensor
+
+# snena

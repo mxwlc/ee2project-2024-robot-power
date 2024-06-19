@@ -23,6 +23,8 @@ class SendInstructions():
     PI_DRIVE_MODE_CAMERA = b"\x00"
     PI_DRIVE_MODE_REMOTE = b"\x01"
 
+    PI_SET_OBJ = b"\x04"
+
 class RecvTypes():
     CV = b"\x00"
     CV_SIZE = 640 * 480 * 3
@@ -39,8 +41,7 @@ __PORT = 9876
 def __network_send_proc(socket: s.socket, send_q: mp.Queue, running: mp.Value) -> None:
     while running.value:
         # Don't want an indefinitely stalling send_q.get(), makes join() impossible
-        try:
-            send_data = send_q.get_nowait()
+        try: send_data = send_q.get_nowait()
         except: continue
         # No type checking, assuming main process sends correct instructions
         final_send = send_data[0]
@@ -53,7 +54,8 @@ def __network_send_proc(socket: s.socket, send_q: mp.Queue, running: mp.Value) -
             final_send += send_data[1]
         elif send_data[0] == SendInstructions.PI_SET_DRIVE_MODE:
             final_send += send_data[1]
-
+        elif send_data[0] == SendInstructions.PI_SET_OBJ:
+            final_send += send_data[1]
         try:
             socket.sendall(final_send)
         except:
@@ -70,7 +72,6 @@ def __network_recv_proc(socket: s.socket, recv_q: mp.Queue, running: mp.Value) -
     while running.value:
         try: recv_data = socket.recv(8192)
         except: continue
-        print("RECVED")
         # Clears buffer after timeout. Intended for if erroneous first byte is that of instruction.
         recv_time = perf_counter_ns()
         if check_for_timeout:
@@ -132,7 +133,9 @@ def send(send_q: mp.Queue, instruction: tuple) -> None:
     [3] `(SendInstructions.PI_SET_DIR, dir: bytes)`,\n
     e.g. `(SendInstructions.PI_SET_DIR, SendInstructions.PI_DIR_FR)` sets the desired direction to forwards and right. \n
     [4] `(SendInstructions.PI_SET_DRIVE_MODE, mode: bytes)`,\n
-    e.g. `(SendInstructions.PI_SET_DRIVE_MODE, SendInstructions.PI_DRIVE_MODE_CAMERA)` sets the desired drive mode to camera-controlled.
+    e.g. `(SendInstructions.PI_SET_DRIVE_MODE, SendInstructions.PI_DRIVE_MODE_CAMERA)` sets the desired drive mode to camera-controlled.\n
+    [4] `(SendInstructions.PI_SET_OBJ, mode: bytes)`,\n
+    e.g. `(SendInstructions.PI_SET_OBJ, b"\x0a")` sets the desired target object id to 10.
     """
     send_q.put(instruction)
 

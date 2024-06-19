@@ -2,7 +2,7 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <strings.h>
-#include <poll.h>
+//#include <poll.h>
 #include <iostream>
 #include <unistd.h>
 #include <mutex>
@@ -40,7 +40,7 @@ void WirelessConnection::connectUser() {
 
     // Accept new client, stop listening
     int tmp = sizeof(client);
-    client_fd = accept(listener_fd, (sockaddr *) &client, (socklen_t *) &tmp);
+    client_fd = accept(listener_fd, (sockaddr*) &client, (socklen_t*) &tmp);
     listen(listener_fd, 0);
     timeval timeout;
     timeout.tv_sec = 1;
@@ -184,11 +184,9 @@ void senderThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
         }
 
         if (shared_obj->send_flag_cv) {
-            std::cout << "Sending CV" << std::endl;
             conn->sendData(&CV, 1);
             conn->sendData(shared_obj->data_cv, BUFFER_SIZE_CV);
             shared_obj->send_flag_cv = false;
-            std::cout << "Sent CV" << std::endl;
         }
 
         if (shared_obj->send_flag_var) {
@@ -207,7 +205,8 @@ enum RecvInstructions : char {
     ARDUINO_SET_VAR,
     ARDUINO_GET_VAR,
     PI_SET_DIR,
-    PI_SET_DRIVE_MODE
+    PI_SET_DRIVE_MODE,
+    PI_SET_OBJ
 };
 enum PiDirs : char {
     N, F, FR, R, BR, B, BL, L, FL
@@ -217,8 +216,8 @@ enum PiDriveModes : char {
 };
 
 void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* conn) {
-    PiDirs cur_remote_dir;
-    PiDriveModes cur_drive_mode;
+    PiDirs cur_remote_dir = PiDirs::N;
+    PiDriveModes cur_drive_mode = PiDriveModes::REMOTE;
     char cur_dir, prev_dir;
     while (true) {
         char ins;
@@ -242,7 +241,9 @@ void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
             ArdPiWire::sendByte(targ_ind);  // Index
             float recv = ArdPiWire::recvFloat(true);
 
-            shared_obj->mutex.lock();
+            while (!shared_obj->mutex.try_lock()) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
             shared_obj->index_var = targ_ind;
             shared_obj->data_var = recv;
             shared_obj->send_flag_var = true;
@@ -256,12 +257,22 @@ void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
         else if (ins == PI_SET_DRIVE_MODE) {
             char mode;
             if (conn->recvData(&mode, 1) != 1) continue;
-            cur_remote_dir = (PiDirs) mode;
+            cur_drive_mode = (PiDriveModes) mode;
+        }
+        else if (ins == PI_SET_OBJ) {
+            while (!shared_obj->mutex.try_lock()) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+            char new_targ_obj;
+            if (conn->recvData(&new_targ_obj, 1) != 1) continue;
+            shared_obj->targ_id_cv = new_targ_obj;
         }
         
         if (cur_drive_mode == CAMERA) {
-            shared_obj->mutex.lock();
-            char camera_dir = shared_obj->dir;
+            while (!shared_obj->mutex.try_lock()) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+            char camera_dir = shared_obj->dir_cv;
             shared_obj->mutex.unlock();
 
             switch (camera_dir) {
@@ -276,14 +287,14 @@ void recverThread(NetworkSharedObj* volatile shared_obj, WirelessConnection* con
             float motor_l, motor_r;
             switch (cur_dir) {
             case PiDirs::N:     motor_l = 0;    motor_r = 0;    break;
-            case PiDirs::F:     motor_l = 30;   motor_r = 30;   break;
-            case PiDirs::FR:    motor_l = 30;   motor_r = 0;    break;
-            case PiDirs::R:     motor_l = 30;   motor_r = -30;  break;
-            case PiDirs::BR:    motor_l = -30;  motor_r = 0;    break;
-            case PiDirs::B:     motor_l = -30;  motor_r = -30;  break;
-            case PiDirs::BL:    motor_l = 0;    motor_r = -30;  break;
-            case PiDirs::L:     motor_l = -30;  motor_r = 30;   break;
-            case PiDirs::FL:    motor_l = 0;    motor_r = 30;   break;
+            case PiDirs::F:     motor_l = 35;   motor_r = 35;   break;
+            case PiDirs::FR:    motor_l = 35;   motor_r = 0;    break;
+            case PiDirs::R:     motor_l = 35;   motor_r = -35;  break;
+            case PiDirs::BR:    motor_l = -35;  motor_r = 0;    break;
+            case PiDirs::B:     motor_l = -35;  motor_r = -35;  break;
+            case PiDirs::BL:    motor_l = 0;    motor_r = -35;  break;
+            case PiDirs::L:     motor_l = -35;  motor_r = 35;   break;
+            case PiDirs::FL:    motor_l = 0;    motor_r = 35;   break;
             }
             ArdPiWire::sendByte(0);         // Send ins
             ArdPiWire::sendByte(11);        // L motor speed
@@ -305,8 +316,7 @@ int main(int argc, char* argv[]) {
     NetworkSharedObj* shared_obj = (NetworkSharedObj *) shared_mem_host.ptr;
     WirelessConnection conn;
 
-    shared_obj->mutex.try_lock();
-    shared_obj->mutex.unlock();
+    new(&shared_obj->mutex) std::mutex;
     shared_obj->send_flag_cv = false;
     shared_obj->send_flag_var = false;
 

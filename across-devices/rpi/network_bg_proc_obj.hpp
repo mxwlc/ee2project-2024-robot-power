@@ -11,7 +11,9 @@ struct NetworkSharedObj {
 
     bool send_flag_cv;
     char data_cv[BUFFER_SIZE_CV];
-    char dir;
+    char dir_cv;
+    int targ_id_cv;
+
 
     bool send_flag_var;
     char index_var;
@@ -19,3 +21,4 @@ struct NetworkSharedObj {
 
 };
 
+// 1259

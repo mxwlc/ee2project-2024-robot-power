@@ -1,15 +1,26 @@
-/*
+/*How to Connect to RPI, to tune wirelessly
 
-TO START RPI STUFF:
+Connect both the RPI and arduino to the power PCB, and turn it on (not the motors yet)
 
-TURN ON RPI
-CONNECT TO Robot_Power_Bot WiFi NETWORK
-TURN ON PUTTY
-DOUBLE CLICK "BalanceBot"
-USER NAME: "bal_bot"
-PASSWORD: "RobotPower"
-./var_setter
+Wait for the wifi network Robot_Power_Bot to show up on your laptop, then connect to it
+(you won't have internet while you do this)
 
+run the python scripts var_setter (to set variables, see list below), or var_getter (to see variables)
+
+var_setter:
+Type the index of the variable you wish to change (see definitions list to find 
+the indexes)
+Enter the new value
+The programme will then close, so you'll need to run it again to change any other variables
+
+var_getter:
+Enter the index of the variable you wish to view, and press enter repeatedly to view the 
+value of this variable as it changes 
+(CAN BE TEMPREMENTAL, BETTER TO USE SERIAL MONITOR)
+
+IF THE ARDUINO IS DISCONNECTED AT ANY POINT, EITHER TO UPLOAD NEW CODE, OR IF THE RESET BUTTON
+IS PRESSED, YOU WILL NEED TO RESTART BOTH THE RPI AND ARDUINO (FLICK GREEN SWITCH ON
+PCB)
 */
 
 /*Conventions:
@@ -52,34 +63,37 @@ const int LOOP_INTERVAL = 10;
 const int SPEED_INTERVAL = 250;
 const int  STEPPER_INTERVAL_US = 20;
 
-#define CONF_SET_SPEED 0
-#define CONF_IDLE_SETPOINT 1
-#define CONF_KP 2
-#define CONF_KI 3
-#define CONF_KD 4
-#define CONF_SPEED_KP 5
-#define CONF_SPEED_KI 6
-#define CONF_SPEED_KD 7
-#define CONF_SPEED_TOLERANCE 8
-#define CONF_ANGLE_TOLERANCE 9
-#define CONF_ACCEL_TOLERANCE 10
-#define CONF_SPEED1 11
-#define CONF_SPEED2 12
-#define CONF_ACCEL_KP 13
-#define CONF_TURN 14
-#define CONF_ACCEL_ATTEN 15
-#define CONF_TURN_TIME 16
-#define CONF_SPEED_OFFSET 17
-#define CONF_ROTATION_ANGLE 18
-#define CONF_ROTATION_KP 19
-#define CONF_ROTATION_KI 20
-#define CONF_ROTATION_KD 21
+#define CONF_SET_SPEED 0 //Speed of the motors
+#define CONF_IDLE_SETPOINT 1 //Setpoint when the robot is balanced
+#define CONF_KP 2 //Angle Proportional term
+#define CONF_KI 3 //Angle Integral term
+#define CONF_KD 4 //Angle Differential term
+#define CONF_SPEED_KP 5 //Speed Proportional term
+#define CONF_SPEED_KI 6 //Speed Integral term
+#define CONF_SPEED_KD 7 //Speed Differential term
+#define CONF_SPEED_TOLERANCE 8 //Maximum speed motors can be moving in order for setpoint correction to occur
+#define CONF_ANGLE_TOLERANCE 9 //Maximum distance away from the idle setpoint that the setpoint can become
+#define CONF_ACCEL_TOLERANCE 10 //Not used
+#define CONF_SPEED1 11 //Speed of motor 1
+#define CONF_SPEED2 12 //Speed of motor 2
+#define CONF_ACCEL_KP 13 //Not used
+#define CONF_TURN 14 //Not used
+#define CONF_ACCEL_ATTEN 15 //Not used
+#define CONF_CURRENT_ROTATION 16 //Current rotation of the robot 
+#define CONF_SPEED_OFFSET 17 //Not used
+#define CONF_ROTATION_ANGLE 18//Desired rotation of the robot (rotation setpoint)
+#define CONF_ROTATION_KP 19 //Rotation Proportional Term
+#define CONF_ROTATION_KI 20 //Rotation Integral Term
+#define CONF_ROTATION_KD 21 //Rotation Differential Term
+#define CONF_DISTANCE 21 //Ultrasonic distance
+#define CONF_POWER_CONSUMPTION 22 //Power Consumption
+#define CONF_POWER_REMAINING 23 //Remaining Power
 
 #pragma endregion
 
-volatile float configurable_params[] = {
+volatile float configurable_params[] = {//Default values of above
   /*set_speed*/       20.0f,
-  /*idle_setpoint*/   0.02f,
+  /*idle_setpoint*/   0.01f,
   /*kp*/              2250.0f,
   /*ki*/              0.0f,
   /*kd*/              18000.0f,
@@ -94,12 +108,15 @@ volatile float configurable_params[] = {
   /*accel_kp*/        0.01f, //Look more closely at this, could solve setpoint issue
   /*turn*/            0.0f,
   /*accel_atten*/     0.2f,
-  /*turn_time*/       500.0f,
+  /*current_rotation*/0.0f,
   /*speed_offset*/    0.5f,
   /*rotation_angle*/  0.0f,
-  /*rotation_kp*/     1.0f,
+  /*rotation_kp*/     0.75f,
   /*rotation_ki*/     0.0f,
-  /*rotation_kd*/     0.0f
+  /*rotation_kd*/     0.0f,
+  /*distance*/        0.0f,
+  /*power_consumption*/ 0.0f,
+  /*power_remaining*/   0.0f
 };
 
 
@@ -116,8 +133,8 @@ float error = 0;
 float previous_error;
 
 //Angles
-float a_angle;
-float g_angle;
+float a_angle; //Accelerometer reading
+float g_angle; //Gyroscope reading
 float current_angle = 0;
 float previous_angle = 0;
 
@@ -137,12 +154,8 @@ volatile float& accel_atten = configurable_params[CONF_ACCEL_ATTEN];
 volatile float& speed_tolerance = configurable_params[CONF_SPEED_TOLERANCE];
 volatile float& angle_tolerance = configurable_params[CONF_ANGLE_TOLERANCE];
 volatile float& accel_tolerance = configurable_params[CONF_ACCEL_TOLERANCE];
-float lowest_speed = 100;
+float lowest_speed = 100; //Lowest speed achieved thus far by the motors
 
-float turnStart = 0;
-float turnStop = 0;
-bool antiTurn = false;
-volatile float& turn_time = configurable_params[CONF_TURN_TIME];
 
 //Speeds
 volatile float& setSpeed = configurable_params[CONF_SET_SPEED];
@@ -167,7 +180,7 @@ volatile float& rotation_angle = configurable_params[CONF_ROTATION_ANGLE];
 volatile float& rotation_kp = configurable_params[CONF_ROTATION_KP];
 volatile float& rotation_ki = configurable_params[CONF_ROTATION_KI];
 volatile float& rotation_kd = configurable_params[CONF_ROTATION_KD];
-float current_rotation = 0;
+volatile float& current_rotation = configurable_params[CONF_CURRENT_ROTATION];
 float prev_rotation = 0;
 
 float previous_rotation_error;
@@ -193,6 +206,7 @@ step step1(STEPPER_INTERVAL_US,STEPPER1_STEP_PIN,STEPPER1_DIR_PIN );
 step step2(STEPPER_INTERVAL_US,STEPPER2_STEP_PIN,STEPPER2_DIR_PIN );
 #pragma endregion
 
+//Gives 1 if positive, and -1 if negative
 int sign(float input){
   if (input >= 0)
     return 1;
@@ -246,7 +260,7 @@ void setup()
 
   // Enable the background listening process
   Serial.println("Initialising Pi wire");
-  //ArdPiWire::init();
+  ArdPiWire::init();  //COMMENT THIS LINE OUT IF TUNING WITH ARDUINO, AND NOT RPI
   Serial.println("Initialised Pi wire");
   //ArdPiWire::values = configurable_params;
   Serial.println((int) configurable_params);
@@ -254,7 +268,8 @@ void setup()
   BaseType_t cur_core = xPortGetCoreID(), targ_core;
   if (cur_core == 0) targ_core = 1;
   else targ_core = 0;
-  //xTaskCreatePinnedToCore(ArdPiWire::receiverThreadMain, "Recv", 1000, (void*) configurable_params, 1, &ArdPiWire::receiver_thread, targ_core);
+  //COMMENT THE LINE BELOW OUT IF TUNING WITH ARDUINO, AND NOT RPI
+  xTaskCreatePinnedToCore(ArdPiWire::receiverThreadMain, "Recv", 1000, (void*) configurable_params, 1, &ArdPiWire::receiver_thread, targ_core);
   speedTimer = millis();
   printTimer = millis();
   loopTimer = millis();
@@ -264,49 +279,19 @@ void setup()
 void loop()
 {
   if (rotation_angle != 0) rotating = true;
-  else rotating = false;
+  else rotating = false;//This sets rotationg to true, if the rotation
+  //setpoint is not 0 (AKA only if we want to turn)
 
-  // speed1 = fb_speed;
-  // speed2 = fb_speed;
-
-  if (turn == 1){
-    if (turnStart == 0) turnStart = millis();
-    speed1 = 1;
-    speed2 = -1;
-    if (millis() - turnStart >= turn_time)
-    {
-      speed1 = 0;
-      speed2 = 0;
-      turnStart = 0;
-      turn = 0;
-      antiTurn = true;
-    }
-  }
-
-  // if (antiTurn){
-  //   if (turnStop == 0) turnStop = millis();
-  //   speed1 = 10;
-  //   speed2 = 10;
-  //   if (millis() - turnStop > 250){
-  //     speed1 = 0;
-  //     speed2 = 0;
-  //     turnStop = 0;
-  //     antiTurn = false;
-  //   } 
-  // }
-
-  if (millis() > 500 & millis() < 1000) lowest_speed = 100; //Speed is always 0 to begin with, so this resets it
+  //Speed is always 0 to begin with, so this resets it, so the true minimum can be found
+  if (millis() > 500 & millis() < 1000) lowest_speed = 100; 
   
   //Outer Loop
   if (millis() > speedTimer){
     speedTimer += SPEED_INTERVAL;
-    
 
     //Calculate setpoint angle
-    //float speed_avg = (speed1);//finding average may cause issue, try again later
-    float speed_avg = (speed1 + speed2)/2; //subtracted as one will need to be negative
+    float speed_avg = (speed1 + speed2)/2;
 
-    //current_speed = -step1.getSpeedRad();
     current_speed = -(step1.getSpeedRad() - step2.getSpeedRad())/2;
     previous_speed_error = speed_error;
     speed_error = speed_avg - current_speed;
@@ -320,34 +305,27 @@ void loop()
     if (setpoint_angle > idle_setpoint+angle_tolerance) setpoint_angle = idle_setpoint+angle_tolerance;
     else if (setpoint_angle < idle_setpoint-angle_tolerance) setpoint_angle = idle_setpoint-angle_tolerance;
     
-    //Setpoint correction (Lowest speed version)
+    //Setpoint correction (Lowest speed version) (Small effect, mainly on static balancing)
     if (abs(current_speed) < speed_tolerance & abs(current_speed) < lowest_speed){
       idle_setpoint = setpoint_angle;
       lowest_speed = abs(current_speed);
     } 
     
-    //Setpoint correction (angular acceleration version)(DOES NOT WORK CORRECTLY)
-    // if (speed1 == 0 && speed2 == 0 && error < speed_tolerance){//If you are close to the desired speed
-    //   if (PIDout < accel_tolerance){//If you are not accelerating much (e.g not in the middle of a large oscillation)
-    //     idle_setpoint -= PIDout*accel_kp;//adjust setpoint accordingly
-    //     if (idle_setpoint > 0.1) idle_setpoint = 0.1;//bounds as it will get too big
-    //     else if (idle_setpoint < 0) idle_setpoint = 0;//Adjust these accordingly
-    //   }
-    // }
   }
   
   //Inner Loop
   if (millis() > loopTimer) {
     loopTimer += LOOP_INTERVAL;
-    // Fetch data from MPU6050
+
+    // Fetch data from MPU6050 (get sensor data)
     sensors_event_t a, g, temp;
     if (!mpu.getEvent(&a, &g, &temp)) return;
     
-    //Calculate Tilt using accelerometer and sin x = x approximation for a small tilt angle
-    a_angle = a.acceleration.z/9.67;//Assuming that's gravitational constant
+    //Calculate Tilt using MPU, code given in starter code, don't need to worry, works correctly
+    a_angle = a.acceleration.z/9.67;
     g_angle = g.gyro.pitch;
     previous_angle = current_angle;
-    current_angle = ((1-C)*a_angle + C*(g_angle*LOOP_INTERVAL*0.001+previous_angle));
+    current_angle = ((1-C)*a_angle + C*(g_angle*LOOP_INTERVAL*0.001+previous_angle));//Complementary filter
     
     previous_error = error;
     error = setpoint_angle - current_angle;
@@ -360,27 +338,26 @@ void loop()
 
     //Rotation
     prev_rotation = current_rotation;
-    if (abs(g.gyro.roll) >= ) current_rotation = (-g.gyro.roll - 1.005) *LOOP_INTERVAL*0.001 + prev_rotation;
-    //g.gyro.roll*LOOP_INTERVAL*0.001;
+    //Calculate the rotation of the robot (via a simillar method to the complementary filter above)
+    if (abs(g.gyro.roll) >= 1) current_rotation = (-g.gyro.roll - 1.005) *LOOP_INTERVAL*0.001 + prev_rotation;
+  
 
     previous_rotation_error = rotation_error;
     rotation_error = rotation_angle - current_rotation;
+    if (rotation_error < 0.075) rotation_error = 0;//If there is a small error, ignore it
     
     rotation_p_term = rotation_kp*rotation_error;
     rotation_i_term = rotation_ki*(rotation_error+previous_rotation_error*LOOP_INTERVAL*0.001);
     rotation_d_term = rotation_kd*(rotation_error-previous_rotation_error)/(LOOP_INTERVAL*0.001);
-    
-    if (rotation_error > 0.0009) rotation_offset = rotation_p_term + rotation_i_term + rotation_d_term;
-    else rotation_offset = 0;
 
-    //Assuming max error to be around 0.5
-    float speed_ratio = error/0.5;
-
-    step1.setAccelerationRad(PIDout+rotation_offset);
-    step2.setAccelerationRad(PIDout-rotation_offset);
-    step1.setTargetSpeedRad(setSpeed*sign(PIDout));
+    //We want to change acceleration, not speed
+    step1.setAccelerationRad(PIDout-rotation_offset);//Introduce offset between accelerations
+    step2.setAccelerationRad(-PIDout-rotation_offset);
+    step1.setTargetSpeedRad(setSpeed*sign(PIDout));//Sign of PID used to control direction
     step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
 
+    //This is an alternative method, with just a fixed offset, it works worse, but 
+    //included here in case you find it useful.
     // if(sign(speed1) == sign(speed2)){
     //   step1.setAccelerationRad(PIDout);
     //   step2.setAccelerationRad(PIDout);
@@ -388,25 +365,20 @@ void loop()
     //   step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
     // }
     // else if (sign(speed1) == 1 && sign(speed2) == -1){//Left turn
-    //     step1.setAccelerationRad(PIDout*accel_atten + speed_offset);
-    //     step2.setAccelerationRad(PIDout*accel_atten - speed_offset);
-    //     step1.setTargetSpeedRad(-0.5*setSpeed*sign(PIDout));
-    //     step2.setTargetSpeedRad(-0.5*setSpeed*sign(PIDout));
+    //     step1.setAccelerationRad(PIDout + speed1*speed_offset);
+    //     step2.setAccelerationRad(PIDout);
+    //     step1.setTargetSpeedRad(setSpeed*sign(PIDout));
+    //     step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
     //   }
     // else if (sign(speed1) == -1 && sign(speed2) == 1){//Right turn)
-    //   step1.setAccelerationRad(PIDout*accel_atten - speed_offset);
-    //   step2.setAccelerationRad(PIDout*accel_atten + speed_offset);
-    //   step1.setTargetSpeedRad(0.5*setSpeed*sign(PIDout));
-    //   step2.setTargetSpeedRad(0.5*setSpeed*sign(PIDout));
+    //   step1.setAccelerationRad(PIDout);
+    //   step2.setAccelerationRad(PIDout + speed2*speed_offset);
+    //   step1.setTargetSpeedRad(setSpeed*sign(PIDout));
+    //   step2.setTargetSpeedRad(-setSpeed*sign(PIDout));
     // }
-
-
-    //Below is old code, kept only for potential future use
-    // step1.setTargetSpeedRad(PIDout + (1-speed_ratio)*speed1);
-    // step2.setTargetSpeedRad(-PIDout + (1-speed_ratio)*speed2);
   }
   
-  //Print Loop
+  //Print Loop, put any print statements here
   if (millis() > printTimer) {
     printTimer += PRINT_INTERVAL;
     sensors_event_t a, g, temp;
@@ -417,12 +389,14 @@ void loop()
     Serial.println();
   }
   
-  //Speed Changes
+  //Changes - IF TUNING VIA ARDUINO, AND NOT RPI, THEN USE THIS TO CREATE SPEED 
+  //AND/OR ROTATIONAL CHANGES, AS IT ALLOWS THE BOT 5s TO BALANCE BEFORE CHANGING AGAIN
+  //AFTER 2s.
   // if (millis() > 5000){
   //   rotation_angle = 0.25;
   // }
   // if (millis() > 7000){
-  //   rotation_angle = 0;
+  //   rotation_angle = -0.25;
   // }
 
   vTaskDelay(1);
